@@ -17,6 +17,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Load customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
+	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
 
 	// Register General section
 	$wp_customize->add_section(
@@ -309,6 +310,144 @@ function gusto_customize_register( $wp_customize ) {
 				'choices'  => array(
 					'yes' => __( 'Yes', 'gusto' ),
 					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register Colors section
+	$wp_customize->remove_section( 'colors' );
+
+	$wp_customize->add_section(
+		'ttt_colors', array(
+			'title'       => __( 'Colors', 'gusto' ),
+			'description' => __( 'Setup your theme color.', 'gusto' ),
+			'priority'    => 1,
+		)
+	);
+
+	// Register Theme Style setting and control
+	$wp_customize->add_setting(
+		'theme_style', array(
+			'default'           => 'light',
+			'transport'         => 'refresh',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'theme_style', array(
+				'label'    => __( 'Theme Style', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'settings' => 'theme_style',
+				'choices'  => array(
+					'light' => __( 'Light', 'gusto' ),
+					'dark'  => __( 'Dark', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register colors settings and controls
+	$wp_customize->add_setting(
+		'link_color', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'link_color', array(
+				'label'    => __( 'Link Color', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'settings' => 'link_color',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_color_1', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'section_color_1', array(
+				'label'    => __( 'Section Color 1', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'settings' => 'section_color_1',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_color_2', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'section_color_2', array(
+				'label'    => __( 'Section Color 2', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'settings' => 'section_color_2',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_color_3', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize, 'section_color_3', array(
+				'label'    => __( 'Section Color 3', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'settings' => 'section_color_3',
+			)
+		)
+	);
+
+	// Register button to reset colors to default
+	$wp_customize->add_setting(
+		'reset_colors', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Reset(
+			$wp_customize, 'reset_colors', array(
+				'label'    => __( 'Reset All Colors to Default', 'gusto' ),
+				'section'  => 'ttt_colors',
+				'defaults' => array(
+					'link_color' => array(
+						'input' => 'input.color-picker-hex',
+						'value' => '',
+					),
+					'section_color_1' => array(
+						'input' => 'input.color-picker-hex',
+						'value' => '',
+					),
+					'section_color_2' => array(
+						'input' => 'input.color-picker-hex',
+						'value' => '',
+					),
+					'section_color_3' => array(
+						'input' => 'input.color-picker-hex',
+						'value' => '',
+					),
 				),
 			)
 		)

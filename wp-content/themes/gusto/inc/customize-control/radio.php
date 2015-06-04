@@ -20,12 +20,6 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 	public $type = 'ttt-radio';
 
 	/**
-	 * @access public
-	 * @var array
-	 */
-	public $statuses;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.0
