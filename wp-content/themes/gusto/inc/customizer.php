@@ -18,6 +18,8 @@ function gusto_customize_register( $wp_customize ) {
 	// Load customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
+	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
+	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
 
 	// Register General section
 	$wp_customize->add_section(
@@ -29,6 +31,21 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	// Register Theme Layout setting and control
+	$wp_customize->add_setting(
+		'separator_before_theme_layout', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_theme_layout', array(
+				'section'  => 'ttt_general',
+				'settings' => 'separator_before_theme_layout',
+			)
+		)
+	);
+
 	$wp_customize->add_setting(
 		'theme_layout', array(
 			'default'           => 'full',
@@ -55,7 +72,7 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->remove_section( 'background_image' );
 
 	$wp_customize->add_setting(
-		'boxed_background_image', array(
+		'boxed_layout-background_image', array(
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
@@ -63,26 +80,26 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
-			$wp_customize, 'boxed_background_image', array(
+			$wp_customize, 'boxed_layout-background_image', array(
 				'label'    => __( 'Background Image', 'gusto' ),
 				'section'  => 'ttt_general',
-				'settings' => 'boxed_background_image',
+				'settings' => 'boxed_layout-background_image',
 			)
 		)
 	);
 
 	$wp_customize->add_setting(
-		'boxed_background_repeat', array(
+		'boxed_layout-background_repeat', array(
 			'default'           => 'repeat',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		'boxed_background_repeat', array(
+		'boxed_layout-background_repeat', array(
 			'label'    => __( 'Background Repeat' ),
 			'section'  => 'ttt_general',
-			'settings' => 'boxed_background_repeat',
+			'settings' => 'boxed_layout-background_repeat',
 			'type'     => 'radio',
 			'choices'  => array(
 				'no-repeat' => __('No Repeat'),
@@ -94,17 +111,17 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'boxed_background_position', array(
+		'boxed_layout-background_position', array(
 			'default'           => 'center',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		'boxed_background_position', array(
+		'boxed_layout-background_position', array(
 			'label'    => __( 'Background Position' ),
 			'section'  => 'ttt_general',
-			'settings' => 'boxed_background_position',
+			'settings' => 'boxed_layout-background_position',
 			'type'     => 'radio',
 			'choices'  => array(
 				'left'   => __('Left'),
@@ -115,17 +132,17 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'boxed_background_attachment', array(
+		'boxed_layout-background_attachment', array(
 			'default'           => 'fixed',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		'boxed_background_attachment', array(
+		'boxed_layout-background_attachment', array(
 			'label'    => __( 'Background Attachment' ),
 			'section'  => 'ttt_general',
-			'settings' => 'boxed_background_attachment',
+			'settings' => 'boxed_layout-background_attachment',
 			'type'     => 'radio',
 			'choices'  => array(
 				'scroll' => __('Scroll'),
@@ -135,7 +152,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'boxed_background_size', array(
+		'boxed_layout-background_size', array(
 			'default'           => 'cover',
 			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
@@ -143,10 +160,10 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		'boxed_background_size', array(
+		'boxed_layout-background_size', array(
 			'label'    => __( 'Background Size', 'gusto' ),
 			'section'  => 'ttt_general',
-			'settings' => 'boxed_background_size',
+			'settings' => 'boxed_layout-background_size',
 			'type'     => 'radio',
 			'choices'  => array(
 				'full_width'  => __( 'Full Width', 'gusto' ),
@@ -157,6 +174,21 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	// Register Logo Type setting and control
+	$wp_customize->add_setting(
+		'separator_before_logo_type', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_logo_type', array(
+				'section'  => 'ttt_general',
+				'settings' => 'separator_before_logo_type',
+			)
+		)
+	);
+
 	$wp_customize->add_setting(
 		'logo_type', array(
 			'default'           => 'text',
@@ -237,6 +269,21 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register icon settings and controls
 	$wp_customize->add_setting(
+		'separator_before_fav_icon', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_fav_icon', array(
+				'section'  => 'ttt_general',
+				'settings' => 'separator_before_fav_icon',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'fav_icon', array(
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_text_field',
@@ -272,6 +319,21 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register other general settings and controls
 	$wp_customize->add_setting(
+		'separator_before_page_transition_loading', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_page_transition_loading', array(
+				'section'  => 'ttt_general',
+				'settings' => 'separator_before_page_transition_loading',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'page_transition_loading', array(
 			'default'           => 'yes',
 			'transport'         => 'refresh',
@@ -289,6 +351,21 @@ function gusto_customize_register( $wp_customize ) {
 					'yes' => __( 'Yes', 'gusto' ),
 					'no'  => __( 'No', 'gusto' ),
 				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_go_to_top_link', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_go_to_top_link', array(
+				'section'  => 'ttt_general',
+				'settings' => 'separator_before_go_to_top_link',
 			)
 		)
 	);
@@ -328,6 +405,21 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register Theme Style setting and control
 	$wp_customize->add_setting(
+		'separator_before_theme_style', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_theme_style', array(
+				'section'  => 'ttt_colors',
+				'settings' => 'separator_before_theme_style',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'theme_style', array(
 			'default'           => 'light',
 			'transport'         => 'refresh',
@@ -351,6 +443,21 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register colors settings and controls
 	$wp_customize->add_setting(
+		'separator_before_link_color', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_link_color', array(
+				'section'  => 'ttt_colors',
+				'settings' => 'separator_before_link_color',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'link_color', array(
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_hex_color',
@@ -363,6 +470,21 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Link Color', 'gusto' ),
 				'section'  => 'ttt_colors',
 				'settings' => 'link_color',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_section_color_1', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_section_color_1', array(
+				'section'  => 'ttt_colors',
+				'settings' => 'separator_before_section_color_1',
 			)
 		)
 	);
@@ -420,6 +542,21 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register button to reset colors to default
 	$wp_customize->add_setting(
+		'separator_before_reset_colors', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_reset_colors', array(
+				'section'  => 'ttt_colors',
+				'settings' => 'separator_before_reset_colors',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'reset_colors', array(
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_key',
@@ -447,6 +584,122 @@ function gusto_customize_register( $wp_customize ) {
 					'section_color_3' => array(
 						'input' => 'input.color-picker-hex',
 						'value' => '',
+					),
+				),
+			)
+		)
+	);
+
+	// Register Typography section
+	$wp_customize->add_section(
+		'ttt_typography', array(
+			'title'       => __( 'Typography', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'priority'    => 2,
+		)
+	);
+
+	// Register Custom Font setting and control
+	$wp_customize->add_setting(
+		'separator_before_custom_font', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_custom_font', array(
+				'section'  => 'ttt_typography',
+				'settings' => 'separator_before_custom_font',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_font', array(
+			'default'           => 'no',
+			'transport'         => 'refresh',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'custom_font', array(
+				'label'    => __( 'Custom Font', 'gusto' ),
+				'section'  => 'ttt_typography',
+				'settings' => 'custom_font',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register typography setting and control
+	$wp_customize->add_setting(
+		'custom_fonts', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_option',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'custom_fonts', array(
+				'section'  => 'ttt_typography',
+				'settings' => 'custom_fonts',
+				'options'  => array(
+					'body_text' => array(
+						'label'          => __( 'Body Text', 'gusto' ),
+						'font-family'    => '',
+						'font-size'      => '14',
+						'line-height'    => '16',
+						'spacing'        => '0px',
+						'font-style'     => 'Regular',
+						'text-transform' => 'Lowercase',
+						'subset'         => 'Latin',
+					),
+					'logo_text' => array(
+						'label'          => __( 'Logo Text', 'gusto' ),
+						'font-family'    => '',
+						'font-size'      => '20',
+						'line-height'    => '24',
+						'spacing'        => '0px',
+						'font-style'     => 'Regular',
+						'text-transform' => 'Lowercase',
+						'subset'         => 'Latin',
+					),
+					'section_heading' => array(
+						'label'          => __( 'Section Heading', 'gusto' ),
+						'font-family'    => '',
+						'font-size'      => '24',
+						'line-height'    => '26',
+						'spacing'        => '0px',
+						'font-style'     => 'Regular',
+						'text-transform' => 'Lowercase',
+						'subset'         => 'Latin',
+					),
+					'section_sub_heading' => array(
+						'label'          => __( 'Section Sub Heading', 'gusto' ),
+						'font-family'    => '',
+						'font-size'      => '18',
+						'line-height'    => '20',
+						'spacing'        => '0px',
+						'font-style'     => 'Regular',
+						'text-transform' => 'Lowercase',
+						'subset'         => 'Latin',
+					),
+					'page_heading' => array(
+						'label'          => __( 'Page Heading', 'gusto' ),
+						'font-family'    => '',
+						'font-size'      => '32',
+						'line-height'    => '36',
+						'spacing'        => '0px',
+						'font-style'     => 'Regular',
+						'text-transform' => 'Lowercase',
+						'subset'         => 'Latin',
 					),
 				),
 			)

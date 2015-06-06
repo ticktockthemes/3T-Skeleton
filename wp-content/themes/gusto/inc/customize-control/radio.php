@@ -71,14 +71,11 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 		foreach ( $this->choices as $value => $label ) {
 			?>
 			<label class="btn btn-primary <?php if ( $this->value() == $value ) echo 'active'; ?>">
-				<input autocomplete="off" type="radio" value="<?php
-					echo esc_attr( $value );
-				?>" name="<?php
-					echo esc_attr( $name );
-				?>" <?php
-					$this->link();
-					checked( $this->value(), $value );
-				?>>
+				<input autocomplete="off" type="radio"
+					name="<?php echo esc_attr( $name ); ?>"
+					value="<?php echo esc_attr( $value ); ?>"
+					<?php $this->link(); checked( $this->value(), $value ); ?>
+				>
 				<?php echo esc_html( $label ); ?>
 			</label>
 			<?php

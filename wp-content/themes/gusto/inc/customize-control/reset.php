@@ -55,12 +55,14 @@ class TTT_Customize_Control_Reset extends WP_Customize_Control {
 
 		$name = '_customize-reset-' . $this->id;
 		?>
-		<button id="<?php echo esc_attr( $name ); ?>" class="btn btn-block btn-warning" type="button"><?php
+		<button id="<?php echo esc_attr( $name ); ?>" class="btn btn-block btn-warning" type="button">
+			<?php
 			if ( ! empty( $this->label ) )
 				echo esc_html( $this->label );
 			else
 				_e( 'Reset to default', 'gusto' );
-		?></button>
+			?>
+		</button>
 		<script type="text/javascript">
 			(function($) {
 				var defaults = <?php echo json_encode( $this->defaults ); ?>;
