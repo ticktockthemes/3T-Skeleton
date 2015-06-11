@@ -156,6 +156,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	public function render_content() {
 		$name = '_customize-typography-' . $this->id;
 
+		// Print styles
 		if ( ! defined( 'TTT_Customize_Control_Typography_Loaded' ) ) :
 		?>
 		<style type="text/css">
@@ -166,13 +167,22 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 				display: block;
 			}
 		</style>
+		<script type="text/javascript">
+			(function($) {
+				$(document).ready(function() {
+					$('.ttt-typography-control > button').click(function() {
+						$(this).parent().toggleClass('open');
+					});
+				});
+			})(jQuery);
+		</script>
 		<?php
 		define( 'TTT_Customize_Control_Typography_Loaded', true );
 
 		endif;
 		?>
-		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-typography">
-			<button class="btn btn-block btn-success" type="button" onclick="jQuery(this).parent().toggleClass('open');"><?php
+		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-typography-control">
+			<button class="btn btn-block btn-success" type="button"><?php
 				if ( ! empty( $this->label ) )
 					echo esc_html( $this->label );
 				else

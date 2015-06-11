@@ -720,10 +720,10 @@ add_action( 'customize_preview_init', 'gusto_customize_preview_js' );
  * Enqueue scripts and styles.
  */
 function gusto_customize_scripts() {
-	// Load Bootstrap CSS framework
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/bootstrap-3.3.4-dist/css/bootstrap.min.css', array(), '3.3.4' );
-	wp_enqueue_style( 'bootstrap_theme', get_template_directory_uri() . '/assets/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css', array(), '3.3.4' );
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/assets/bootstrap-3.3.4-dist/js/bootstrap.min.js', array( 'jquery' ), '3.3.4', true );
+	// Load Foundation
+	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/assets/foundation/css/normalize.css', array(), '3.0.3' );
+	wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/foundation/css/foundation.min.css', array(), '5.5.2' );
+	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/foundation/js/foundation.min.js', array( 'jquery' ), '5.5.2' );
 
 	// Load options toggler
 	wp_enqueue_script( 'gusto_options', get_template_directory_uri() . '/js/options.js', array( 'jquery' ), '1.0', true );
