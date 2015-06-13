@@ -41,7 +41,7 @@ class TTT_Customize_Control_Separator extends WP_Customize_Control {
 	public function render_content() {
 		$name = '_customize-reset-' . $this->id;
 		?>
-		<hr class="ttt-separator" id="<?php echo esc_attr( $name ); ?>">
+		<hr class="ttt-separator-control" id="<?php echo esc_attr( $name ); ?>">
 		<?php
 	}
 }

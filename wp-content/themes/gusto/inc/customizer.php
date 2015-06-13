@@ -96,17 +96,19 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		'boxed_layout-background_repeat', array(
-			'label'    => __( 'Background Repeat' ),
-			'section'  => 'ttt_general',
-			'settings' => 'boxed_layout-background_repeat',
-			'type'     => 'radio',
-			'choices'  => array(
-				'no-repeat' => __('No Repeat'),
-				'repeat'    => __('Tile'),
-				'repeat-x'  => __('Tile Horizontally'),
-				'repeat-y'  => __('Tile Vertically'),
-			),
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'boxed_layout-background_repeat', array(
+				'label'    => __( 'Background Repeat' ),
+				'section'  => 'ttt_general',
+				'settings' => 'boxed_layout-background_repeat',
+				'style'    => 'switch',
+				'choices'  => array(
+					'no-repeat' => __('No Repeat'),
+					'repeat'    => __('Tile'),
+					'repeat-x'  => __('Tile Horizontally'),
+					'repeat-y'  => __('Tile Vertically'),
+				),
+			)
 		)
 	);
 
@@ -118,16 +120,18 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		'boxed_layout-background_position', array(
-			'label'    => __( 'Background Position' ),
-			'section'  => 'ttt_general',
-			'settings' => 'boxed_layout-background_position',
-			'type'     => 'radio',
-			'choices'  => array(
-				'left'   => __('Left'),
-				'center' => __('Center'),
-				'right'  => __('Right'),
-			),
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'boxed_layout-background_position', array(
+				'label'    => __( 'Background Position' ),
+				'section'  => 'ttt_general',
+				'settings' => 'boxed_layout-background_position',
+				'style'    => 'switch',
+				'choices'  => array(
+					'left'   => __('Left'),
+					'center' => __('Center'),
+					'right'  => __('Right'),
+				),
+			)
 		)
 	);
 
@@ -139,15 +143,17 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		'boxed_layout-background_attachment', array(
-			'label'    => __( 'Background Attachment' ),
-			'section'  => 'ttt_general',
-			'settings' => 'boxed_layout-background_attachment',
-			'type'     => 'radio',
-			'choices'  => array(
-				'scroll' => __('Scroll'),
-				'fixed'  => __('Fixed'),
-			),
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'boxed_layout-background_attachment', array(
+				'label'    => __( 'Background Attachment' ),
+				'section'  => 'ttt_general',
+				'settings' => 'boxed_layout-background_attachment',
+				'style'    => 'switch',
+				'choices'  => array(
+					'scroll' => __('Scroll'),
+					'fixed'  => __('Fixed'),
+				),
+			)
 		)
 	);
 
@@ -160,16 +166,18 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		'boxed_layout-background_size', array(
-			'label'    => __( 'Background Size', 'gusto' ),
-			'section'  => 'ttt_general',
-			'settings' => 'boxed_layout-background_size',
-			'type'     => 'radio',
-			'choices'  => array(
-				'full_width'  => __( 'Full Width', 'gusto' ),
-				'full_height' => __( 'Full Height', 'gusto' ),
-				'cover'       => __( 'Cover', 'gusto' ),
-			),
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'boxed_layout-background_size', array(
+				'label'    => __( 'Background Size', 'gusto' ),
+				'section'  => 'ttt_general',
+				'settings' => 'boxed_layout-background_size',
+				'style'    => 'switch',
+				'choices'  => array(
+					'full_width'  => __( 'Full Width', 'gusto' ),
+					'full_height' => __( 'Full Height', 'gusto' ),
+					'cover'       => __( 'Cover', 'gusto' ),
+				),
+			)
 		)
 	);
 
@@ -729,3 +737,20 @@ function gusto_customize_scripts() {
 	wp_enqueue_script( 'gusto_options', get_template_directory_uri() . '/js/options.js', array( 'jquery' ), '1.0', true );
 }
 add_action( 'customize_controls_enqueue_scripts', 'gusto_customize_scripts' );
+
+/**
+ * Print inline styles.
+ */
+function gusto_inline_styles () {
+	?>
+	<!-- style type="text/css">
+		.wp-full-overlay.expanded {
+			margin-left: 400px;
+		}
+		.wp-full-overlay-sidebar {
+			width: 400px;
+		}
+	</styl -->>
+	<?php
+}
+add_action( 'customize_controls_print_scripts', 'gusto_inline_styles' );

@@ -20,6 +20,12 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 	public $type = 'ttt-radio';
 
 	/**
+	 * @access protected
+	 * @var string
+	 */
+	protected $style = 'button';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0
@@ -39,6 +45,10 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 				'on'  => __( 'On', 'gusto' ),
 				'off' => __( 'Off', 'gusto' ),
 			 );
+		}
+
+		if ( isset( $args['style'] ) ) {
+			$this->style = $args['style'];
 		}
 	}
 
@@ -81,7 +91,11 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 			if ( ! empty( $this->description ) ) :
 			?>
 			<span class="description customize-control-description"><?php echo $this->description ; ?></span>
-			<?php endif; ?>
+			<?php
+			endif;
+
+			if ( 'button' == $this->style ) :
+			?>
 			<ul class="stack-for-small round secondary button-group">
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
 				<li><a href="javascript:void(0);" class="button <?php
@@ -98,6 +112,28 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 				</a></li>
 				<?php endforeach; ?>
 			</ul>
+			<?php else : ?>
+			<div class="ttt-radio-switch">
+				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
+				<div class="row">
+					<div class="small-4 columns">
+						<div class="switch round small">
+							<input type="radio" autocomplete="off"
+								id="<?php echo esc_attr( $name . ++$i ); ?>"
+								name="<?php echo esc_attr( $name ); ?>"
+								value="<?php echo esc_attr( $value ); ?>"
+								<?php $this->link(); checked( $this->value(), $value ); ?>
+							>
+							<label for="<?php echo esc_attr( $name . $i ); ?>"></label>
+						</div>
+					</div>
+					<div class="small-8 columns">
+						<?php echo esc_html( $label ); ?>
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

@@ -160,18 +160,24 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 		if ( ! defined( 'TTT_Customize_Control_Typography_Loaded' ) ) :
 		?>
 		<style type="text/css">
-			.ttt-typography th, .ttt-typography .advance {
+			.ttt-typography-control.open {
+				position: relative;
+			}
+			.ttt-typography-control.open table {
+				position: absolute;
+			}
+			.ttt-typography-control th, .ttt-typography-control .advance {
 				display: none;
 			}
-			.ttt-typography.open th, .ttt-typography.open .advance {
+			.ttt-typography-control.open th, .ttt-typography-control.open .advance {
 				display: block;
 			}
 		</style>
 		<script type="text/javascript">
 			(function($) {
 				$(document).ready(function() {
-					$('.ttt-typography-control > button').click(function() {
-						$(this).parent().toggleClass('open');
+					$('.ttt-typography-control > a.button').click(function() {
+						$(this).parent().css('height', $(this).parent().height() + 'px').toggleClass('open');
 					});
 				});
 			})(jQuery);
@@ -182,23 +188,23 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 		endif;
 		?>
 		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-typography-control">
-			<button class="btn btn-block btn-success" type="button"><?php
+			<a class="button expand round success" href="javascript:void(0)"><?php
 				if ( ! empty( $this->label ) )
 					echo esc_html( $this->label );
 				else
 					_e( 'Advanced Settings', 'gusto' );
-			?></button>
+			?></a>
 			<table border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
 						<th></th>
-						<th><?php __( 'Font family', 'gusto' ); ?></th>
-						<th><?php __( 'Font size', 'gusto' ); ?></th>
-						<th><?php __( 'Line height', 'gusto' ); ?></th>
-						<th><?php __( 'Spacing', 'gusto' ); ?></th>
-						<th><?php __( 'Font style', 'gusto' ); ?></th>
-						<th><?php __( 'Transform', 'gusto' ); ?></th>
-						<th><?php __( 'Subset', 'gusto' ); ?></th>
+						<th><?php _e( 'Font family', 'gusto' ); ?></th>
+						<th><?php _e( 'Font size', 'gusto' ); ?></th>
+						<th><?php _e( 'Line height', 'gusto' ); ?></th>
+						<th><?php _e( 'Spacing', 'gusto' ); ?></th>
+						<th><?php _e( 'Font style', 'gusto' ); ?></th>
+						<th><?php _e( 'Transform', 'gusto' ); ?></th>
+						<th><?php _e( 'Subset', 'gusto' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -221,15 +227,15 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								// Get current value
 								$value = isset( $values['font-family'] ) ? $values['font-family'] : '';
 							?>>
-								<option value=""><?php __( '- Font Family -', 'gusto' ); ?></option>
-								<optgroup label="<?php __( 'Standard Fonts', 'gusto' ); ?>">
+								<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
+								<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->standard_fonts as $option ) : ?>
 									<option value="<?php echo esc_attr( $option ); ?>" <?php
 										selected( $value, $option );
 									?>><?php echo esc_html( $option ); ?></option>
 									<?php endforeach; ?>
 								</optgroup>
-								<optgroup label="<?php __( 'Google Fonts', 'gusto' ); ?>">
+								<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->google_fonts as $option ) : ?>
 									<option value="<?php echo esc_attr( $option ); ?>" <?php
 										selected( $value, $option );
@@ -332,15 +338,15 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 									: ( isset( $default['font-family'] ) ? $default['font-family'] : '' );
 								?>
 							>
-								<option value=""><?php __( '- Font Family -', 'gusto' ); ?></option>
-								<optgroup label="<?php __( 'Standard Fonts', 'gusto' ); ?>">
+								<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
+								<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->standard_fonts as $option ) : ?>
 									<option value="<?php echo esc_attr( $option ); ?>" <?php
 										selected( $value, $option );
 									?>><?php echo esc_html( $option ); ?></option>
 									<?php endforeach; ?>
 								</optgroup>
-								<optgroup label="<?php __( 'Google Fonts', 'gusto' ); ?>">
+								<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->google_fonts as $option ) : ?>
 									<option value="<?php echo esc_attr( $option ); ?>" <?php
 										selected( $value, $option );
