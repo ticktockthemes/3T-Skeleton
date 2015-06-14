@@ -159,25 +159,12 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 		// Print styles
 		if ( ! defined( 'TTT_Customize_Control_Typography_Loaded' ) ) :
 		?>
-		<style type="text/css">
-			.ttt-typography-control.open {
-				position: relative;
-			}
-			.ttt-typography-control.open table {
-				position: absolute;
-			}
-			.ttt-typography-control th, .ttt-typography-control .advance {
-				display: none;
-			}
-			.ttt-typography-control.open th, .ttt-typography-control.open .advance {
-				display: block;
-			}
-		</style>
 		<script type="text/javascript">
 			(function($) {
 				$(document).ready(function() {
 					$('.ttt-typography-control > a.button').click(function() {
-						$(this).parent().css('height', $(this).parent().height() + 'px').toggleClass('open');
+						$(this).parent().toggleClass('open');
+						$('body').toggleClass('advance-expand');
 					});
 				});
 			})(jQuery);
@@ -188,16 +175,22 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 		endif;
 		?>
 		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-typography-control">
-			<a class="button expand round success" href="javascript:void(0)"><?php
+			<a class="button expand radius success" href="javascript:void(0)" data-reveal-id="advanced-typography"><?php
 				if ( ! empty( $this->label ) )
 					echo esc_html( $this->label );
 				else
 					_e( 'Advanced Settings', 'gusto' );
 			?></a>
+			<div id="advanced-typography" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+				<h2 id="modalTitle">Awesome. I have it.</h2>
+				<p class="lead">Your couch.  It is mine.</p>
+				<p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+				<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+			</div>
 			<table border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
-						<th></th>
+						<th><a class="close-reveal-modal" aria-label="Close">&#215;</a></th>
 						<th><?php _e( 'Font family', 'gusto' ); ?></th>
 						<th><?php _e( 'Font size', 'gusto' ); ?></th>
 						<th><?php _e( 'Line height', 'gusto' ); ?></th>

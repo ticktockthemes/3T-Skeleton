@@ -392,6 +392,7 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Go-to-Top Link', 'gusto' ),
 				'section'  => 'ttt_general',
 				'settings' => 'go_to_top_link',
+				'style'	   => 'yes_no',
 				'choices'  => array(
 					'yes' => __( 'Yes', 'gusto' ),
 					'no'  => __( 'No', 'gusto' ),
@@ -731,7 +732,10 @@ function gusto_customize_scripts() {
 	// Load Foundation
 	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/assets/foundation/css/normalize.css', array(), '3.0.3' );
 	wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/foundation/css/foundation.min.css', array(), '5.5.2' );
-	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/foundation/js/foundation.min.js', array( 'jquery' ), '5.5.2' );
+	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/foundation/js/foundation.min.js', array( 'jquery' ), '5.5.2', true );
+
+	// Load extra styles for customizer
+	wp_enqueue_style( 'customizer_css', get_template_directory_uri() . '/css/customizer.css', array() );
 
 	// Load options toggler
 	wp_enqueue_script( 'gusto_options', get_template_directory_uri() . '/js/options.js', array( 'jquery' ), '1.0', true );
@@ -750,7 +754,7 @@ function gusto_inline_styles () {
 		.wp-full-overlay-sidebar {
 			width: 400px;
 		}
-	</styl -->>
+	</style> -->
 	<?php
 }
 add_action( 'customize_controls_print_scripts', 'gusto_inline_styles' );

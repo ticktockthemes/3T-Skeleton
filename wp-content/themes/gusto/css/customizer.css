@@ -1,0 +1,120 @@
+/*
+Theme Name: Gusto
+Theme URI: http://underscores.me/
+Author: Tick Tock Themes
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gusto
+Tags:
+
+This file contains styling for 
+*/
+/*--------------------------------------------------------------
+# 3T VARS & MIXINS
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# RESET WP DEFAULT STYLE
+--------------------------------------------------------------*/
+.wp-core-ui .button {
+  border: none;
+}
+
+.wp-core-ui .button label {
+  margin: 0;
+  line-height: 28px;
+  position: relative;
+  z-index: 200;
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button:focus,
+.wp-core-ui .button.active:focus,
+.wp-core-ui .button-secondary:active,
+.wp-core-ui .button.active,
+.wp-core-ui .button.active:hover,
+.wp-core-ui .button:active {
+  box-shadow: none;
+  outline: none;
+}
+
+.current-panel .accordion-sub-container.control-panel-content {
+  margin-left: 0;
+}
+
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+*:focus {
+  outline: none;
+}
+
+*, *:before, *:after {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
+
+/* - - - - - Switch Button - - - - - */
+.switch-pad {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  display: block;
+  width: 50%;
+  height: -webkit-calc(100% - 6px);
+  height: calc(100% - 6px);
+  background: #e9e9e9;
+  border: 1px solid #149465;
+  border-bottom-color: #116446;
+  border-radius: 3px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.active + .switch-pad {
+  left: -webkit-calc(50% - 4px);
+  left: calc(50% - 4px);
+}
+
+.radio-switch {
+  background: #19bb80;
+  border-radius: 3px;
+}
+
+.radio-switch > * {
+  margin: 0 !important;
+  width: 70px;
+  text-align: center;
+}
+
+.radio-switch a {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.radio-switch a label {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.radio-switch a label {
+  width: 100%;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.radio-switch a input:checked + label {
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/*--------------------------------------------------------------
+# TYPOGRAPHY SECTION
+--------------------------------------------------------------*/

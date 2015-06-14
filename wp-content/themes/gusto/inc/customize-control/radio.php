@@ -71,8 +71,10 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 			(function($) {
 				$(document).ready(function() {
 					$('.ttt-radio-control .button-group li a').click(function() {
-						$(this).closest('.button-group').find('li a').removeClass('active');
-						$(this).addClass('active').children('input').trigger('click');
+						$(this).closest('.button-group').find('li').removeClass('active');
+						if ( $(this).closest('.button-group').find('input:checked') ) {
+							$(this).closest('li').addClass('active');
+						}
 					});
 				});
 			})(jQuery);
@@ -96,12 +98,12 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 
 			if ( 'button' == $this->style ) :
 			?>
-			<ul class="stack-for-small round secondary button-group">
+			<ul class="radio-switch radius button-group">
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
-				<li><a href="javascript:void(0);" class="button <?php
+				<li class="<?php
 					if ( $this->value() == $value )
 						echo 'active';
-				?>">
+				?>"><a href="javascript:void(0);" class="button">
 					<input type="radio" autocomplete="off" style="display: none;"
 						id="<?php echo esc_attr( $name . ++$i ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
@@ -111,6 +113,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 					<label for="<?php echo esc_attr( $name . $i ); ?>"><?php echo esc_html( $label ); ?></label>
 				</a></li>
 				<?php endforeach; ?>
+				<div class="switch-pad"></div>
 			</ul>
 			<?php else : ?>
 			<div class="ttt-radio-switch">
