@@ -162,6 +162,18 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 		<script type="text/javascript">
 			(function($) {
 				$(document).ready(function() {
+					if ( $('#_customize-switch-custom_font-input').prop('checked') ) {
+						$('#customize-control-custom_fonts').show();
+					} else {
+						$('#customize-control-custom_fonts').hide();
+					}
+					$('#_customize-switch-custom_font-input').bind('change', function () {
+						if ( $(this).prop('checked') ) {
+							$('#customize-control-custom_fonts').show();
+						} else {
+							$('#customize-control-custom_fonts').hide();
+						}
+					});
 					$('.ttt-typography-control > a.button').click(function() {
 						$(this).parent().toggleClass('open');
 						$('body').toggleClass('advance-expand');

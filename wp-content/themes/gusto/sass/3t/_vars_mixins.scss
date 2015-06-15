@@ -1,0 +1,25 @@
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+@mixin absolute_vertical_center {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+@mixin absolute_horizontal_center {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@mixin absolute_center {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+@mixin pseudo_basic {
+	content: '';
+	display: block;
+	position: absolute;
+	z-index: 100;
+}

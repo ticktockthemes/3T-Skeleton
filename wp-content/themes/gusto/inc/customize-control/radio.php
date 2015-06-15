@@ -70,10 +70,14 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 		<script type="text/javascript">
 			(function($) {
 				$(document).ready(function() {
-					$('.ttt-radio-control .button-group li a').click(function() {
+					$('.ttt-radio-control .button-group li a label').click(function() {
 						$(this).closest('.button-group').find('li').removeClass('active');
+						$(this).closest('.button-group').find('label').removeClass('lower-z');
 						if ( $(this).closest('.button-group').find('input:checked') ) {
 							$(this).closest('li').addClass('active');
+							$(this).addClass('lower-z');
+						} else {
+							$(this).removeClass('lower-z');
 						}
 					});
 				});
@@ -110,7 +114,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						value="<?php echo esc_attr( $value ); ?>"
 						<?php $this->link(); checked( $this->value(), $value ); ?>
 					>
-					<label for="<?php echo esc_attr( $name . $i ); ?>"><?php echo esc_html( $label ); ?></label>
+					<label data-content="<?php echo esc_html( $label ); ?>" for="<?php echo esc_attr( $name . $i ); ?>"></label>
 				</a></li>
 				<?php endforeach; ?>
 				<div class="switch-pad"></div>
@@ -120,7 +124,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
 				<div class="row">
 					<div class="small-4 columns">
-						<div class="switch round small">
+						<div class="switch radius tiny">
 							<input type="radio" autocomplete="off"
 								id="<?php echo esc_attr( $name . ++$i ); ?>"
 								name="<?php echo esc_attr( $name ); ?>"

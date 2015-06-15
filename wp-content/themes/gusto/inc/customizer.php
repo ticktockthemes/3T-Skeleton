@@ -18,6 +18,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Load customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
+	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
 	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
 	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
 
@@ -230,7 +231,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'text_logo', array(
-			'label'       => __( 'Text Logo', 'gusto' ),
+			'label'       => __( 'Logo Text', 'gusto' ),
 			'section'     => 'ttt_general',
 			'settings'    => 'text_logo',
 			'type'        => 'text',
@@ -350,7 +351,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'page_transition_loading', array(
 				'label'    => __( 'Page Transition Loading', 'gusto' ),
 				'section'  => 'ttt_general',
@@ -387,12 +388,11 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'go_to_top_link', array(
 				'label'    => __( 'Go-to-Top Link', 'gusto' ),
 				'section'  => 'ttt_general',
 				'settings' => 'go_to_top_link',
-				'style'	   => 'yes_no',
 				'choices'  => array(
 					'yes' => __( 'Yes', 'gusto' ),
 					'no'  => __( 'No', 'gusto' ),
@@ -633,7 +633,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'custom_font', array(
 				'label'    => __( 'Custom Font', 'gusto' ),
 				'section'  => 'ttt_typography',
