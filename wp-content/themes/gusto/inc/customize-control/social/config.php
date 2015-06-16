@@ -1,23 +1,45 @@
 <?php
 /**
- * TickTockThemes Customize Switch Control
+ * TickTockThemes Customize Social Config Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Switch Control class.
+ * Customize Social Config Control class.
  *
  * @since 1.0
  *
  * @see WP_Customize_Control
  */
-class TTT_Customize_Control_Switch extends WP_Customize_Control {
+class TTT_Customize_Control_Social_Config extends WP_Customize_Control {
 	/**
 	 * @access public
 	 * @var string
 	 */
-	public $type = 'ttt-switch';
+	public $type = 'ttt-social-config';
+
+	/**
+	 * @access public
+	 * @var array
+	 */
+	public static $networks = array(
+		'facebook'  => 'Facebook',
+		'twitter'   => 'Twitter',
+		'google+'   => 'Google +',
+		'vimeo'     => 'Vimeo',
+		'dribbble'  => 'Dribbble',
+		'youtube'   => 'Youtube',
+		'pinterest' => 'Pinterest',
+		'tumblr'    => 'Tumblr',
+		'linkedin'  => 'LinkedIn',
+		'behance'   => 'Behance',
+		'flickr'    => 'Flickr',
+		'instagram' => 'Instagram',
+		'skype'     => 'Skype',
+		'email'     => 'Email',
+		'rss'       => 'RSS',
+	);
 
 	/**
 	 * Constructor.
@@ -31,12 +53,6 @@ class TTT_Customize_Control_Switch extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
 		parent::__construct( $manager, $id, $args );
-
-		if ( isset( $args['checked_value'] ) ) {
-			$this->checked_value = $args['checked_value'];
-		} else {
-			$this->checked_value = 'on';
-		}
 	}
 
 	/**
@@ -46,9 +62,9 @@ class TTT_Customize_Control_Switch extends WP_Customize_Control {
 	 */
 	public function render_content() {
 		// Generate control ID
-		$name = '_customize-switch-' . $this->id;
+		$name = '_customize-social-config-' . $this->id;
 		?>
-		<div class="ttt-switch-control" id="<?php echo esc_attr( $name ); ?>">
+		<div class="ttt-social-config-control" id="<?php echo esc_attr( $name ); ?>">
 			<?php if ( ! empty( $this->label ) ) : ?>
 			<span class="customize-control-title">
 				<?php echo esc_html( $this->label ); ?>
@@ -62,15 +78,6 @@ class TTT_Customize_Control_Switch extends WP_Customize_Control {
 				<?php echo $this->description ; ?>
 			</span>
 			<?php endif; ?>
-			<div class="switch round small">
-				<input type="checkbox" autocomplete="off"
-					id="<?php echo esc_attr( $name ); ?>-input"
-					name="<?php echo esc_attr( $name ); ?>"
-					value="<?php echo esc_attr( $this->checked_value ); ?>"
-					<?php $this->link(); checked( $this->value(), $this->checked_value ); ?>
-				>
-				<label for="<?php echo esc_attr( $name ); ?>-input"></label>
-			</div>
 		</div>
 		<?php
 	}

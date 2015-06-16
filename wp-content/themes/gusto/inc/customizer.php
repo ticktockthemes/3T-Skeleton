@@ -20,6 +20,8 @@ function gusto_customize_register( $wp_customize ) {
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
 	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
 	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
+	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
+	include_once dirname( __FILE__ ) . '/customize-control/social/icons.php';
 
 	// Register General section
 	$wp_customize->add_section(
@@ -49,7 +51,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'theme_layout', array(
 			'default'           => 'full',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -160,7 +161,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'boxed_layout-background_size', array(
 			'default'           => 'cover',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -200,7 +200,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'logo_type', array(
 			'default'           => 'text',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -223,7 +222,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'text_logo', array(
 			'default'           => '',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
@@ -344,7 +342,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'page_transition_loading', array(
 			'default'           => 'yes',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -381,7 +378,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'go_to_top_link', array(
 			'default'           => 'yes',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -430,7 +426,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'theme_style', array(
 			'default'           => 'light',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -626,7 +621,6 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'custom_font', array(
 			'default'           => 'no',
-			'transport'         => 'refresh',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -661,55 +655,240 @@ function gusto_customize_register( $wp_customize ) {
 				'options'  => array(
 					'body_text' => array(
 						'label'          => __( 'Body Text', 'gusto' ),
-						'font-family'    => '',
-						'font-size'      => '14',
-						'line-height'    => '16',
+						'font_family'    => '',
+						'font_size'      => '14',
+						'line_height'    => '16',
 						'spacing'        => '0px',
-						'font-style'     => 'Regular',
-						'text-transform' => 'Lowercase',
+						'font_style'     => 'Regular',
+						'text_transform' => 'Lowercase',
 						'subset'         => 'Latin',
 					),
 					'logo_text' => array(
 						'label'          => __( 'Logo Text', 'gusto' ),
-						'font-family'    => '',
-						'font-size'      => '20',
-						'line-height'    => '24',
+						'font_family'    => '',
+						'font_size'      => '20',
+						'line_height'    => '24',
 						'spacing'        => '0px',
-						'font-style'     => 'Regular',
-						'text-transform' => 'Lowercase',
+						'font_style'     => 'Regular',
+						'text_transform' => 'Lowercase',
 						'subset'         => 'Latin',
 					),
 					'section_heading' => array(
 						'label'          => __( 'Section Heading', 'gusto' ),
-						'font-family'    => '',
-						'font-size'      => '24',
-						'line-height'    => '26',
+						'font_family'    => '',
+						'font_size'      => '24',
+						'line_height'    => '26',
 						'spacing'        => '0px',
-						'font-style'     => 'Regular',
-						'text-transform' => 'Lowercase',
+						'font_style'     => 'Regular',
+						'text_transform' => 'Lowercase',
 						'subset'         => 'Latin',
 					),
 					'section_sub_heading' => array(
 						'label'          => __( 'Section Sub Heading', 'gusto' ),
-						'font-family'    => '',
-						'font-size'      => '18',
-						'line-height'    => '20',
+						'font_family'    => '',
+						'font_size'      => '18',
+						'line_height'    => '20',
 						'spacing'        => '0px',
-						'font-style'     => 'Regular',
-						'text-transform' => 'Lowercase',
+						'font_style'     => 'Regular',
+						'text_transform' => 'Lowercase',
 						'subset'         => 'Latin',
 					),
 					'page_heading' => array(
 						'label'          => __( 'Page Heading', 'gusto' ),
-						'font-family'    => '',
-						'font-size'      => '32',
-						'line-height'    => '36',
+						'font_family'    => '',
+						'font_size'      => '32',
+						'line_height'    => '36',
 						'spacing'        => '0px',
-						'font-style'     => 'Regular',
-						'text-transform' => 'Lowercase',
+						'font_style'     => 'Regular',
+						'text_transform' => 'Lowercase',
 						'subset'         => 'Latin',
 					),
 				),
+			)
+		)
+	);
+
+	// Register Header section
+	$wp_customize->add_section(
+		'ttt_header', array(
+			'title'       => __( 'Header', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'priority'    => 3,
+		)
+	);
+
+	// Register Header Layout setting and control
+	$wp_customize->add_setting(
+		'separator_before_header_layout', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_header_layout', array(
+				'section'  => 'ttt_header',
+				'settings' => 'separator_before_header_layout',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'header_layout', array(
+			'default'           => 'default',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'header_layout', array(
+				'label'    => __( 'Header Layout', 'gusto' ),
+				'section'  => 'ttt_header',
+				'settings' => 'header_layout',
+				'style'    => 'image',
+				'choices'  => array(
+					'default' => array(
+						'label' => __( 'Default', 'gusto' ),
+						'image' => get_template_directory_uri() . '/assets/images/header_layout_1.jpg',
+					),
+					'centered_menu' => array(
+						'label' => __( 'Centered Menu', 'gusto' ),
+						'image' => get_template_directory_uri() . '/assets/images/header_layout_2.jpg',
+					),
+					'centered_logo' => array(
+						'label' => __( 'Centered Logo', 'gusto' ),
+						'image' => get_template_directory_uri() . '/assets/images/header_layout_3.jpg',
+					),
+				),
+			)
+		)
+	);
+
+	// Register Sticky Header setting and control
+	$wp_customize->add_setting(
+		'separator_before_sticky_header', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_sticky_header', array(
+				'section'  => 'ttt_header',
+				'settings' => 'separator_before_sticky_header',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'sticky_header', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'sticky_header', array(
+				'label'    => __( 'Sticky Header', 'gusto' ),
+				'section'  => 'ttt_header',
+				'settings' => 'sticky_header',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register Search Box setting and control
+	$wp_customize->add_setting(
+		'separator_before_search_box', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_search_box', array(
+				'section'  => 'ttt_header',
+				'settings' => 'separator_before_search_box',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'search_box', array(
+			'default'           => 'no',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'search_box', array(
+				'label'    => __( 'Search Box', 'gusto' ),
+				'section'  => 'ttt_header',
+				'settings' => 'search_box',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register Social Icons settings and controls
+	$wp_customize->add_setting(
+		'separator_before_show_header_social_icons', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_show_header_social_icons', array(
+				'section'  => 'ttt_header',
+				'settings' => 'separator_before_show_header_social_icons',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'show_header_social_icons', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'show_header_social_icons', array(
+				'label'    => __( 'Social Icons', 'gusto' ),
+				'section'  => 'ttt_header',
+				'settings' => 'show_header_social_icons',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'header_social_icons', array(
+			'default'           => array( 'facebook', 'twitter' ),
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Social_Icons(
+			$wp_customize, 'header_social_icons', array(
+				'section'  => 'ttt_header',
+				'settings' => 'header_social_icons',
+				'linked'   => 'social_config',
 			)
 		)
 	);

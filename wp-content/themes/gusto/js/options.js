@@ -7,7 +7,7 @@
 ( function( $ ) {
 	$(document).ready(function() {
 		// Setup options toggle for Theme Layout
-		$('#customize-control-theme_layout .button-group li a').click(function() {
+		$('#customize-control-theme_layout label').click(function() {
 			var func = $(this).children('input').val() == 'full' ? 'hide' : 'show';
 	
 			$('#customize-control-boxed_layout-background_image')[func]();
@@ -18,7 +18,7 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Logo Type
-		$('#customize-control-logo_type .button-group li a').click(function() {
+		$('#customize-control-logo_type label').click(function() {
 			if ($(this).children('input').val() == 'text') {
 				$('#customize-control-text_logo').show();
 				$('#customize-control-image_logo').hide();
@@ -31,7 +31,7 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Custom Font
-		$('#customize-control-custom_font .button-group li a').click(function() {
+		$('#customize-control-custom_font label').click(function() {
 			var func = $(this).children('input').val() == 'no' ? 'hide' : 'show';
 	
 			$('#customize-control-custom_fonts')[func]();

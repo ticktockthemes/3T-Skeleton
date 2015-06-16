@@ -62,17 +62,33 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 			return;
 		}
 
+		// Generate control ID
 		$name = '_customize-radio-' . $this->id;
 
 		// Print scripts
 		if ( ! defined( 'TTT_Customize_Control_Radio_Loaded' ) ) :
 		?>
+		<style type="text/css">
+			.ttt-radio-image .panel {
+				text-align: center;
+			}
+			.ttt-radio-image .panel input, .ttt-radio-control .button-group input {
+				display: none;
+			}
+		</style>
 		<script type="text/javascript">
 			(function($) {
 				$(document).ready(function() {
-					$('.ttt-radio-control .button-group li a').click(function() {
-						$(this).closest('.button-group').find('li a').removeClass('active');
-						$(this).addClass('active').children('input').trigger('click');
+					// Handle radio image control
+					$('.ttt-radio-image label').click(function() {
+						$(this).parent().children().removeClass('callout');
+						$(this).addClass('callout');
+					});
+
+					// Handle radio button control
+					$('.ttt-radio-button label').click(function() {
+						$(this).parent().children().removeClass('active');
+						$(this).addClass('active');
 					});
 				});
 			})(jQuery);
@@ -82,37 +98,24 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 
 		endif;
 		?>
-		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-radio-control">
+		<div class="ttt-radio-control" id="<?php echo esc_attr( $name ); ?>">
 			<?php if ( ! empty( $this->label ) ) : ?>
-			<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+			<span class="customize-control-title">
+				<?php echo esc_html( $this->label ); ?>
+			</span>
 			<?php
 			endif;
 
 			if ( ! empty( $this->description ) ) :
 			?>
-			<span class="description customize-control-description"><?php echo $this->description ; ?></span>
+			<span class="description customize-control-description">
+				<?php echo $this->description ; ?>
+			</span>
 			<?php
 			endif;
 
-			if ( 'button' == $this->style ) :
+			if ( 'switch' == $this->style ) :
 			?>
-			<ul class="stack-for-small round secondary button-group">
-				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
-				<li><a href="javascript:void(0);" class="button <?php
-					if ( $this->value() == $value )
-						echo 'active';
-				?>">
-					<input type="radio" autocomplete="off" style="display: none;"
-						id="<?php echo esc_attr( $name . ++$i ); ?>"
-						name="<?php echo esc_attr( $name ); ?>"
-						value="<?php echo esc_attr( $value ); ?>"
-						<?php $this->link(); checked( $this->value(), $value ); ?>
-					>
-					<label for="<?php echo esc_attr( $name . $i ); ?>"><?php echo esc_html( $label ); ?></label>
-				</a></li>
-				<?php endforeach; ?>
-			</ul>
-			<?php else : ?>
 			<div class="ttt-radio-switch">
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
 				<div class="row">
@@ -131,6 +134,42 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						<?php echo esc_html( $label ); ?>
 					</div>
 				</div>
+				<?php endforeach; ?>
+			</div>
+			<?php elseif ( 'image' == $this->style ) : ?>
+			<div class="ttt-radio-image">
+				<?php $i = 0; foreach ( $this->choices as $value => $data ) : ?>
+				<label for="<?php echo esc_attr( $name . ++$i ); ?>" class="panel radius <?php
+					if ( $this->value() == $value )
+						echo 'callout';
+				?>">
+					<input type="radio" autocomplete="off"
+						id="<?php echo esc_attr( $name . $i ); ?>"
+						name="<?php echo esc_attr( $name ); ?>"
+						value="<?php echo esc_attr( $value ); ?>"
+						<?php $this->link(); checked( $this->value(), $value ); ?>
+					>
+					<?php echo esc_html( $data['label'] ); ?>
+					<br>
+					<img src="<?php echo esc_url( $data['image'] ); ?>">
+				</label>
+				<?php endforeach; ?>
+			</div>
+			<?php else : ?>
+			<div class="ttt-radio-button stack-for-small round secondary button-group">
+				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
+				<label class="button <?php
+					if ( $this->value() == $value )
+						echo 'active';
+				?>">
+					<input type="radio" autocomplete="off"
+						id="<?php echo esc_attr( $name . ++$i ); ?>"
+						name="<?php echo esc_attr( $name ); ?>"
+						value="<?php echo esc_attr( $value ); ?>"
+						<?php $this->link(); checked( $this->value(), $value ); ?>
+					>
+					<?php echo esc_html( $label ); ?>
+				</label>
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>

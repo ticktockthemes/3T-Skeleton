@@ -145,6 +145,34 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 
 		if ( isset( $args['options'] ) ) {
 			$this->options = $args['options'];
+		} else {
+			$this->options = array(
+				$id => array(
+					'label' => isset( $options['label'] ) ? $options['label'] : __( 'Typography', 'gusto' ),
+				)
+			);
+		}
+
+		// Register child settings
+		$props = array(
+			'font_family',
+			'font_size',
+			'line_height',
+			'spacing',
+			'font_style',
+			'text_transform',
+			'subset',
+		);
+
+		foreach ( $this->options as $setting => $default ) {
+			foreach ( $props as $prop ) {
+				$manager->add_setting(
+					$setting . '_' . $prop, array(
+						'default'           => isset( $default[ $prop ] ) ? $default[ $prop ] : null,
+						'sanitize_callback' => 'sanitize_key',
+					)
+				);
+			}
 		}
 	}
 
@@ -154,6 +182,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @since 1.0
 	 */
 	public function render_content() {
+		// Generate control ID
 		$name = '_customize-typography-' . $this->id;
 
 		// Print styles
@@ -187,13 +216,23 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 
 		endif;
 		?>
-		<div id="<?php echo esc_attr( $name ); ?>" class="ttt-typography-control">
-			<a class="button expand round success" href="javascript:void(0)"><?php
-				if ( ! empty( $this->label ) )
-					echo esc_html( $this->label );
-				else
-					_e( 'Advanced Settings', 'gusto' );
-			?></a>
+		<div class="ttt-typography-control" id="<?php echo esc_attr( $name ); ?>">
+			<?php if ( ! empty( $this->label ) ) : ?>
+			<span class="customize-control-title">
+				<?php echo esc_html( $this->label ); ?>
+			</span>
+			<?php
+			endif;
+
+			if ( ! empty( $this->description ) ) :
+			?>
+			<span class="description customize-control-description">
+				<?php echo $this->description ; ?>
+			</span>
+			<?php endif; ?>
+			<a class="button expand round success" href="javascript:void(0)">
+				<?php _e( 'Advanced Settings', 'gusto' ); ?>
+			</a>
 			<table border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
@@ -208,118 +247,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 					</tr>
 				</thead>
 				<tbody>
-					<?php
-					// Get current values
-					$values = $this->value();
-
-					if ( ! isset( $this->options ) ) :
-					?>
-					<tr>
-						<td>
-							<?php if ( ! empty( $this->label ) ) : ?>
-							<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-							<?php endif; ?>
-						</td>
-						<td>
-							<select autocomplete="off" name="<?php echo esc_attr( $name ); ?>[font-family]" <?php
-								$this->link();
-
-								// Get current value
-								$value = isset( $values['font-family'] ) ? $values['font-family'] : '';
-							?>>
-								<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
-								<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
-									<?php foreach ( $this->standard_fonts as $option ) : ?>
-									<option value="<?php echo esc_attr( $option ); ?>" <?php
-										selected( $value, $option );
-									?>><?php echo esc_html( $option ); ?></option>
-									<?php endforeach; ?>
-								</optgroup>
-								<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
-									<?php foreach ( $this->google_fonts as $option ) : ?>
-									<option value="<?php echo esc_attr( $option ); ?>" <?php
-										selected( $value, $option );
-									?>><?php echo esc_html( $option ); ?></option>
-									<?php endforeach; ?>
-								</optgroup>
-							</select>
-						</td>
-						<td class="advance">
-							<input autocomplete="off" type="number" min="0"
-								name="<?php echo esc_attr( $name ); ?>[font-size]"
-								value="<?php echo esc_attr( isset( $values['font-size'] ) ? $values['font-size'] : '' ); ?>"
-								<?php $this->link(); ?>
-							>
-						</td>
-						<td class="advance">
-							<input autocomplete="off" type="number" min="0"
-								name="<?php echo esc_attr( $name ); ?>[line-height]"
-								value="<?php echo esc_attr( isset( $values['line-height'] ) ? $values['line-height'] : '' ); ?>"
-								<?php $this->link(); ?>
-							>
-						</td>
-						<td class="advance">
-							<select autocomplete="off" name="<?php echo esc_attr( $name ); ?>[spacing]" <?php
-								$this->link();
-
-								// Get current value
-								$value = isset( $values['spacing'] ) ? $values['spacing'] : '';
-							?>>
-								<?php foreach ( $this->spacings as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php
-									selected( $value, $option );
-								?>><?php echo esc_html( $option ); ?></option>
-								<?php endforeach; ?>
-	                    	</select>
-						</td>
-						<td class="advance">
-							<select autocomplete="off" name="<?php echo esc_attr( $name ); ?>[font-style]" <?php
-								$this->link();
-
-								// Get current value
-								$value = isset( $values['font-style'] ) ? $values['font-style'] : '';
-							?>>
-								<?php foreach ( $this->styles as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php
-									selected( $value, $option );
-								?>><?php echo esc_html( $option ); ?></option>
-								<?php endforeach; ?>
-	                    	</select>
-						</td>
-						<td class="advance">
-							<select autocomplete="off" name="<?php echo esc_attr( $name ); ?>[text-transform]" <?php
-								$this->link();
-
-								// Get current value
-								$value = isset( $values['text-transform'] ) ? $values['text-transform'] : '';
-							?>>
-								<?php foreach ( $this->transforms as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php
-									selected( $value, $option );
-								?>><?php echo esc_html( $option ); ?></option>
-								<?php endforeach; ?>
-	                    	</select>
-						</td>
-						<td class="advance">
-							<select autocomplete="off" name="<?php echo esc_attr( $name ); ?>[subset]" <?php
-								$this->link();
-
-								// Get current value
-								$value = isset( $values['subset'] ) ? $values['subset'] : '';
-							?>>
-								<?php foreach ( $this->subsets as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php
-									selected( $value, $option );
-								?>><?php echo esc_html( $option ); ?></option>
-								<?php endforeach; ?>
-	                    	</select>
-						</td>
-					</tr>
-					<?php
-					else :
-
-					foreach( $this->options as $setting => $default ) :
-					?>
+					<?php foreach( $this->options as $setting => $default ) : ?>
 					<tr>
 						<td>
 							<?php if ( isset( $default['label'] ) ) : ?>
@@ -327,17 +255,17 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 							<?php endif; ?>
 						</td>
 						<td>
-							<select autocomplete="off"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][font-family]"
-								<?php
-								$this->link();
+							<?php
+							// Generate setting name
+							$prop = $setting . '_font_family';
 
-								// Get current value
-								$value = ( isset( $values[ $setting ] ) && isset( $values[ $setting ]['font-family'] )  )
-									? $values[ $setting ]['font-family']
-									: ( isset( $default['font-family'] ) ? $default['font-family'] : '' );
-								?>
-							>
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['font_family'] ) ? $default['font_family'] : null
+							);
+							?>
+							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
 								<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->standard_fonts as $option ) : ?>
@@ -356,43 +284,47 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 							</select>
 						</td>
 						<td class="advance">
-							<input autocomplete="off" type="number" min="0"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][font-size]"
-								value="<?php
-									echo esc_attr(
-										( isset( $values[ $setting ] ) && isset( $values[ $setting ]['font-size'] ) )
-											? $values[ $setting ]['font-size']
-											: ( isset( $default['font-size'] ) ? $default['font-size'] : '' )
-									);
-								?>"
-								<?php $this->link(); ?>
-							>
-						</td>
-						<td class="advance">
-							<input autocomplete="off" type="number" min="0"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][line-height]"
-								value="<?php
-									echo esc_attr(
-										( isset( $values[ $setting ] ) && isset( $values[ $setting ]['line-height'] ) )
-											? $values[ $setting ]['line-height']
-											: ( isset( $default['line-height'] ) ? $default['line-height'] : '' )
-									);
-								?>"
-								<?php $this->link(); ?>
-							>
-						</td>
-						<td class="advance">
-							<select autocomplete="off"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][spacing]"
-								<?php
-								$this->link();
+							<?php
+							// Generate setting name
+							$prop = $setting . '_font_size';
 
-								// Get current value
-								$value = ( isset( $values[ $setting ] ) && isset( $values[ $setting ]['spacing'] )  )
-									? $values[ $setting ]['spacing']
-									: ( isset( $default['spacing'] ) ? $default['spacing'] : '' );
-								?>
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['font_size'] ) ? $default['font_size'] : null
+							);
+							?>
+							<input autocomplete="off" type="number" min="0" value="<?php echo esc_attr( $value ); ?>"
+								data-customize-setting-link="<?php echo esc_attr( $prop ); ?>"
 							>
+						</td>
+						<td class="advance">
+							<?php
+							// Generate setting name
+							$prop = $setting . '_line_height';
+
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['line_height'] ) ? $default['line_height'] : null
+							);
+							?>
+							<input autocomplete="off" type="number" min="0" value="<?php echo esc_attr( $value ); ?>"
+								data-customize-setting-link="<?php echo esc_attr( $prop ); ?>"
+							>
+						</td>
+						<td class="advance">
+							<?php
+							// Generate setting name
+							$prop = $setting . '_spacing';
+
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['spacing'] ) ? $default['spacing'] : null
+							);
+							?>
+							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->spacings as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -401,17 +333,17 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	                    	</select>
 						</td>
 						<td class="advance">
-							<select autocomplete="off"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][font-style]"
-								<?php
-								$this->link();
+							<?php
+							// Generate setting name
+							$prop = $setting . '_font_style';
 
-								// Get current value
-								$value = ( isset( $values[ $setting ] ) && isset( $values[ $setting ]['font-style'] )  )
-									? $values[ $setting ]['font-style']
-									: ( isset( $default['font-style'] ) ? $default['font-style'] : '' );
-								?>
-							>
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['font_style'] ) ? $default['font_style'] : null
+							);
+							?>
+							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->styles as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -420,17 +352,17 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	                    	</select>
 						</td>
 						<td class="advance">
-							<select autocomplete="off"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][text-transform]"
-								<?php
-								$this->link();
+							<?php
+							// Generate setting name
+							$prop = $setting . '_text_transform';
 
-								// Get current value
-								$value = ( isset( $values[ $setting ] ) && isset( $values[ $setting ]['text-transform'] )  )
-									? $values[ $setting ]['text-transform']
-									: ( isset( $default['text-transform'] ) ? $default['text-transform'] : '' );
-								?>
-							>
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['text_transform'] ) ? $default['text_transform'] : null
+							);
+							?>
+							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->transforms as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -439,17 +371,17 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	                    	</select>
 						</td>
 						<td class="advance">
-							<select autocomplete="off"
-								name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $setting ); ?>][subset]"
-								<?php
-								$this->link();
+							<?php
+							// Generate setting name
+							$prop = $setting . '_subset';
 
-								// Get current value
-								$value = ( isset( $values[ $setting ] ) && isset( $values[ $setting ]['subset'] )  )
-									? $values[ $setting ]['subset']
-									: ( isset( $default['subset'] ) ? $default['subset'] : '' );
-								?>
-							>
+							// Get current value
+							$value = get_theme_mod(
+								$prop,
+								isset( $default['subset'] ) ? $default['subset'] : null
+							);
+							?>
+							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->subsets as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -458,11 +390,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	                    	</select>
 						</td>
 					</tr>
-					<?php
-					endforeach;
-
-					endif;
-					?>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
