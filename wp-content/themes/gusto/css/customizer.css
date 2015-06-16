@@ -1,0 +1,328 @@
+/*
+Theme Name: Gusto
+Theme URI: http://underscores.me/
+Author: Tick Tock Themes
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gusto
+Tags:
+
+This file contains styling for 3T Theme Customizer Panel
+*/
+/*--------------------------------------------------------------
+# 3T VARS & MIXINS
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# RESET WP DEFAULT STYLE
+--------------------------------------------------------------*/
+.wp-core-ui .button {
+  border: none;
+}
+
+.wp-core-ui .button label {
+  margin: 0;
+  line-height: 28px;
+  position: relative;
+  z-index: 200;
+}
+
+.wp-core-ui .button.change-theme,
+.wp-core-ui .button.customize-theme {
+  background: #19bb80;
+  color: #fff;
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button:focus,
+.wp-core-ui .button.active:focus,
+.wp-core-ui .button-secondary:active,
+.wp-core-ui .button.active,
+.wp-core-ui .button.active:hover,
+.wp-core-ui .button:active {
+  box-shadow: none;
+  outline: none;
+}
+
+#customize-info .accordion-section-title:focus,
+#customize-info .accordion-section-title:hover,
+#customize-info.open .accordion-section-title,
+#customize-theme-controls .control-section .accordion-section-title:focus,
+#customize-theme-controls .control-section .accordion-section-title:hover,
+#customize-theme-controls .control-section.open .accordion-section-title,
+#customize-theme-controls .control-section:hover > .accordion-section-title {
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.actions, .upload-ui {
+  margin-bottom: 0 !important;
+}
+
+.actions .button, .upload-ui .button {
+  border: 1px solid #ddd;
+}
+
+.control-panel-content, .customize-control-title {
+  margin: 0;
+}
+
+.customize-control-title {
+  font-size: 12px;
+}
+
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+*:focus {
+  outline: none;
+}
+
+*, *:before, *:after {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
+
+.customize-control {
+  margin-bottom: 20px;
+}
+
+.ttt-separator-control {
+  margin: 10px 0;
+}
+
+.button.warning {
+  background: #f08a24;
+}
+
+/* - - - - - Switches - - - - - */
+.switch-pad {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  display: block;
+  width: 50%;
+  height: -webkit-calc(100% - 8px);
+  height: calc(100% - 8px);
+  background: #e9e9e9;
+  border: 1px solid #149465;
+  border-bottom-color: #116446;
+  border-radius: 3px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.active + .switch-pad {
+  left: -webkit-calc(50% - 6px);
+  left: calc(50% - 6px);
+}
+
+.radio-switch {
+  background: #19bb80;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+  position: relative;
+}
+
+.radio-switch > * {
+  margin: 0 !important;
+  width: 64px;
+  text-align: center;
+}
+
+.radio-switch a {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.radio-switch a label {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  width: 128px;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  position: absolute !important;
+  right: 0;
+  top: 0;
+  text-align: right;
+}
+
+.radio-switch a label:before {
+  content: attr(data-content);
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: -webkit-calc(50% + 6px);
+  width: calc(50% + 6px);
+  right: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.radio-switch a label.lower-z {
+  z-index: 150;
+}
+
+.radio-switch a input:checked + label {
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.radio-switch a input:checked + label:before {
+  color: #264443;
+}
+
+.radio-switch li:first-child label {
+  right: auto;
+  left: 0;
+  text-align: left;
+}
+
+.radio-switch li:first-child label:before {
+  right: auto;
+  left: 0;
+}
+
+.switch.tiny {
+  height: 24px;
+  position: relative;
+}
+
+.switch.tiny label {
+  height: 1.3rem;
+}
+
+.switch.tiny label:after {
+  height: -webkit-calc(1rem + 8px);
+  height: calc(1rem + 8px);
+  width: -webkit-calc(1rem + 8px);
+  width: calc(1rem + 8px);
+  left: -2px;
+  top: -2px;
+  border: 1px solid #ddd;
+  background: #e9e9e9;
+  border: 1px solid #777;
+  border-bottom-color: #555;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.3);
+  z-index: 500;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.switch.tiny input:checked + label:after {
+  left: 1.52rem;
+}
+
+.switch input:checked + label {
+  background: #19bb80;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.switch label {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.customize-control-ttt-radio, .customize-control-ttt-switch {
+  position: relative;
+}
+
+.customize-control-ttt-radio .customize-control-title, .customize-control-ttt-switch .customize-control-title {
+  width: 50%;
+  float: left;
+}
+
+.customize-control-ttt-radio .customize-control-title + .switch.tiny, .customize-control-ttt-switch .customize-control-title + .switch.tiny {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-12px);
+      -ms-transform: translateY(-12px);
+          transform: translateY(-12px);
+}
+
+.customize-control-ttt-radio .customize-control-title + .radio-switch, .customize-control-ttt-switch .customize-control-title + .radio-switch {
+  position: absolute;
+  left: auto;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-14px);
+      -ms-transform: translateY(-14px);
+          transform: translateY(-14px);
+}
+
+/* - - - - - Color Picker - - - - - */
+.customize-control-color {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.customize-control-color.picker-open {
+  margin-bottom: 30px;
+}
+
+.customize-control-color + .customize-control-ttt-separator {
+  margin-top: -10px;
+}
+
+.customize-control-color .customize-control-content {
+  margin-bottom: -24px;
+}
+
+.customize-control-color .wp-picker-container {
+  width: 100%;
+  position: relative;
+  top: -24px;
+  left: 0;
+}
+
+.customize-control-color .wp-picker-container .wp-color-result {
+  float: right;
+  margin: 0;
+}
+
+.customize-control-color .wp-picker-container .wp-color-result + .wp-picker-input-wrap {
+  display: inline-block;
+  width: 100%;
+}
+
+.customize-control-color .wp-picker-container .wp-color-result.wp-picker-open + .wp-picker-input-wrap {
+  padding-top: 20px;
+}
+
+.customize-control-color .wp-picker-container .wp-color-result:after {
+  width: 84px;
+}
+
+.customize-control-color .wp-picker-container input[type=text].wp-color-picker {
+  width: 75%;
+  height: 1.6rem;
+}
+
+.customize-control-color .wp-picker-container .wp-picker-clear {
+  width: -webkit-calc(25% - 6px);
+  width: calc(25% - 6px);
+  height: 1.6rem !important;
+  line-height: 1.6rem !important;
+  border: 1px solid #ddd;
+}
+
+/*--------------------------------------------------------------
+# TYPOGRAPHY SECTION
+--------------------------------------------------------------*/

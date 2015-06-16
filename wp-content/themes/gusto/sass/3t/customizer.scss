@@ -1,0 +1,312 @@
+/*
+Theme Name: Gusto
+Theme URI: http://underscores.me/
+Author: Tick Tock Themes
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gusto
+Tags:
+
+This file contains styling for 3T Theme Customizer Panel
+*/
+
+/*--------------------------------------------------------------
+# 3T VARS & MIXINS
+--------------------------------------------------------------*/
+@import "vars_mixins";
+
+$white						: #fff;
+$active_color				: #19bb80;
+$active_darker_color		: #116446;
+$active_dark_text			: #264443;
+$warning_color				: #f08a24;
+$active_bot_shadow			: #149465;
+$horizontal_box_shadow		: 2px 1px 0 rgba(0,0,0,0.15);
+$light_top_shadow			: inset 0 1px 0 rgba(255,255,255,0.8);
+$dark_bot_shadow			: 0 1px 0 rgba(0,0,0,0.3);
+$dark_text_shadow			: 0 1px 0 rgba(0,0,0,0.2);
+$light_text_shadow			: 0 1px 0 rgba(255,255,255,0.9);
+$inset_dark_shadow			: inset 0 1px 3px rgba(0,0,0,0.4);
+$z1							: 100; // z-index level
+$z2							: 200;
+$z3							: 300;
+$z4							: 400;
+$z5							: 500;
+$z10						: 1000;
+$transition					: all 0.3s ease;
+$color_transition			: color 0.3s ease;
+
+/*--------------------------------------------------------------
+# RESET WP DEFAULT STYLE
+--------------------------------------------------------------*/
+.wp-core-ui .button {
+	border: none;
+
+	label {
+		margin: 0;
+		line-height: 28px;
+		position: relative;
+		z-index: $z2;
+	}
+	&.change-theme,
+	&.customize-theme {
+		background: $active_color;
+		color: $white;
+	}
+}
+.wp-core-ui .button,
+.wp-core-ui .button:focus,
+.wp-core-ui .button.active:focus,
+.wp-core-ui .button-secondary:active,
+.wp-core-ui .button.active,
+.wp-core-ui .button.active:hover,
+.wp-core-ui .button:active {
+ 	box-shadow: none;
+ 	outline: none;
+}
+#customize-info .accordion-section-title:focus,
+#customize-info .accordion-section-title:hover,
+#customize-info.open .accordion-section-title,
+#customize-theme-controls .control-section .accordion-section-title:focus,
+#customize-theme-controls .control-section .accordion-section-title:hover,
+#customize-theme-controls .control-section.open .accordion-section-title,
+#customize-theme-controls .control-section:hover>.accordion-section-title {
+	transition: $transition;
+}
+.actions {
+	margin-bottom: 0 !important;
+	.button {
+		border: 1px solid #ddd;
+	}
+}
+.upload-ui {
+	@extend .actions;
+}
+.control-panel-content {
+	margin: 0;
+}
+.customize-control-title {
+	@extend .control-panel-content;
+	font-size: 12px;
+}
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+*:focus {
+    outline: none;
+}
+*, *:before, *:after {
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+}
+.customize-control {
+	margin-bottom: 20px;
+}
+.ttt-separator-control {
+	margin: 10px 0;
+}
+.button.warning {
+	background: $warning_color;
+}
+/* - - - - - Switches - - - - - */
+.switch-pad {
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	display: block;
+	width: 50%;
+	height: calc(100% - 8px);
+	background: #e9e9e9;
+	border: 1px solid $active_bot_shadow;
+	border-bottom-color: $active_darker_color;
+	border-radius: 3px !important;
+	box-shadow: $light_top_shadow, $dark_bot_shadow;
+	z-index: $z1;
+	transition: $transition;
+}
+.active + .switch-pad {
+	left: calc(50% - 6px);
+}
+.radio-switch {
+	background: $active_color;
+	border-radius: 3px;
+	box-shadow: $inset_dark_shadow;
+	transition: $transition;
+	position: relative;
+	&:hover {
+		
+	}
+	> * {
+		margin: 0 !important;
+		width: 64px;
+		text-align: center;
+	}
+	a {
+		background: none !important;
+		border: none !important;
+		padding: 0 !important;
+		display: block !important;
+		label {
+			color: $white;
+			text-shadow: $dark_text_shadow;
+			width: 128px;
+			height: 100%;
+			box-sizing: border-box;
+			font-size: 10px;
+			letter-spacing: 0.5px;
+			position: absolute !important;
+			right: 0;
+			top: 0;
+			text-align: right;
+			&:before {
+				content: attr(data-content);
+				display: block;
+				position: absolute;
+				height: 100%;
+				width: calc(50% + 6px);
+				right: 0;
+				text-align: center;
+				text-transform: uppercase;
+				font-weight: 500;
+			}
+			&.lower-z {
+				z-index: 150;
+			}
+		}
+		input:checked + label {
+			color: #333;
+			text-shadow: $light_text_shadow !important;
+			&:before {
+				color: $active_dark_text;
+			}
+		}
+	}
+	li:first-child {
+		label {
+			right: auto;
+			left: 0;
+			text-align: left;
+			&:before {
+				right: auto;
+				left: 0;
+			}
+		}
+	}
+}
+.switch {
+	&.tiny {
+		height: 24px;
+		position: relative;
+		label {
+			height: 1.3rem;
+			&:after {
+				height: calc(1rem + 8px);
+				width: calc(1rem + 8px);
+				left: -2px;
+				top: -2px;
+				border: 1px solid #ddd;
+				background: #e9e9e9;
+				border: 1px solid #777;
+				border-bottom-color: #555;
+				box-shadow: $light_top_shadow, $dark_bot_shadow;
+				z-index: $z5;
+				transition: $transition;
+			}
+		}
+		input:checked {
+			+label {
+				&:after {
+					left: 1.52rem;
+				}
+			}
+		}
+	}
+	input:checked {
+		+label {
+			background: $active_color;
+			box-shadow: $inset_dark_shadow;
+			transition: $transition;
+		}
+	}
+	label {
+		box-shadow: $inset_dark_shadow;
+	}
+}
+.customize-control-ttt-radio {
+	position: relative;
+	.customize-control-title {
+		width: 50%;
+		float: left;
+		+ .switch {
+			&.tiny {
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translateY(-12px);
+			}
+		}
+		+ .radio-switch {
+			position: absolute;
+			left: auto;
+			right: 0;
+			top: 50%;
+			transform: translateY(-14px);
+		}
+	}
+}
+.customize-control-ttt-switch {
+	@extend .customize-control-ttt-radio;
+}
+
+/* - - - - - Color Picker - - - - - */
+.customize-control-color {
+	margin-bottom: 10px;
+	&.picker-open {
+		margin-bottom: 30px;
+	}
+	+.customize-control-ttt-separator {
+		margin-top: -10px;
+	}
+	.customize-control-content {
+		margin-bottom: -24px;
+	}
+	position: relative;
+	.wp-picker-container {
+		width: 100%;
+		position: relative;
+		top: -24px;
+		left: 0;
+		.wp-color-result {
+			float: right;
+			margin: 0;
+			+.wp-picker-input-wrap {
+				display: inline-block;
+				width: 100%;
+			}
+			&.wp-picker-open +.wp-picker-input-wrap {
+				padding-top: 20px;
+			}
+			&:after {
+				width: 84px;
+			}
+		}
+		input[type=text].wp-color-picker {
+			width: 75%;
+			height: 1.6rem;
+		}
+		.wp-picker-clear {
+			width: calc(25% - 6px);
+			height: 1.6rem !important;
+			line-height: 1.6rem !important;
+			border: 1px solid #ddd;
+		}
+	}
+}
+/*--------------------------------------------------------------
+# TYPOGRAPHY SECTION
+--------------------------------------------------------------*/
+

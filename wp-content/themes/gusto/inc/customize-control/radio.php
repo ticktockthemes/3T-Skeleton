@@ -72,7 +72,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 			.ttt-radio-image .panel {
 				text-align: center;
 			}
-			.ttt-radio-image .panel input, .ttt-radio-control .button-group input {
+			.ttt-radio-image .panel input, .ttt-radio-button label input {
 				display: none;
 			}
 		</style>
@@ -120,7 +120,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
 				<div class="row">
 					<div class="small-4 columns">
-						<div class="switch round small">
+						<div class="switch radius tiny">
 							<input type="radio" autocomplete="off"
 								id="<?php echo esc_attr( $name . ++$i ); ?>"
 								name="<?php echo esc_attr( $name ); ?>"

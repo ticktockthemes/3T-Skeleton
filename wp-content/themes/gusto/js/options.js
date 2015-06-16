@@ -36,5 +36,10 @@
 	
 			$('#customize-control-custom_fonts')[func]();
 		}).filter('.active').trigger('click');
+
+		// Setup options toggle for WP color picker
+		$('.customize-control-color .wp-picker-container .wp-color-result').click(function() {
+			$(this).closest('li.customize-control-color').toggleClass('picker-open');
+		});
 	});
 } )( jQuery );

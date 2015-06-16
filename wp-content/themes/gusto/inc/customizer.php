@@ -18,6 +18,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Load customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
+	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
 	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
 	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
 	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
@@ -228,7 +229,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control(
 		'text_logo', array(
-			'label'       => __( 'Text Logo', 'gusto' ),
+			'label'       => __( 'Logo Text', 'gusto' ),
 			'section'     => 'ttt_general',
 			'settings'    => 'text_logo',
 			'type'        => 'text',
@@ -347,7 +348,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'page_transition_loading', array(
 				'label'    => __( 'Page Transition Loading', 'gusto' ),
 				'section'  => 'ttt_general',
@@ -383,7 +384,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'go_to_top_link', array(
 				'label'    => __( 'Go-to-Top Link', 'gusto' ),
 				'section'  => 'ttt_general',
@@ -626,7 +627,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'custom_font', array(
 				'label'    => __( 'Custom Font', 'gusto' ),
 				'section'  => 'ttt_typography',
@@ -910,7 +911,10 @@ function gusto_customize_scripts() {
 	// Load Foundation
 	wp_enqueue_style( 'normalize', get_template_directory_uri() . '/assets/foundation/css/normalize.css', array(), '3.0.3' );
 	wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/foundation/css/foundation.min.css', array(), '5.5.2' );
-	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/foundation/js/foundation.min.js', array( 'jquery' ), '5.5.2' );
+	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/foundation/js/foundation.min.js', array( 'jquery' ), '5.5.2', true );
+
+	// Load extra styles for customizer
+	wp_enqueue_style( 'customizer_css', get_template_directory_uri() . '/css/customizer.css', array() );
 
 	// Load options toggler
 	wp_enqueue_script( 'gusto_options', get_template_directory_uri() . '/js/options.js', array( 'jquery' ), '1.0', true );
@@ -929,7 +933,7 @@ function gusto_inline_styles () {
 		.wp-full-overlay-sidebar {
 			width: 400px;
 		}
-	</styl -->>
+	</style> -->
 	<?php
 }
 add_action( 'customize_controls_print_scripts', 'gusto_inline_styles' );

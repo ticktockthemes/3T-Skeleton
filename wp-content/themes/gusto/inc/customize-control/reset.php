@@ -56,7 +56,7 @@ class TTT_Customize_Control_Reset extends WP_Customize_Control {
 		// Generate control ID
 		$name = '_customize-reset-' . $this->id;
 		?>
-		<a" class="button expand round alert" href="javascript:void(0)" id="<?php echo esc_attr( $name ); ?>>
+		<a class="button expand radius warning" href="javascript:void(0)" id="<?php echo esc_attr( $name ); ?>">
 			<?php
 			if ( ! empty( $this->label ) )
 				echo esc_html( $this->label );

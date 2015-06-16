@@ -62,7 +62,7 @@ class TTT_Customize_Control_Switch extends WP_Customize_Control {
 				<?php echo $this->description ; ?>
 			</span>
 			<?php endif; ?>
-			<div class="switch round small">
+			<div class="switch round tiny">
 				<input type="checkbox" autocomplete="off"
 					id="<?php echo esc_attr( $name ); ?>-input"
 					name="<?php echo esc_attr( $name ); ?>"
