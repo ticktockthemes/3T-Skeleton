@@ -127,7 +127,7 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 				</div>
 			</div>
 			<?php endforeach; ?>
-			<a class="button expand round success" href="javascript:void(0)"
+			<a class="button expand radius success" href="javascript:void(0)"
 				data-linked="<?php echo esc_attr( $this->linked ); ?>"
 			>
 				<?php _e( 'Configure Social Links', 'gusto' ); ?>

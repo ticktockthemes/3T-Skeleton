@@ -104,31 +104,28 @@ This file contains styling for 3T Theme Customizer Panel
 /* - - - - - Switches - - - - - */
 .switch-pad {
   position: absolute;
-  left: 3px;
-  top: 3px;
+  left: 4px;
+  top: 4px;
   display: block;
   width: 50%;
   height: -webkit-calc(100% - 8px);
   height: calc(100% - 8px);
-  background: #e9e9e9;
-  border: 1px solid #149465;
-  border-bottom-color: #116446;
-  border-radius: 3px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.3);
+  background: #f5f5f5;
+  border-bottom: 1px solid #20a776;
+  border-radius: 2px !important;
   z-index: 100;
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
 }
 
 .active + .switch-pad {
-  left: -webkit-calc(50% - 6px);
-  left: calc(50% - 6px);
+  left: -webkit-calc(50% - 4px);
+  left: calc(50% - 4px);
 }
 
 .radio-switch {
   background: #19bb80;
   border-radius: 3px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
   position: relative;
@@ -204,39 +201,41 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .switch.tiny label {
-  height: 1.3rem;
+  width: 4rem;
+  height: 1.5rem;
+  background-color: #ccc;
 }
 
 .switch.tiny label:after {
-  height: -webkit-calc(1rem + 8px);
-  height: calc(1rem + 8px);
-  width: -webkit-calc(1rem + 8px);
-  width: calc(1rem + 8px);
-  left: -2px;
-  top: -2px;
-  border: 1px solid #ddd;
-  background: #e9e9e9;
-  border: 1px solid #777;
-  border-bottom-color: #555;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.3);
+  content: 'Off';
+  text-indent: 1.6rem;
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 16px;
+  text-transform: uppercase;
+  height: 1rem;
+  width: 1rem;
+  left: 3px;
+  top: 3px;
+  border: 1px solid #fff;
+  background: #fafafa;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   z-index: 500;
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
 }
 
 .switch.tiny input:checked + label:after {
-  left: 1.52rem;
+  content: 'On';
+  text-indent: -1.7rem;
+  left: 2.6rem;
 }
 
 .switch input:checked + label {
   background: #19bb80;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
-}
-
-.switch label {
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .customize-control-ttt-radio, .customize-control-ttt-switch {
@@ -267,14 +266,135 @@ This file contains styling for 3T Theme Customizer Panel
           transform: translateY(-14px);
 }
 
+/* - - - - - Radio Group - - - - - */
+.ttt-radio-group {
+  clear: both;
+  position: relative;
+  top: 5px;
+  padding: 0;
+  background-color: #f7f9fb;
+  border: 1px solid #dce3e8;
+}
+
+.ttt-radio-group .item {
+  padding: 10px 15px;
+  position: relative;
+  border-bottom: 1px solid #dce3e8;
+}
+
+.ttt-radio-group .item:last-child {
+  border: none;
+}
+
+.ttt-radio-group .radio-label {
+  font-size: 0.8rem;
+  line-height: 1.8rem;
+  width: 90%;
+  color: #7b858e;
+}
+
+.ttt-radio-group .radio {
+  width: 10%;
+}
+
+.ttt-radio-group .radio input {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #ddd;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  box-shadow: none;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+  margin: 0;
+  position: relative;
+  z-index: 200;
+}
+
+.ttt-radio-group .radio input:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  margin: 0;
+  width: 8px;
+  height: 8px;
+}
+
+.ttt-radio-group .radio input:hover {
+  border-color: #ccc;
+}
+
+.ttt-radio-group .radio input:after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  opacity: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: #ccc;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.ttt-radio-group .radio input:hover:after {
+  opacity: 1;
+}
+
+.ttt-radio-group .radio input:focus {
+  box-shadow: none;
+}
+
+.ttt-radio-group .radio input:checked {
+  -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+          transform: scale(1.2);
+  background-color: #19bb80;
+  border-color: #19bb80;
+}
+
+.ttt-radio-group .radio input:checked:before {
+  background-color: #d6f0e6;
+}
+
+.ttt-radio-group .radio input:checked:after {
+  display: none;
+}
+
+.ttt-radio-group .radio input + label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  margin: 0;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+
+.ttt-radio-group .radio input + label:hover, .ttt-radio-group .radio input + label.active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 /* - - - - - Color Picker - - - - - */
 .customize-control-color {
   margin-bottom: 10px;
   position: relative;
-}
-
-.customize-control-color.picker-open {
-  margin-bottom: 30px;
 }
 
 .customize-control-color + .customize-control-ttt-separator {

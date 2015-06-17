@@ -103,7 +103,7 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Background Repeat' ),
 				'section'  => 'ttt_general',
 				'settings' => 'boxed_layout-background_repeat',
-				'style'    => 'switch',
+				'style'    => 'radio-group',
 				'choices'  => array(
 					'no-repeat' => __('No Repeat'),
 					'repeat'    => __('Tile'),
@@ -127,7 +127,7 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Background Position' ),
 				'section'  => 'ttt_general',
 				'settings' => 'boxed_layout-background_position',
-				'style'    => 'switch',
+				'style'    => 'radio-group',
 				'choices'  => array(
 					'left'   => __('Left'),
 					'center' => __('Center'),
@@ -150,7 +150,7 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Background Attachment' ),
 				'section'  => 'ttt_general',
 				'settings' => 'boxed_layout-background_attachment',
-				'style'    => 'switch',
+				'style'    => 'radio-group',
 				'choices'  => array(
 					'scroll' => __('Scroll'),
 					'fixed'  => __('Fixed'),
@@ -172,7 +172,7 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Background Size', 'gusto' ),
 				'section'  => 'ttt_general',
 				'settings' => 'boxed_layout-background_size',
-				'style'    => 'switch',
+				'style'    => 'radio-group',
 				'choices'  => array(
 					'full_width'  => __( 'Full Width', 'gusto' ),
 					'full_height' => __( 'Full Height', 'gusto' ),
@@ -790,7 +790,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'sticky_header', array(
 				'label'    => __( 'Sticky Header', 'gusto' ),
 				'section'  => 'ttt_header',
@@ -827,7 +827,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'search_box', array(
 				'label'    => __( 'Search Box', 'gusto' ),
 				'section'  => 'ttt_header',
@@ -864,7 +864,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'show_header_social_icons', array(
 				'label'    => __( 'Social Icons', 'gusto' ),
 				'section'  => 'ttt_header',

@@ -7,7 +7,15 @@
 ( function( $ ) {
 	$(document).ready(function() {
 		// Setup options toggle for Theme Layout
-		$('#customize-control-theme_layout label').click(function() {
+		var layoutHide = $('#customize-control-theme_layout .button-group li.active input').val() == 'full' ? 'hide' : 'show'; 
+
+		$('#customize-control-boxed_layout-background_image')[layoutHide]();
+		$('#customize-control-boxed_layout-background_repeat')[layoutHide]();
+		$('#customize-control-boxed_layout-background_position')[layoutHide]();
+		$('#customize-control-boxed_layout-background_attachment')[layoutHide]();
+		$('#customize-control-boxed_layout-background_size')[layoutHide]();
+
+		$('#customize-control-theme_layout .button-group li a').click(function() {
 			var func = $(this).children('input').val() == 'full' ? 'hide' : 'show';
 	
 			$('#customize-control-boxed_layout-background_image')[func]();
@@ -18,7 +26,13 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Logo Type
-		$('#customize-control-logo_type label').click(function() {
+		var logoTextHide 	= $('#customize-control-logo_type .button-group li.active input').val() == 'text' ? 'hide' : 'show',
+			logoImageHide 	= $('#customize-control-logo_type .button-group li.active input').val() == 'image' ? 'hide' : 'show';
+		$('#customize-control-image_logo')[logoTextHide]();
+		$('#customize-control-image_retina_logo')[logoTextHide]();
+		$('#customize-control-text_logo')[logoImageHide]();
+
+		$('#customize-control-logo_type .button-group li a').click(function() {
 			if ($(this).children('input').val() == 'text') {
 				$('#customize-control-text_logo').show();
 				$('#customize-control-image_logo').hide();
@@ -31,15 +45,15 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Custom Font
-		$('#customize-control-custom_font label').click(function() {
+		$('#customize-control-custom_font .button-group li a').click(function() {
 			var func = $(this).children('input').val() == 'no' ? 'hide' : 'show';
 	
 			$('#customize-control-custom_fonts')[func]();
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for WP color picker
-		$('.customize-control-color .wp-picker-container .wp-color-result').click(function() {
-			$(this).closest('li.customize-control-color').toggleClass('picker-open');
-		});
+		// $('.customize-control-color .wp-picker-container .wp-color-result').click(function() {
+		// 	$(this).closest('li.customize-control-color').toggleClass('picker-open');
+		// });
 	});
 } )( jQuery );

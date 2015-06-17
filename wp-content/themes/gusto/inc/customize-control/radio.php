@@ -85,9 +85,24 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						$(this).addClass('callout');
 					});
 
-					// Handle radio button control
-					$('.ttt-radio-button label').click(function() {
-						$(this).parent().children().removeClass('active');
+					// Handle button switch
+					$(document).ready(function() {
+						$('.ttt-radio-control .button-group li a label').click(function() {
+							$(this).closest('.button-group').find('li').removeClass('active');
+							$(this).closest('.button-group').find('label').removeClass('lower-z');
+							if ( $(this).closest('.button-group').find('input:checked') ) {
+								$(this).closest('li').addClass('active');
+								$(this).addClass('lower-z');
+							} else {
+								$(this).removeClass('lower-z');
+							}
+						});
+					});
+
+					// Handle radio group
+					$('.ttt-radio-group .radio input:checked + label').addClass('active');
+					$('.ttt-radio-group .radio input + label').click(function() {
+						$(this).closest('.ttt-radio-group').find('label').removeClass('active');
 						$(this).addClass('active');
 					});
 				});
@@ -114,29 +129,30 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 			<?php
 			endif;
 
-			if ( 'switch' == $this->style ) :
+			if ( 'radio-group' == $this->style ) :
+			// Radio Group
 			?>
-			<div class="ttt-radio-switch">
+			<div class="ttt-radio-group panel radius">
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
-				<div class="row">
-					<div class="small-4 columns">
-						<div class="switch radius tiny">
-							<input type="radio" autocomplete="off"
-								id="<?php echo esc_attr( $name . ++$i ); ?>"
-								name="<?php echo esc_attr( $name ); ?>"
-								value="<?php echo esc_attr( $value ); ?>"
-								<?php $this->link(); checked( $this->value(), $value ); ?>
-							>
-							<label for="<?php echo esc_attr( $name . $i ); ?>"></label>
-						</div>
-					</div>
-					<div class="small-8 columns">
+				<div class="item clearfix">
+					<div class="radio-label left">
 						<?php echo esc_html( $label ); ?>
+					</div>
+					<div class="radio right">
+						<input type="radio" autocomplete="off"
+							id="<?php echo esc_attr( $name . ++$i ); ?>"
+							name="<?php echo esc_attr( $name ); ?>"
+							value="<?php echo esc_attr( $value ); ?>"
+							<?php $this->link(); checked( $this->value(), $value ); ?>
+						>
+						<label for="<?php echo esc_attr( $name . $i ); ?>"></label>
 					</div>
 				</div>
 				<?php endforeach; ?>
 			</div>
-			<?php elseif ( 'image' == $this->style ) : ?>
+			<?php elseif ( 'image' == $this->style ) : 
+			// Image Switch
+			?>
 			<div class="ttt-radio-image">
 				<?php $i = 0; foreach ( $this->choices as $value => $data ) : ?>
 				<label for="<?php echo esc_attr( $name . ++$i ); ?>" class="panel radius <?php
@@ -155,23 +171,31 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 				</label>
 				<?php endforeach; ?>
 			</div>
-			<?php else : ?>
-			<div class="ttt-radio-button stack-for-small round secondary button-group">
+			<?php else :
+			// Button Switch
+			?>
+			<ul class="radio-switch radius button-group">
 				<?php $i = 0; foreach ( $this->choices as $value => $label ) : ?>
-				<label class="button <?php
+				<li class="<?php
 					if ( $this->value() == $value )
 						echo 'active';
 				?>">
+					<a href="javascript:void(0);" class="button">
 					<input type="radio" autocomplete="off"
 						id="<?php echo esc_attr( $name . ++$i ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
 						value="<?php echo esc_attr( $value ); ?>"
 						<?php $this->link(); checked( $this->value(), $value ); ?>
-					>
-					<?php echo esc_html( $label ); ?>
-				</label>
+					style="display: none;">
+					<label class="<?php
+						if ( $this->value() == $value )
+							echo 'lower-z';
+					?>" data-content="<?php echo esc_html( $label ); ?>" for="<?php echo esc_attr( $name . $i ); ?>"></label>
+					</a>
+				</li>
 				<?php endforeach; ?>
-			</div>
+				<div class="switch-pad"></div>
+			</ul>
 			<?php endif; ?>
 		</div>
 		<?php
