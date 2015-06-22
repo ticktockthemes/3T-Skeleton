@@ -20,6 +20,7 @@ function gusto_customize_register( $wp_customize ) {
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
 	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
 	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
+	include_once dirname( __FILE__ ) . '/customize-control/textarea.php';
 	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
 	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
 	include_once dirname( __FILE__ ) . '/customize-control/social/icons.php';
@@ -342,7 +343,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'page_transition_loading', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -353,10 +354,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Page Transition Loading', 'gusto' ),
 				'section'  => 'ttt_general',
 				'settings' => 'page_transition_loading',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -378,7 +375,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'go_to_top_link', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -389,10 +386,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Go-to-Top Link', 'gusto' ),
 				'section'  => 'ttt_general',
 				'settings' => 'go_to_top_link',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -621,7 +614,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'custom_font', array(
-			'default'           => 'no',
+			'default'           => 'off',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -632,10 +625,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Custom Font', 'gusto' ),
 				'section'  => 'ttt_typography',
 				'settings' => 'custom_font',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -784,7 +773,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'sticky_header', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -795,10 +784,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Sticky Header', 'gusto' ),
 				'section'  => 'ttt_header',
 				'settings' => 'sticky_header',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -821,7 +806,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'search_box', array(
-			'default'           => 'no',
+			'default'           => 'off',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -832,10 +817,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Search Box', 'gusto' ),
 				'section'  => 'ttt_header',
 				'settings' => 'search_box',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -858,7 +839,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'show_header_social_icons', array(
-			'default'           => 'yes',
+			'default'           => 'off',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
@@ -869,10 +850,6 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Social Icons', 'gusto' ),
 				'section'  => 'ttt_header',
 				'settings' => 'show_header_social_icons',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -889,6 +866,181 @@ function gusto_customize_register( $wp_customize ) {
 			$wp_customize, 'header_social_icons', array(
 				'section'  => 'ttt_header',
 				'settings' => 'header_social_icons',
+				'linked'   => 'social_config',
+			)
+		)
+	);
+
+	// Register Footer section
+	$wp_customize->add_section(
+		'ttt_footer', array(
+			'title'       => __( 'Footer', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'priority'    => 4,
+		)
+	);
+
+	// Register Widgets Area settings and controls
+	$wp_customize->add_setting(
+		'separator_before_footer_widgets', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_footer_widgets', array(
+				'section'  => 'ttt_footer',
+				'settings' => 'separator_before_footer_widgets',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'footer_widgets', array(
+			'default'           => 'off',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'footer_widgets', array(
+				'label'    => __( 'Footer Widgets Area', 'gusto' ),
+				'section'  => 'ttt_footer',
+				'settings' => 'footer_widgets',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'footer_widgets_layout', array(
+			'default'           => '1-column',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'footer_widgets_layout', array(
+				'label'    => __( 'Footer Widgets Layout', 'gusto' ),
+				'section'  => 'ttt_footer',
+				'settings' => 'footer_widgets_layout',
+				'style'    => 'image',
+				'span'     => 3,
+				'choices'  => array(
+					'1-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/footer_widgets_layout_1.jpg',
+					),
+					'2-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/footer_widgets_layout_2.jpg',
+					),
+					'3-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/footer_widgets_layout_3.jpg',
+					),
+					'4-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/footer_widgets_layout_4.jpg',
+					),
+				),
+			)
+		)
+	);
+
+	// Register Custom Copyright settings and controls
+	$wp_customize->add_setting(
+		'separator_before_custom_copyright', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_custom_copyright', array(
+				'section'  => 'ttt_footer',
+				'settings' => 'separator_before_custom_copyright',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_copyright', array(
+			'default'           => 'off',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'custom_copyright', array(
+				'label'    => __( 'Custom Copyright', 'gusto' ),
+				'section'  => 'ttt_footer',
+				'settings' => 'custom_copyright',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_copyright_text', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Textarea(
+			$wp_customize, 'custom_copyright_text', array(
+				'section'     => 'ttt_footer',
+				'settings'    => 'custom_copyright_text',
+				'placeholder' => __( '$this->placeholder', 'gusto' ),
+			)
+		)
+	);
+
+	// Register Social Icons settings and controls
+	$wp_customize->add_setting(
+		'separator_before_show_footer_social_icons', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_show_footer_social_icons', array(
+				'section'  => 'ttt_footer',
+				'settings' => 'separator_before_show_footer_social_icons',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'show_footer_social_icons', array(
+			'default'           => 'off',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'show_footer_social_icons', array(
+				'label'    => __( 'Social Icons', 'gusto' ),
+				'section'  => 'ttt_footer',
+				'settings' => 'show_footer_social_icons',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'footer_social_icons', array(
+			'default'           => array( 'facebook', 'twitter' ),
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Social_Icons(
+			$wp_customize, 'footer_social_icons', array(
+				'section'  => 'ttt_footer',
+				'settings' => 'footer_social_icons',
 				'linked'   => 'social_config',
 			)
 		)

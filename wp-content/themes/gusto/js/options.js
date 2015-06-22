@@ -7,17 +7,9 @@
 ( function( $ ) {
 	$(document).ready(function() {
 		// Setup options toggle for Theme Layout
-		var layoutHide = $('#customize-control-theme_layout .button-group li.active input').val() == 'full' ? 'hide' : 'show'; 
+		$('#customize-control-theme_layout .button-group li').click(function() {
+			var func = $(this).find('input').val() == 'full' ? 'hide' : 'show';
 
-		$('#customize-control-boxed_layout-background_image')[layoutHide]();
-		$('#customize-control-boxed_layout-background_repeat')[layoutHide]();
-		$('#customize-control-boxed_layout-background_position')[layoutHide]();
-		$('#customize-control-boxed_layout-background_attachment')[layoutHide]();
-		$('#customize-control-boxed_layout-background_size')[layoutHide]();
-
-		$('#customize-control-theme_layout .button-group li a').click(function() {
-			var func = $(this).children('input').val() == 'full' ? 'hide' : 'show';
-	
 			$('#customize-control-boxed_layout-background_image')[func]();
 			$('#customize-control-boxed_layout-background_repeat')[func]();
 			$('#customize-control-boxed_layout-background_position')[func]();
@@ -26,14 +18,8 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Logo Type
-		var logoTextHide 	= $('#customize-control-logo_type .button-group li.active input').val() == 'text' ? 'hide' : 'show',
-			logoImageHide 	= $('#customize-control-logo_type .button-group li.active input').val() == 'image' ? 'hide' : 'show';
-		$('#customize-control-image_logo')[logoTextHide]();
-		$('#customize-control-image_retina_logo')[logoTextHide]();
-		$('#customize-control-text_logo')[logoImageHide]();
-
-		$('#customize-control-logo_type .button-group li a').click(function() {
-			if ($(this).children('input').val() == 'text') {
+		$('#customize-control-logo_type .button-group li').click(function() {
+			if ($(this).find('input').val() == 'text') {
 				$('#customize-control-text_logo').show();
 				$('#customize-control-image_logo').hide();
 				$('#customize-control-image_retina_logo').hide();
@@ -45,11 +31,39 @@
 		}).filter('.active').trigger('click');
 
 		// Setup options toggle for Custom Font
-		$('#customize-control-custom_font .button-group li a').click(function() {
-			var func = $(this).children('input').val() == 'no' ? 'hide' : 'show';
+		$('#customize-control-custom_font .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
 	
 			$('#customize-control-custom_fonts')[func]();
-		}).filter('.active').trigger('click');
+		}).trigger('change');
+
+		// Setup options toggle for Header Social Icons
+		$('#customize-control-show_header_social_icons .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
+
+			$('#customize-control-header_social_icons')[func]();
+		}).trigger('change');
+
+		// Setup options toggle for Footer Widgets
+		$('#customize-control-footer_widgets .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
+	
+			$('#customize-control-footer_widgets_layout')[func]();
+		}).trigger('change');
+
+		// Setup options toggle for Custom Copyright
+		$('#customize-control-custom_copyright .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
+	
+			$('#customize-control-custom_copyright_text')[func]();
+		}).trigger('change');
+
+		// Setup options toggle for Footer Social Icons
+		$('#customize-control-show_footer_social_icons .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
+
+			$('#customize-control-footer_social_icons')[func]();
+		}).trigger('change');
 
 		// Setup options toggle for WP color picker
 		// $('.customize-control-color .wp-picker-container .wp-color-result').click(function() {

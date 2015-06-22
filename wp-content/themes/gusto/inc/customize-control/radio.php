@@ -50,6 +50,10 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 		if ( isset( $args['style'] ) ) {
 			$this->style = $args['style'];
 		}
+
+		if ( isset( $args['span'] ) ) {
+			$this->span = $args['span'];
+		}
 	}
 
 	/**
@@ -70,6 +74,9 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 		?>
 		<style type="text/css">
 			.ttt-radio-image .panel {
+				float: left;
+				border: 0;
+				padding: 0;
 				text-align: center;
 			}
 			.ttt-radio-image .panel input, .ttt-radio-button label input {
@@ -90,6 +97,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						$('.ttt-radio-control .button-group li a label').click(function() {
 							$(this).closest('.button-group').find('li').removeClass('active');
 							$(this).closest('.button-group').find('label').removeClass('lower-z');
+
 							if ( $(this).closest('.button-group').find('input:checked') ) {
 								$(this).closest('li').addClass('active');
 								$(this).addClass('lower-z');
@@ -143,30 +151,44 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 							id="<?php echo esc_attr( $name . ++$i ); ?>"
 							name="<?php echo esc_attr( $name ); ?>"
 							value="<?php echo esc_attr( $value ); ?>"
-							<?php $this->link(); checked( $this->value(), $value ); ?>
+							<?php $this->link(); ?>
+							<?php checked( $this->value(), $value ); ?>
 						>
 						<label for="<?php echo esc_attr( $name . $i ); ?>"></label>
 					</div>
 				</div>
 				<?php endforeach; ?>
 			</div>
-			<?php elseif ( 'image' == $this->style ) : 
+			<?php elseif ( 'image' == $this->style ) :
 			// Image Switch
 			?>
-			<div class="ttt-radio-image">
-				<?php $i = 0; foreach ( $this->choices as $value => $data ) : ?>
+			<div class="ttt-radio-image clear row">
+				<?php
+				// Calculate column span
+				$span = isset( $this->span ) ? "small-{$this->span}" : 'small-12';
+
+				// Option counter
+				$i = 0;
+
+				foreach ( $this->choices as $value => $data ) :
+				?>
 				<label for="<?php echo esc_attr( $name . ++$i ); ?>" class="panel radius <?php
+					echo esc_attr( $span );
+
 					if ( $this->value() == $value )
-						echo 'callout';
+						echo ' callout';
 				?>">
 					<input type="radio" autocomplete="off"
 						id="<?php echo esc_attr( $name . $i ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
 						value="<?php echo esc_attr( $value ); ?>"
-						<?php $this->link(); checked( $this->value(), $value ); ?>
+						<?php $this->link(); ?>
+						<?php checked( $this->value(), $value ); ?>
 					>
-					<?php echo esc_html( $data['label'] ); ?>
-					<br>
+					<?php
+					if ( isset( $data['label'] ) )
+						echo esc_html( $data['label'] ) . '<br>';
+					?>
 					<img src="<?php echo esc_url( $data['image'] ); ?>">
 				</label>
 				<?php endforeach; ?>
@@ -185,7 +207,8 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						id="<?php echo esc_attr( $name . ++$i ); ?>"
 						name="<?php echo esc_attr( $name ); ?>"
 						value="<?php echo esc_attr( $value ); ?>"
-						<?php $this->link(); checked( $this->value(), $value ); ?>
+						<?php $this->link(); ?>
+						<?php checked( $this->value(), $value ); ?>
 					style="display: none;">
 					<label class="<?php
 						if ( $this->value() == $value )
