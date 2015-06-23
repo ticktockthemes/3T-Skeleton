@@ -65,6 +65,13 @@
 			$('#customize-control-footer_social_icons')[func]();
 		}).trigger('change');
 
+		// Setup options toggle for Automatic Post Excerpts
+		$('#customize-control-automatic_post_excerpts .button-group li').click(function() {
+			var func = $(this).find('input').val() == 'yes' ? 'show' : 'hide';
+
+			$('#customize-control-automatic_excerpts_length')[func]();
+		}).filter('.active').trigger('click');
+
 		// Setup options toggle for WP color picker
 		// $('.customize-control-color .wp-picker-container .wp-color-result').click(function() {
 		// 	$(this).closest('li.customize-control-color').toggleClass('picker-open');

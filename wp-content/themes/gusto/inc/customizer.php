@@ -325,7 +325,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register other general settings and controls
+	// Register other General settings and controls
 	$wp_customize->add_setting(
 		'separator_before_page_transition_loading', array(
 			'sanitize_callback' => 'sanitize_key',
@@ -1042,6 +1042,374 @@ function gusto_customize_register( $wp_customize ) {
 				'section'  => 'ttt_footer',
 				'settings' => 'footer_social_icons',
 				'linked'   => 'social_config',
+			)
+		)
+	);
+
+	// Register Blog section
+	$wp_customize->add_section(
+		'ttt_blog', array(
+			'title'       => __( 'Blog', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'priority'    => 5,
+		)
+	);
+
+	// Register Blog Layout setting and control
+	$wp_customize->add_setting(
+		'separator_before_blog_layout', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_blog_layout', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_blog_layout',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blog_layout', array(
+			'default'           => '1-column',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'blog_layout', array(
+				'label'    => __( 'Blog Layout', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'blog_layout',
+				'style'    => 'image',
+				'span'     => 3,
+				'choices'  => array(
+					'1-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/blog_layout_1.jpg',
+					),
+					'3-column' => array(
+						'image' => get_template_directory_uri() . '/assets/images/blog_layout_2.jpg',
+					),
+					'2-column-left' => array(
+						'image' => get_template_directory_uri() . '/assets/images/blog_layout_3.jpg',
+					),
+					'2-column-right' => array(
+						'image' => get_template_directory_uri() . '/assets/images/blog_layout_4.jpg',
+					),
+				),
+			)
+		)
+	);
+
+	// Register Mansonry Style setting and control
+	$wp_customize->add_setting(
+		'separator_before_mansonry_style', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_mansonry_style', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_mansonry_style',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'mansonry_style', array(
+			'default'           => 'no',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'mansonry_style', array(
+				'label'    => __( 'Mansonry Style', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'mansonry_style',
+				'style'    => 'button',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	// Register Automatic Post Excerpts settings and controls
+	$wp_customize->add_setting(
+		'separator_before_automatic_post_excerpts', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_automatic_post_excerpts', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_automatic_post_excerpts',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'automatic_post_excerpts', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'automatic_post_excerpts', array(
+				'label'    => __( 'Automatic Post Excerpts', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'automatic_post_excerpts',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'automatic_excerpts_length', array(
+			'default'           => 250,
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'automatic_excerpts_length', array(
+			'label'       => __( 'Automatic Excerpts Length', 'gusto' ),
+			'section'     => 'ttt_blog',
+			'settings'    => 'automatic_excerpts_length',
+			'type'        => 'number',
+		)
+	);
+
+	// Register other Blog settings and controls
+	$wp_customize->add_setting(
+		'separator_before_pagination_style', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_pagination_style', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_pagination_style',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'pagination_style', array(
+			'default'           => 'pagination',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'pagination_style', array(
+				'label'    => __( 'Pagination Style', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'pagination_style',
+				'style'    => 'radio-group',
+				'choices'  => array(
+					'next_prev'       => __( 'Next / Prev', 'gusto' ),
+					'pagination'      => __( 'Pagination', 'gusto' ),
+					'infinity_scroll' => __( 'Infinity Scroll', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_hide_sidebar_on_single_post', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_hide_sidebar_on_single_post', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_hide_sidebar_on_single_post',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'hide_sidebar_on_single_post', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'hide_sidebar_on_single_post', array(
+				'label'    => __( 'Hide Sidebar On Single Post', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'hide_sidebar_on_single_post',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_featured_image_on_single_post', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_featured_image_on_single_post', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_featured_image_on_single_post',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'featured_image_on_single_post', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'featured_image_on_single_post', array(
+				'label'    => __( 'Featured Image On Single Post', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'featured_image_on_single_post',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_prev_next_on_single_post', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_prev_next_on_single_post', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_prev_next_on_single_post',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'prev_next_on_single_post', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'prev_next_on_single_post', array(
+				'label'    => __( 'Prev / Next On Single Post', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'prev_next_on_single_post',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_single_post_tag', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_single_post_tag', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_single_post_tag',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'single_post_tag', array(
+			'default'           => 'no',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'single_post_tag', array(
+				'label'    => __( 'Single Post Tag', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'single_post_tag',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'separator_before_single_post_author_bio', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_single_post_author_bio', array(
+				'section'  => 'ttt_blog',
+				'settings' => 'separator_before_single_post_author_bio',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'single_post_author_bio', array(
+			'default'           => 'yes',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Radio(
+			$wp_customize, 'single_post_author_bio', array(
+				'label'    => __( 'Single Post Author Bio', 'gusto' ),
+				'section'  => 'ttt_blog',
+				'settings' => 'single_post_author_bio',
+				'choices'  => array(
+					'yes' => __( 'Yes', 'gusto' ),
+					'no'  => __( 'No', 'gusto' ),
+				),
 			)
 		)
 	);

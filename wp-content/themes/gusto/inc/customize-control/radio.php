@@ -23,7 +23,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 	 * @access protected
 	 * @var string
 	 */
-	protected $style = 'button';
+	protected $style = '';
 
 	/**
 	 * Constructor.
