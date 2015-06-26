@@ -44,11 +44,9 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 
 		// Register child settings
 		foreach ( TTT_Customize_Control_Social_Config::$networks as $network => $label ) {
-			$default = 'no';
-
-			if ( isset( $args['default'] ) && in_array( $network, $args['default'] ) ) {
-				$default = 'yes';
-			}
+			$default = ( isset( $args['default'] ) && in_array( $network, $args['default'] ) )
+				? 'yes'
+				: 'no';
 
 			$manager->add_setting(
 				$this->id . '_' . $network, array(
@@ -56,6 +54,15 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 					'sanitize_callback' => 'sanitize_key',
 				)
 			);
+
+			if ( false === get_theme_mod( $this->id . '_' . $network, false ) ) {
+				set_theme_mod(
+					$this->id . '_' . $network,
+					( isset( $args['default'] ) && in_array( $network, $args['default'] ) )
+						? 'yes'
+						: 'no'
+				);
+			}
 		}
 	}
 
@@ -68,20 +75,32 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 		// Generate control ID
 		$name = '_customize-social-icons-' . $this->id;
 
-		// Get configured social networks
-		$social_networks = get_theme_mod( $this->linked, array() );
-
 		// Print styles
 		if ( ! defined( 'TTT_Customize_Control_Social_Icons_Loaded' ) ) :
 		?>
 		<style type="text/css">
-			.ttt-social-icons-control .row {
+			.ttt-social-icons-control div[data-network] {
 				display: none;
 			}
-			.ttt-social-icons-control .row.configured {
+			.ttt-social-icons-control div[data-network].configured {
 				display: block;
 			}
 		</style>
+		<script type="text/javascript">
+			(function($) {
+				$(document).ready(function() {
+					$('.ttt-social-icons-control input[type="checkbox"]').change(function() {
+						$(this).prev('input').val(this.checked ? 'yes' : 'no').trigger('change');
+					});
+
+					$('.ttt-social-icons-control > a.button').click(function() {
+						var linked = $('#_customize-social-config-' + $(this).attr('data-linked'));
+
+						linked.closest('.accordion-section').find('.accordion-section-title').trigger('click');
+					});
+				});
+			})(jQuery);
+		</script>
 		<?php
 		define( 'TTT_Customize_Control_Social_Icons_Loaded', true );
 
@@ -104,26 +123,29 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 			endif;
 
 			foreach ( TTT_Customize_Control_Social_Config::$networks as $network => $label ) :
+
+			// Get social network config
+			$config = get_theme_mod( $this->linked . '_' . $network );
 			?>
-			<div class="row <?php
-				if ( isset( $social_networks[ $network ] ) && ! empty( $social_networks[ $network ] ) )
-					echo 'configured';
+			<div class="ttt-switch-control <?php if ( $config ) echo 'configured'; ?>" data-network="<?php
+				echo esc_attr( $network );
 			?>">
-				<div class="small-8 columns">
+				<span class="customize-control-title">
 					<?php echo esc_html( $label ); ?>
-				</div>
-				<div class="small-4 columns">
-					<div class="switch round small">
-						<input type="checkbox" autocomplete="off" value="1" id="<?php
-							echo esc_attr( $name . '_' . $network );
-						?>" data-customize-setting-link="<?php
-							echo esc_attr( $this->id . '_' . $network );
-						?>" <?php
-							if ( get_theme_mod( $this->id . '_' . $network ) || in_array( $network, $this->value() ) )
-								echo 'checked="checked"';
-						?>>
-						<label for="<?php echo esc_attr( $name . '_' . $network ); ?>"></label>
-					</div>
+				</span>
+				<div class="switch round tiny">
+					<input type="hidden" data-customize-setting-link="<?php
+						echo esc_attr( $this->id . '_' . $network );
+					?>" value="<?php
+						echo esc_attr( get_theme_mod( $this->id . '_' . $network ) );
+					?>">
+					<input type="checkbox" autocomplete="off" id="<?php
+						echo esc_attr( $name . '_' . $network );
+					?>" <?php
+						if ( 'yes' == get_theme_mod( $this->id . '_' . $network ) )
+							echo 'checked="checked"';
+					?>>
+					<label for="<?php echo esc_attr( $name . '_' . $network ); ?>"></label>
 				</div>
 			</div>
 			<?php endforeach; ?>

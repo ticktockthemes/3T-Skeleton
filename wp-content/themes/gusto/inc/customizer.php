@@ -1413,6 +1413,48 @@ function gusto_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	// Register Social Links section
+	$wp_customize->add_section(
+		'ttt_social_links', array(
+			'title'       => __( 'Social Links', 'gusto' ),
+			'description' => __( 'Here you can set whether to use or not to use social media links. Input URL of your social link to enable using it. Remember to put http:// to the URL.', 'gusto' ),
+			'priority'    => 6,
+		)
+	);
+
+	// Register Social Channel Links setting and control
+	$wp_customize->add_setting(
+		'separator_before_social_config', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_social_config', array(
+				'section'  => 'ttt_social_links',
+				'settings' => 'separator_before_social_config',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'social_config', array(
+			'default'           => array(),
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Social_Config(
+			$wp_customize, 'social_config', array(
+				'label'    => __( 'Social Channel Links', 'gusto' ),
+				'section'  => 'ttt_social_links',
+				'settings' => 'social_config',
+			)
+		)
+	);
 }
 add_action( 'customize_register', 'gusto_customize_register' );
 
