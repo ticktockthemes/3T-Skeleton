@@ -16,6 +16,7 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 
 	// Load customize control classes
+	include_once dirname( __FILE__ ) . '/customize-control/location.php';
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
 	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
@@ -1122,22 +1123,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'mansonry_style', array(
-			'default'           => 'no',
+			'default'           => '',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'mansonry_style', array(
 				'label'    => __( 'Mansonry Style', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'mansonry_style',
-				'style'    => 'button',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1160,21 +1156,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'automatic_post_excerpts', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'automatic_post_excerpts', array(
 				'label'    => __( 'Automatic Post Excerpts', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'automatic_post_excerpts',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1251,21 +1243,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'hide_sidebar_on_single_post', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'hide_sidebar_on_single_post', array(
 				'label'    => __( 'Hide Sidebar On Single Post', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'hide_sidebar_on_single_post',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1287,21 +1275,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'featured_image_on_single_post', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'featured_image_on_single_post', array(
 				'label'    => __( 'Featured Image On Single Post', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'featured_image_on_single_post',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1323,21 +1307,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'prev_next_on_single_post', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'prev_next_on_single_post', array(
 				'label'    => __( 'Prev / Next On Single Post', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'prev_next_on_single_post',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1359,21 +1339,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'single_post_tag', array(
-			'default'           => 'no',
+			'default'           => '',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'single_post_tag', array(
 				'label'    => __( 'Single Post Tag', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'single_post_tag',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1395,21 +1371,17 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'single_post_author_bio', array(
-			'default'           => 'yes',
+			'default'           => 'on',
 			'sanitize_callback' => 'sanitize_key',
 		)
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Radio(
+		new TTT_Customize_Control_Switch(
 			$wp_customize, 'single_post_author_bio', array(
 				'label'    => __( 'Single Post Author Bio', 'gusto' ),
 				'section'  => 'ttt_blog',
 				'settings' => 'single_post_author_bio',
-				'choices'  => array(
-					'yes' => __( 'Yes', 'gusto' ),
-					'no'  => __( 'No', 'gusto' ),
-				),
 			)
 		)
 	);
@@ -1452,6 +1424,286 @@ function gusto_customize_register( $wp_customize ) {
 				'label'    => __( 'Social Channel Links', 'gusto' ),
 				'section'  => 'ttt_social_links',
 				'settings' => 'social_config',
+			)
+		)
+	);
+
+	// Register Blog section
+	$wp_customize->add_section(
+		'ttt_map', array(
+			'title'       => __( 'Map', 'gusto' ),
+			'description' => __( 'Here you can configure your Google map. Please refer to <a href="http://latlong.net" target="_blank">http://latlong.net</a> to get the latitude and longitude of your address.', 'gusto' ),
+			'priority'    => 5,
+		)
+	);
+
+	// Register general Map settings and controls
+	$wp_customize->add_setting(
+		'separator_before_show_map_on_home', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_show_map_on_home', array(
+				'section'  => 'ttt_map',
+				'settings' => 'separator_before_show_map_on_home',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'show_map_on_home', array(
+			'default'           => 'on',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'show_map_on_home', array(
+				'label'    => __( 'Show Map on Home Page', 'gusto' ),
+				'section'  => 'ttt_map',
+				'settings' => 'show_map_on_home',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'show_map_on_contact', array(
+			'default'           => 'on',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'show_map_on_contact', array(
+				'label'    => __( 'Show Map on Contact Page', 'gusto' ),
+				'section'  => 'ttt_map',
+				'settings' => 'show_map_on_contact',
+			)
+		)
+	);
+
+	// Register centered position settings and controls
+	$wp_customize->add_setting(
+		'separator_before_centered_position_latitude', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_centered_position_latitude', array(
+				'section'  => 'ttt_map',
+				'settings' => 'separator_before_centered_position_latitude',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'centered_position_latitude', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'centered_position_latitude', array(
+			'label'       => __( 'Centered Position Latitude', 'gusto' ),
+			'section'     => 'ttt_map',
+			'settings'    => 'centered_position_latitude',
+			'type'        => 'text',
+			'input_attrs' => array(
+				'placeholder' => __( 'Enter latitude here', 'gusto' ),
+			),
+		)
+	);
+
+	$wp_customize->add_setting(
+		'centered_position_longitude', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'centered_position_longitude', array(
+			'label'       => __( 'Centered Position Longitude', 'gusto' ),
+			'section'     => 'ttt_map',
+			'settings'    => 'centered_position_longitude',
+			'type'        => 'text',
+			'input_attrs' => array(
+				'placeholder' => __( 'Enter longitude here', 'gusto' ),
+			),
+		)
+	);
+
+	// Register map zooming settings and controls
+	$wp_customize->add_setting(
+		'separator_before_map_zoom_display', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_map_zoom_display', array(
+				'section'  => 'ttt_map',
+				'settings' => 'separator_before_map_zoom_display',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'map_zoom_display', array(
+			'default'           => 'on',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'map_zoom_display', array(
+				'label'    => __( 'Map Zoom Display', 'gusto' ),
+				'section'  => 'ttt_map',
+				'settings' => 'map_zoom_display',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'map_zoom_level', array(
+			'default'           => '14',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		'map_zoom_level', array(
+			'label'    => __( 'Map Zoom Level', 'gusto' ),
+			'section'  => 'ttt_map',
+			'settings' => 'map_zoom_level',
+			'type'     => 'select',
+			'choices'  => array(
+				'1'  => '1',
+				'2'  => '2',
+				'3'  => '3',
+				'4'  => '4',
+				'5'  => '5',
+				'6'  => '6',
+				'7'  => '7',
+				'8'  => '8',
+				'9'  => '9',
+				'10' => '10',
+				'11' => '11',
+				'12' => '12',
+				'13' => '13',
+				'14' => '14',
+				'15' => '15',
+				'16' => '16',
+				'17' => '17',
+				'18' => '18',
+			),
+		)
+	);
+
+	// Register Location Box settings and controls
+	$wp_customize->add_setting(
+		'separator_before_location_box', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_location_box', array(
+				'section'  => 'ttt_map',
+				'settings' => 'separator_before_location_box',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'location_box', array(
+			'default'           => 'on',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'location_box', array(
+				'label'    => __( 'Location Box', 'gusto' ),
+				'section'  => 'ttt_map',
+				'settings' => 'location_box',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'location_box_data', array(
+			'default'           => '',
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Location(
+			$wp_customize, 'location_box_data', array(
+				'section'  => 'ttt_map',
+				'settings' => 'location_box_data',
+			)
+		)
+	);
+
+	// Register Custom Marker settings and controls
+	$wp_customize->add_setting(
+		'separator_before_custom_marker', array(
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_custom_marker', array(
+				'section'  => 'ttt_map',
+				'settings' => 'separator_before_custom_marker',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_marker', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'custom_marker', array(
+				'label'    => __( 'Custom Marker', 'gusto' ),
+				'section'  => 'ttt_map',
+				'settings' => 'custom_marker',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_marker_image', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize, 'custom_marker_image', array(
+				'section'  => 'ttt_map',
+				'settings' => 'custom_marker_image',
 			)
 		)
 	);
