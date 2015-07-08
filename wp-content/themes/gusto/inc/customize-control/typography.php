@@ -244,7 +244,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 				<p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
 				<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 			</div>
-			<table border="0" cellspacing="0" cellpadding="0">
+			<table>
 				<thead>
 					<tr>
 						<th>
@@ -280,7 +280,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								isset( $default['font_family'] ) ? $default['font_family'] : null
 							);
 							?>
-							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
+							<select data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
 								<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
 									<?php foreach ( $this->standard_fonts as $option ) : ?>
@@ -339,7 +339,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								isset( $default['spacing'] ) ? $default['spacing'] : null
 							);
 							?>
-							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
+							<select data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->spacings as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -358,7 +358,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								isset( $default['font_style'] ) ? $default['font_style'] : null
 							);
 							?>
-							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
+							<select data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->styles as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -377,7 +377,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								isset( $default['text_transform'] ) ? $default['text_transform'] : null
 							);
 							?>
-							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
+							<select data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->transforms as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );
@@ -396,7 +396,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 								isset( $default['subset'] ) ? $default['subset'] : null
 							);
 							?>
-							<select autocomplete="off" data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
+							<select data-customize-setting-link="<?php echo esc_attr( $prop ); ?>">
 								<?php foreach ( $this->subsets as $option ) : ?>
 								<option value="<?php echo esc_attr( $option ); ?>" <?php
 									selected( $value, $option );

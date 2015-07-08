@@ -66,6 +66,7 @@ class TTT_Customize_Control_Textarea extends WP_Customize_Control {
 					echo 'placeholder="' . $this->placeholder . '"';
 				?>
 			><?php echo '' . $this->value(); ?></textarea>
+		</div>
 		<?php
 	}
 }

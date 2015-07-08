@@ -85,5 +85,12 @@
 
 			$('#customize-control-custom_marker_image')[func]();
 		}).trigger('change');
+
+		// Setup options toggle for Custom CSS
+		$('#customize-control-custom_css .switch input').change(function() {
+			var func = this.checked ? 'show' : 'hide';
+
+			$('#customize-control-custom_css_data')[func]();
+		}).trigger('change');
 	});
 } )( jQuery );

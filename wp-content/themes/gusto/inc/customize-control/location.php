@@ -145,7 +145,21 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 		endif;
 		?>
 		<div class="ttt-location-control" id="<?php echo esc_attr( $name ); ?>">
+			<?php if ( ! empty( $this->label ) ) : ?>
+			<span class="customize-control-title">
+				<?php echo esc_html( $this->label ); ?>
+			</span>
 			<?php
+			endif;
+
+			if ( ! empty( $this->description ) ) :
+			?>
+			<span class="description customize-control-description">
+				<?php echo $this->description ; ?>
+			</span>
+			<?php
+			endif;
+
 			if ( isset( $locations ) && isset( $locations['enable'] ) && count( $locations['enable'] ) ) :
 
 			foreach ( $locations['enable'] as $k => $v ) :

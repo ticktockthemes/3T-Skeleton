@@ -217,7 +217,6 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 					</a>
 				</li>
 				<?php endforeach; ?>
-				<div class="switch-pad"></div>
 			</ul>
 			<?php endif; ?>
 		</div>

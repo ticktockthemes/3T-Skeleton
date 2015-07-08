@@ -56,29 +56,31 @@ class TTT_Customize_Control_Reset extends WP_Customize_Control {
 		// Generate control ID
 		$name = '_customize-reset-' . $this->id;
 		?>
-		<a class="button expand radius warning" href="javascript:void(0)" id="<?php echo esc_attr( $name ); ?>">
-			<?php
-			if ( ! empty( $this->label ) )
-				echo esc_html( $this->label );
-			else
-				_e( 'Reset to default', 'gusto' );
-			?>
-		</a>
-		<script type="text/javascript">
-			(function($) {
-				var defaults = <?php echo json_encode( $this->defaults ); ?>;
+		<div class="ttt-reset-control" id="<?php echo esc_attr( $name ); ?>">
+			<a class="button expand radius warning" href="javascript:void(0)">
+				<?php
+				if ( ! empty( $this->label ) )
+					echo esc_html( $this->label );
+				else
+					_e( 'Reset to default', 'gusto' );
+				?>
+			</a>
+			<script type="text/javascript">
+				(function($) {
+					var defaults = <?php echo json_encode( $this->defaults ); ?>;
 
-				$('#<?php echo esc_attr( $name ); ?>').click(function(event) {
-					event.preventDefault();
+					$('#<?php echo esc_attr( $name ); ?> .button').click(function(event) {
+						event.preventDefault();
 
-					if (confirm('<?php _e( 'Are you sure you want to reset these settings to default?', 'gusto' ); ?>')) {
-						for (var i in defaults) {
-							$('#customize-control-' + i).find(defaults[i].input).val(defaults[i].value).trigger('change');
+						if (confirm('<?php _e( 'Are you sure you want to reset these settings to default?', 'gusto' ); ?>')) {
+							for (var i in defaults) {
+								$('#customize-control-' + i).find(defaults[i].input).val(defaults[i].value).trigger('change');
+							}
 						}
-					}
-				});
-			})(jQuery);
-		</script>
+					});
+				})(jQuery);
+			</script>
+		</div>
 		<?php
 	}
 }

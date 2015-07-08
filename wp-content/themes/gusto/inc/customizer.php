@@ -16,6 +16,7 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 
 	// Load customize control classes
+	include_once dirname( __FILE__ ) . '/customize-control/code.php';
 	include_once dirname( __FILE__ ) . '/customize-control/location.php';
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
@@ -38,7 +39,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Theme Layout setting and control
 	$wp_customize->add_setting(
 		'separator_before_theme_layout', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -187,7 +188,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Logo Type setting and control
 	$wp_customize->add_setting(
 		'separator_before_logo_type', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -279,7 +280,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register icon settings and controls
 	$wp_customize->add_setting(
 		'separator_before_fav_icon', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -329,7 +330,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register other General settings and controls
 	$wp_customize->add_setting(
 		'separator_before_page_transition_loading', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -361,7 +362,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_go_to_top_link', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -405,7 +406,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Theme Style setting and control
 	$wp_customize->add_setting(
 		'separator_before_theme_style', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -442,7 +443,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register colors settings and controls
 	$wp_customize->add_setting(
 		'separator_before_link_color', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -474,7 +475,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_section_color_1', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -541,7 +542,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register button to reset colors to default
 	$wp_customize->add_setting(
 		'separator_before_reset_colors', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -600,7 +601,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Custom Font setting and control
 	$wp_customize->add_setting(
 		'separator_before_custom_font', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -711,7 +712,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Header Layout setting and control
 	$wp_customize->add_setting(
 		'separator_before_header_layout', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -759,7 +760,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Sticky Header setting and control
 	$wp_customize->add_setting(
 		'separator_before_sticky_header', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -792,7 +793,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Search Box setting and control
 	$wp_customize->add_setting(
 		'separator_before_search_box', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -825,7 +826,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Social Icons settings and controls
 	$wp_customize->add_setting(
 		'separator_before_show_header_social_icons', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -884,7 +885,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Widgets Area settings and controls
 	$wp_customize->add_setting(
 		'separator_before_footer_widgets', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -950,7 +951,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Custom Copyright settings and controls
 	$wp_customize->add_setting(
 		'separator_before_custom_copyright', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1000,7 +1001,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Social Icons settings and controls
 	$wp_customize->add_setting(
 		'separator_before_show_footer_social_icons', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1059,7 +1060,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Blog Layout setting and control
 	$wp_customize->add_setting(
 		'separator_before_blog_layout', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1108,7 +1109,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Mansonry Style setting and control
 	$wp_customize->add_setting(
 		'separator_before_mansonry_style', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1141,7 +1142,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Automatic Post Excerpts settings and controls
 	$wp_customize->add_setting(
 		'separator_before_automatic_post_excerpts', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1190,7 +1191,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register other Blog settings and controls
 	$wp_customize->add_setting(
 		'separator_before_pagination_style', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1228,7 +1229,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_hide_sidebar_on_single_post', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1260,7 +1261,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_featured_image_on_single_post', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1292,7 +1293,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_prev_next_on_single_post', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1324,7 +1325,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_single_post_tag', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1356,7 +1357,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'separator_before_single_post_author_bio', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1398,7 +1399,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Social Channel Links setting and control
 	$wp_customize->add_setting(
 		'separator_before_social_config', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1428,7 +1429,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Blog section
+	// Register Map section
 	$wp_customize->add_section(
 		'ttt_map', array(
 			'title'       => __( 'Map', 'gusto' ),
@@ -1440,7 +1441,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register general Map settings and controls
 	$wp_customize->add_setting(
 		'separator_before_show_map_on_home', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1490,7 +1491,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register centered position settings and controls
 	$wp_customize->add_setting(
 		'separator_before_centered_position_latitude', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1544,7 +1545,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register map zooming settings and controls
 	$wp_customize->add_setting(
 		'separator_before_map_zoom_display', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1613,7 +1614,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Location Box settings and controls
 	$wp_customize->add_setting(
 		'separator_before_location_box', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1662,7 +1663,7 @@ function gusto_customize_register( $wp_customize ) {
 	// Register Custom Marker settings and controls
 	$wp_customize->add_setting(
 		'separator_before_custom_marker', array(
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1704,6 +1705,113 @@ function gusto_customize_register( $wp_customize ) {
 			$wp_customize, 'custom_marker_image', array(
 				'section'  => 'ttt_map',
 				'settings' => 'custom_marker_image',
+			)
+		)
+	);
+
+	// Register Advances section
+	$wp_customize->add_section(
+		'ttt_advances', array(
+			'title'       => __( 'Advances', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'priority'    => 6,
+		)
+	);
+
+	// Register general Advances settings and controls
+	$wp_customize->add_setting(
+		'separator_before_google_analytics_id', array(
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_google_analytics_id', array(
+				'section'  => 'ttt_advances',
+				'settings' => 'separator_before_google_analytics_id',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'google_analytics_id', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'google_analytics_id', array(
+			'label'       => __( 'Google Analytics ID', 'gusto' ),
+			'section'     => 'ttt_advances',
+			'settings'    => 'google_analytics_id',
+			'type'        => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'facebook_pixel_id', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+
+	$wp_customize->add_control(
+		'facebook_pixel_id', array(
+			'label'       => __( 'Facebook Remarketing Pixel ID', 'gusto' ),
+			'section'     => 'ttt_advances',
+			'settings'    => 'facebook_pixel_id',
+			'type'        => 'text',
+		)
+	);
+
+	// Register Custom CSS settings and controls
+	$wp_customize->add_setting(
+		'separator_before_custom_css', array(
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_custom_css', array(
+				'section'  => 'ttt_advances',
+				'settings' => 'separator_before_custom_css',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_css', array(
+			'default'           => 'on',
+			'sanitize_callback' => 'sanitize_key',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Switch(
+			$wp_customize, 'custom_css', array(
+				'label'    => __( 'Custom CSS', 'gusto' ),
+				'section'  => 'ttt_advances',
+				'settings' => 'custom_css',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'custom_css_data', array(
+			'default'           => '',
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Code(
+			$wp_customize, 'custom_css_data', array(
+				'section'  => 'ttt_advances',
+				'settings' => 'custom_css_data',
+				'language' => 'css',
 			)
 		)
 	);
