@@ -17,6 +17,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Load customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/code.php';
+	include_once dirname( __FILE__ ) . '/customize-control/data.php';
 	include_once dirname( __FILE__ ) . '/customize-control/location.php';
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
@@ -27,12 +28,16 @@ function gusto_customize_register( $wp_customize ) {
 	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
 	include_once dirname( __FILE__ ) . '/customize-control/social/icons.php';
 
+	// Remove ddefault sections
+	$wp_customize->remove_section( 'background_image' );
+	$wp_customize->remove_section( 'title_tagline'    );
+
 	// Register General section
 	$wp_customize->add_section(
 		'ttt_general', array(
 			'title'       => __( 'General', 'gusto' ),
 			'description' => __( 'Your general settings of the theme. Configuring layout type, logo, page transition...', 'gusto' ),
-			'priority'    => 0,
+			'priority'    => 10,
 		)
 	);
 
@@ -74,8 +79,6 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	// Register background image settings and controls
-	$wp_customize->remove_section( 'background_image' );
-
 	$wp_customize->add_setting(
 		'boxed_layout-background_image', array(
 			'default'           => '',
@@ -399,7 +402,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_colors', array(
 			'title'       => __( 'Colors', 'gusto' ),
 			'description' => __( 'Setup your theme color.', 'gusto' ),
-			'priority'    => 1,
+			'priority'    => 20,
 		)
 	);
 
@@ -594,7 +597,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_typography', array(
 			'title'       => __( 'Typography', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 2,
+			'priority'    => 30,
 		)
 	);
 
@@ -705,7 +708,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_header', array(
 			'title'       => __( 'Header', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 3,
+			'priority'    => 40,
 		)
 	);
 
@@ -878,7 +881,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_footer', array(
 			'title'       => __( 'Footer', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 4,
+			'priority'    => 50,
 		)
 	);
 
@@ -1053,7 +1056,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_blog', array(
 			'title'       => __( 'Blog', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 5,
+			'priority'    => 60,
 		)
 	);
 
@@ -1392,7 +1395,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_social_links', array(
 			'title'       => __( 'Social Links', 'gusto' ),
 			'description' => __( 'Here you can set whether to use or not to use social media links. Input URL of your social link to enable using it. Remember to put http:// to the URL.', 'gusto' ),
-			'priority'    => 6,
+			'priority'    => 70,
 		)
 	);
 
@@ -1434,7 +1437,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_map', array(
 			'title'       => __( 'Map', 'gusto' ),
 			'description' => __( 'Here you can configure your Google map. Please refer to <a href="http://latlong.net" target="_blank">http://latlong.net</a> to get the latitude and longitude of your address.', 'gusto' ),
-			'priority'    => 5,
+			'priority'    => 80,
 		)
 	);
 
@@ -1714,7 +1717,7 @@ function gusto_customize_register( $wp_customize ) {
 		'ttt_advances', array(
 			'title'       => __( 'Advances', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 6,
+			'priority'    => 90,
 		)
 	);
 
@@ -1815,6 +1818,47 @@ function gusto_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	// Register Backup / Restore section
+	$wp_customize->add_section(
+		'ttt_data', array(
+			'title'       => __( 'Backup / Restore', 'gusto' ),
+			'description' => __( 'Here you can Backup or Restore your theme settings. Use &quot;Install Sample Data&quot; to have the front-end looks like our demo (your current web content will be lost).', 'gusto' ),
+			'priority'    => 100,
+		)
+	);
+
+	// Register setting and control
+	$wp_customize->add_setting(
+		'separator_before_data_manipulation', array(
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Separator(
+			$wp_customize, 'separator_before_data_manipulation', array(
+				'section'  => 'ttt_data',
+				'settings' => 'separator_before_data_manipulation',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'data_manipulation', array(
+			'default'           => '',
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Data(
+			$wp_customize, 'data_manipulation', array(
+				'section'  => 'ttt_data',
+				'settings' => 'data_manipulation',
+			)
+		)
+	);
 }
 add_action( 'customize_register', 'gusto_customize_register' );
 
@@ -1859,3 +1903,66 @@ function gusto_inline_styles () {
 	<?php
 }
 add_action( 'customize_controls_print_scripts', 'gusto_inline_styles' );
+
+/**
+ * Register AJAX action to backup / restore settings and install sample data.
+ */
+function gusto_customize_ajax() {
+	// Get requested Ajax task
+	$task = isset( $_REQUEST['task'] ) ? $_REQUEST['task'] : null;
+
+	if ( $task ) {
+		switch ( $task ) {
+			case 'backup_settings' :
+				// Get current settings
+				$settings = array(
+					'theme_mods' => get_theme_mods(),
+					'sidebars_widgets' => get_option( 'sidebars_widgets' ),
+				);
+
+				// Clear all output buffering
+				while ( ob_get_level() ) {
+					ob_end_clean();
+				}
+
+				// Set inline download header
+				header( 'Content-disposition: attachment; filename=gusto_settings.json' );
+				header( 'Content-type: application/json' );
+
+				// JSON encode current settings then echo
+				echo json_encode( $settings );
+
+				// Then exit immediately to prevent further processing
+				exit;
+			break;
+
+			case 'restore_settings' :
+				// Read upload file content then JSON decode
+				$settings = json_decode( file_get_contents( $_FILES['backup_file']['tmp_name'] ), true );
+
+				if ( ! $settings ) {
+					exit( __( 'Invalid settings backup file.', 'gusto' ) );
+				}
+
+				// Restore settings if difference
+				if ( json_encode( $settings['theme_mods'] ) != json_encode( get_theme_mods() ) ) {
+					if ( ! update_option( 'theme_mods_gusto', $settings['theme_mods'] ) ) {
+						exit( __( 'Failed to restore theme settings.', 'gusto' ) );
+					}
+				}
+
+				if ( json_encode( $settings['sidebars_widgets'] ) != json_encode( get_option( 'sidebars_widgets' ) ) ) {
+					if ( ! update_option( 'sidebars_widgets', $settings['sidebars_widgets'] ) ) {
+						exit( __( 'Failed to restore sidebars widgets.', 'gusto' ) );
+					}
+				}
+
+				exit( __( 'Settings restored successfully.', 'gusto' ) );
+			break;
+
+			case 'install_sample_data' :
+			break;
+		}
+	}
+}
+add_action( 'wp_ajax_gusto_manipulate_data', 'gusto_customize_ajax' );
