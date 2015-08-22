@@ -11,11 +11,17 @@
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
 function gusto_customize_register( $wp_customize ) {
+	// Change transport setting for default theme options
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 
-	// Load customize control classes
+	// Remove default sections
+	$wp_customize->remove_section( 'background_image' );
+	$wp_customize->remove_section( 'colors'           );
+	$wp_customize->remove_section( 'title_tagline'    );
+
+	// Load custom customize control classes
 	include_once dirname( __FILE__ ) . '/customize-control/code.php';
 	include_once dirname( __FILE__ ) . '/customize-control/data.php';
 	include_once dirname( __FILE__ ) . '/customize-control/location.php';
@@ -28,20 +34,23 @@ function gusto_customize_register( $wp_customize ) {
 	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
 	include_once dirname( __FILE__ ) . '/customize-control/social/icons.php';
 
-	// Remove ddefault sections
-	$wp_customize->remove_section( 'background_image' );
-	$wp_customize->remove_section( 'title_tagline'    );
+	// Register General panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_general', array(
+			'title'    => __( 'General', 'gusto' ),
+			'priority' => 10,
+		)
+	);
 
-	// Register General section
 	$wp_customize->add_section(
 		'ttt_general', array(
 			'title'       => __( 'General', 'gusto' ),
 			'description' => __( 'Your general settings of the theme. Configuring layout type, logo, page transition...', 'gusto' ),
-			'priority'    => 10,
+			'panel'       => 'ttt_panel_general',
 		)
 	);
 
-	// Register Theme Layout setting and control
+	// Register Theme Layout settings and controls
 	$wp_customize->add_setting(
 		'separator_before_theme_layout', array(
 			'sanitize_callback' => '',
@@ -78,7 +87,6 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register background image settings and controls
 	$wp_customize->add_setting(
 		'boxed_layout-background_image', array(
 			'default'           => '',
@@ -188,7 +196,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Logo Type setting and control
+	// Register Logo Type settings and controls
 	$wp_customize->add_setting(
 		'separator_before_logo_type', array(
 			'sanitize_callback' => '',
@@ -225,7 +233,6 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register logo text setting and control
 	$wp_customize->add_setting(
 		'text_logo', array(
 			'default'           => '',
@@ -245,7 +252,6 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register logo image settings and controls
 	$wp_customize->add_setting(
 		'image_logo', array(
 			'default'           => '',
@@ -280,7 +286,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register icon settings and controls
+	// Register Fav Icon settings and controls
 	$wp_customize->add_setting(
 		'separator_before_fav_icon', array(
 			'sanitize_callback' => '',
@@ -330,7 +336,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register other General settings and controls
+	// Register other general settings and controls
 	$wp_customize->add_setting(
 		'separator_before_page_transition_loading', array(
 			'sanitize_callback' => '',
@@ -395,18 +401,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Colors section
-	$wp_customize->remove_section( 'colors' );
+	// Register Colors panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_colors', array(
+			'title'    => __( 'Colors', 'gusto' ),
+			'priority' => 20,
+		)
+	);
 
 	$wp_customize->add_section(
 		'ttt_colors', array(
 			'title'       => __( 'Colors', 'gusto' ),
 			'description' => __( 'Setup your theme color.', 'gusto' ),
-			'priority'    => 20,
+			'panel'       => 'ttt_panel_colors',
 		)
 	);
 
-	// Register Theme Style setting and control
+	// Register Theme Style settings and controls
 	$wp_customize->add_setting(
 		'separator_before_theme_style', array(
 			'sanitize_callback' => '',
@@ -443,7 +454,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register colors settings and controls
+	// Register Colors settings and controls
 	$wp_customize->add_setting(
 		'separator_before_link_color', array(
 			'sanitize_callback' => '',
@@ -542,7 +553,6 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register button to reset colors to default
 	$wp_customize->add_setting(
 		'separator_before_reset_colors', array(
 			'sanitize_callback' => '',
@@ -592,16 +602,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Typography section
+	// Register Typography panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_typography', array(
+			'title'    => __( 'Typography', 'gusto' ),
+			'priority' => 30,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_typography', array(
 			'title'       => __( 'Typography', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 30,
+			'panel'       => 'ttt_panel_typography',
 		)
 	);
 
-	// Register Custom Font setting and control
+	// Register Custom Font settings and controls
 	$wp_customize->add_setting(
 		'separator_before_custom_font', array(
 			'sanitize_callback' => '',
@@ -634,9 +651,9 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register typography setting and control
+	// Register typography settings and controls
 	$wp_customize->add_setting(
-		'custom_fonts', array(
+		'body_typography', array(
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_option',
 		)
@@ -644,75 +661,99 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control(
 		new TTT_Customize_Control_Typography(
-			$wp_customize, 'custom_fonts', array(
-				'section'  => 'ttt_typography',
-				'settings' => 'custom_fonts',
-				'options'  => array(
-					'body_text' => array(
-						'label'          => __( 'Body Text', 'gusto' ),
-						'font_family'    => '',
-						'font_size'      => '14',
-						'line_height'    => '16',
-						'spacing'        => '0px',
-						'font_style'     => 'Regular',
-						'text_transform' => 'Lowercase',
-						'subset'         => 'Latin',
-					),
-					'logo_text' => array(
-						'label'          => __( 'Logo Text', 'gusto' ),
-						'font_family'    => '',
-						'font_size'      => '20',
-						'line_height'    => '24',
-						'spacing'        => '0px',
-						'font_style'     => 'Regular',
-						'text_transform' => 'Lowercase',
-						'subset'         => 'Latin',
-					),
-					'section_heading' => array(
-						'label'          => __( 'Section Heading', 'gusto' ),
-						'font_family'    => '',
-						'font_size'      => '24',
-						'line_height'    => '26',
-						'spacing'        => '0px',
-						'font_style'     => 'Regular',
-						'text_transform' => 'Lowercase',
-						'subset'         => 'Latin',
-					),
-					'section_sub_heading' => array(
-						'label'          => __( 'Section Sub Heading', 'gusto' ),
-						'font_family'    => '',
-						'font_size'      => '18',
-						'line_height'    => '20',
-						'spacing'        => '0px',
-						'font_style'     => 'Regular',
-						'text_transform' => 'Lowercase',
-						'subset'         => 'Latin',
-					),
-					'page_heading' => array(
-						'label'          => __( 'Page Heading', 'gusto' ),
-						'font_family'    => '',
-						'font_size'      => '32',
-						'line_height'    => '36',
-						'spacing'        => '0px',
-						'font_style'     => 'Regular',
-						'text_transform' => 'Lowercase',
-						'subset'         => 'Latin',
-					),
-				),
+			$wp_customize, 'body_typography', array(
+				'label'    => __( 'Body Font', 'gusto' ),
+				'section'  => 'ttt_section_custom_fonts',
+				'settings' => 'body_typography',
 			)
 		)
 	);
 
-	// Register Header section
+	$wp_customize->add_setting(
+		'logo_typography', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_option',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'logo_typography', array(
+				'label'    => __( 'Logo Font', 'gusto' ),
+				'section'  => 'ttt_section_custom_fonts',
+				'settings' => 'logo_typography',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_heading_typography', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_option',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'section_heading_typography', array(
+				'label'    => __( 'Section Heading Font', 'gusto' ),
+				'section'  => 'ttt_section_custom_fonts',
+				'settings' => 'section_heading_typography',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_subheading_typography', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_option',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'section_subheading_typography', array(
+				'label'    => __( 'Section Subheading Font', 'gusto' ),
+				'section'  => 'ttt_section_custom_fonts',
+				'settings' => 'section_subheading_typography',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'page_heading_typography', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_option',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'page_heading_typography', array(
+				'label'    => __( 'Page Heading Font', 'gusto' ),
+				'section'  => 'ttt_section_custom_fonts',
+				'settings' => 'page_heading_typography',
+			)
+		)
+	);
+
+	// Register Header panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_header', array(
+			'title'    => __( 'Header', 'gusto' ),
+			'priority' => 40,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_header', array(
 			'title'       => __( 'Header', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 40,
+			'panel'       => 'ttt_panel_header',
 		)
 	);
 
-	// Register Header Layout setting and control
+	// Register Header Layout settings and controls
 	$wp_customize->add_setting(
 		'separator_before_header_layout', array(
 			'sanitize_callback' => '',
@@ -760,7 +801,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Sticky Header setting and control
+	// Register Sticky Header settings and controls
 	$wp_customize->add_setting(
 		'separator_before_sticky_header', array(
 			'sanitize_callback' => '',
@@ -793,7 +834,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Search Box setting and control
+	// Register Search Box settings and controls
 	$wp_customize->add_setting(
 		'separator_before_search_box', array(
 			'sanitize_callback' => '',
@@ -876,12 +917,19 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Footer section
+	// Register Footer panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_footer', array(
+			'title'    => __( 'Footer', 'gusto' ),
+			'priority' => 50,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_footer', array(
 			'title'       => __( 'Footer', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 50,
+			'panel'       => 'ttt_panel_footer',
 		)
 	);
 
@@ -1051,16 +1099,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Blog section
+	// Register Blog panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_blog', array(
+			'title'    => __( 'Blog', 'gusto' ),
+			'priority' => 60,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_blog', array(
 			'title'       => __( 'Blog', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 60,
+			'panel'       => 'ttt_panel_blog',
 		)
 	);
 
-	// Register Blog Layout setting and control
+	// Register Blog Layout settings and controls
 	$wp_customize->add_setting(
 		'separator_before_blog_layout', array(
 			'sanitize_callback' => '',
@@ -1109,7 +1164,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Mansonry Style setting and control
+	// Register Mansonry Style settings and controls
 	$wp_customize->add_setting(
 		'separator_before_mansonry_style', array(
 			'sanitize_callback' => '',
@@ -1191,7 +1246,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register other Blog settings and controls
+	// Register other blog settings and controls
 	$wp_customize->add_setting(
 		'separator_before_pagination_style', array(
 			'sanitize_callback' => '',
@@ -1390,16 +1445,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Social Links section
+	// Register Social Links panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_social_links', array(
+			'title'    => __( 'Social Links', 'gusto' ),
+			'priority' => 70,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_social_links', array(
 			'title'       => __( 'Social Links', 'gusto' ),
 			'description' => __( 'Here you can set whether to use or not to use social media links. Input URL of your social link to enable using it. Remember to put http:// to the URL.', 'gusto' ),
-			'priority'    => 70,
+			'panel'       => 'ttt_panel_social_links',
 		)
 	);
 
-	// Register Social Channel Links setting and control
+	// Register Social Channel Links settings and controls
 	$wp_customize->add_setting(
 		'separator_before_social_config', array(
 			'sanitize_callback' => '',
@@ -1432,16 +1494,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Map section
+	// Register Map panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_map', array(
+			'title'    => __( 'Map', 'gusto' ),
+			'priority' => 80,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_map', array(
 			'title'       => __( 'Map', 'gusto' ),
 			'description' => __( 'Here you can configure your Google map. Please refer to <a href="http://latlong.net" target="_blank">http://latlong.net</a> to get the latitude and longitude of your address.', 'gusto' ),
-			'priority'    => 80,
+			'panel'       => 'ttt_panel_map',
 		)
 	);
 
-	// Register general Map settings and controls
+	// Register general map settings and controls
 	$wp_customize->add_setting(
 		'separator_before_show_map_on_home', array(
 			'sanitize_callback' => '',
@@ -1712,16 +1781,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Advances section
-	$wp_customize->add_section(
-		'ttt_advances', array(
-			'title'       => __( 'Advances', 'gusto' ),
-			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
-			'priority'    => 90,
+	// Register Advances panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_advances', array(
+			'title'    => __( 'Advances', 'gusto' ),
+			'priority' => 90,
 		)
 	);
 
-	// Register general Advances settings and controls
+	$wp_customize->add_section(
+		'ttt_advances', array(
+			'title'       => __( 'Others', 'gusto' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
+			'panel'       => 'ttt_panel_advances',
+		)
+	);
+
+	// Register general advances settings and controls
 	$wp_customize->add_setting(
 		'separator_before_google_analytics_id', array(
 			'sanitize_callback' => '',
@@ -1819,16 +1895,23 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Backup / Restore section
+	// Register Backup / Restore panel and section
+	$wp_customize->add_panel(
+		'ttt_panel_data', array(
+			'title'    => __( 'Backup / Restore', 'gusto' ),
+			'priority' => 100,
+		)
+	);
+
 	$wp_customize->add_section(
 		'ttt_data', array(
 			'title'       => __( 'Backup / Restore', 'gusto' ),
 			'description' => __( 'Here you can Backup or Restore your theme settings. Use &quot;Install Sample Data&quot; to have the front-end looks like our demo (your current web content will be lost).', 'gusto' ),
-			'priority'    => 100,
+			'panel'       => 'ttt_panel_data',
 		)
 	);
 
-	// Register setting and control
+	// Register Backup / Restore settings and controls
 	$wp_customize->add_setting(
 		'separator_before_data_manipulation', array(
 			'sanitize_callback' => '',
@@ -1859,6 +1942,9 @@ function gusto_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	// Move Static Front Page section to Advances panel
+	$wp_customize->get_section( 'static_front_page' )->panel = 'ttt_panel_advances';
 }
 add_action( 'customize_register', 'gusto_customize_register' );
 

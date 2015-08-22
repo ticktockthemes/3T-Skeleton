@@ -23,7 +23,7 @@ class TTT_Customize_Control_Social_Icons extends WP_Customize_Control {
 	 * @access public
 	 * @var string
 	 */
-	public $linked = 'social_config';
+	protected $linked = 'social_config';
 
 	/**
 	 * Constructor.

@@ -23,7 +23,7 @@ class TTT_Customize_Control_Reset extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	public $defaults;
+	protected $defaults;
 
 	/**
 	 * Constructor.
