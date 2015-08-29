@@ -58,7 +58,7 @@
 						jQuery(e).find('li[id^="accordion-section-ttt_"] > h3').remove();
 					}
 				});
-				
+
 				// Trigger click event on active options to toggle appropriated child options.
 				jQuery('#customize-control-theme_layout .button-group li').filter('.active').trigger('click');
 				jQuery('#customize-control-logo_type .button-group li').filter('.active').trigger('click');
@@ -78,7 +78,7 @@
 
 		// Method to show customizer options.
 		showOptions: function(event) {
-			var panel = jQuery(event.target).closest('li');
+			var panel = jQuery(event.target).closest('li[id^="accordion-panel-ttt_panel_"]');
 
 			if (panel.attr('id').indexOf('ttt_panel_advances') < 0) {
 				panel.find('li[id^="accordion-section-ttt_"]').addClass('open');
@@ -87,89 +87,89 @@
 
 		// Method to toggle child options for Theme Layout.
 		toggleThemeLayout: function(event) {
-			var func = event.target.parentNode.querySelector('input').value == 'full' ? 'hide' : 'show';
+			var func = event.target.parentNode.querySelector('input').value == 'full' ? 'addClass' : 'removeClass';
 
-			this.$('#customize-control-boxed_layout-background_image')[func]();
-			this.$('#customize-control-boxed_layout-background_repeat')[func]();
-			this.$('#customize-control-boxed_layout-background_position')[func]();
-			this.$('#customize-control-boxed_layout-background_attachment')[func]();
-			this.$('#customize-control-boxed_layout-background_size')[func]();
+			this.$('#customize-control-boxed_layout-background_image')[func]('hidden');
+			this.$('#customize-control-boxed_layout-background_repeat')[func]('hidden');
+			this.$('#customize-control-boxed_layout-background_position')[func]('hidden');
+			this.$('#customize-control-boxed_layout-background_attachment')[func]('hidden');
+			this.$('#customize-control-boxed_layout-background_size')[func]('hidden');
 		},
 
 		// Method to toggle child options for Logo Type.
 		toggleLogoType: function(event) {
 			if (event.target.parentNode.querySelector('input').value == 'text') {
-				this.$('#customize-control-text_logo').show();
-				this.$('#customize-control-image_logo').hide();
-				this.$('#customize-control-image_retina_logo').hide();
+				this.$('#customize-control-text_logo').removeClass('hidden');
+				this.$('#customize-control-image_logo').addClass('hidden');
+				this.$('#customize-control-image_retina_logo').addClass('hidden');
 			} else {
-				this.$('#customize-control-text_logo').hide();
-				this.$('#customize-control-image_logo').show();
-				this.$('#customize-control-image_retina_logo').show();
+				this.$('#customize-control-text_logo').addClass('hidden');
+				this.$('#customize-control-image_logo').removeClass('hidden');
+				this.$('#customize-control-image_retina_logo').removeClass('hidden');
 			}
 		},
 
 		// Method to toggle child options for Custom Font.
 		toggleCustomFont: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-custom_fonts')[func]();
+			this.$('#customize-control-custom_fonts')[func]('hidden');
 		},
 
 		// Method to toggle child options for Header Social Icons.
 		toggleHeaderSocialIcons: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-header_social_icons')[func]();
+			this.$('#customize-control-header_social_icons')[func]('hidden');
 		},
 
 		// Method to toggle child options for Footer Widgets.
 		toggleFooterWidgets: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-footer_widgets_layout')[func]();
+			this.$('#customize-control-footer_widgets_layout')[func]('hidden');
 		},
 
 		// Method to toggle child options for Custom Copyright.
 		toggleCustomCopyright: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-custom_copyright_text')[func]();
+			this.$('#customize-control-custom_copyright_text')[func]('hidden');
 		},
 
 		// Method to toggle child options for Footer Social Icons.
 		toggleFooterSocialIcons: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-footer_social_icons')[func]();
+			this.$('#customize-control-footer_social_icons')[func]('hidden');
 		},
 
 		// Method to toggle child options for Automatic Post Excerpts.
 		toggleAutomaticPostExcerpts: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-automatic_excerpts_length')[func]();
+			this.$('#customize-control-automatic_excerpts_length')[func]('hidden');
 		},
 
 		// Method to toggle child options for Location Box.
 		toggleLocationBox: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-location_box_data')[func]();
+			this.$('#customize-control-location_box_data')[func]('hidden');
 		},
 
 		// Method to toggle child options for Custom Marker.
 		toggleCustomMarker: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-custom_marker_image')[func]();
+			this.$('#customize-control-custom_marker_image')[func]('hidden');
 		},
 
 		// Method to toggle child options for Custom CSS.
 		toggleCustomCSS: function(event) {
-			var func = event.target.checked ? 'show' : 'hide';
+			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-custom_css_data')[func]();
+			this.$('#customize-control-custom_css_data')[func]('hidden');
 		},
 	});
 

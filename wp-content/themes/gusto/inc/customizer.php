@@ -47,6 +47,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'General', 'gusto' ),
 			'description' => __( 'Your general settings of the theme. Configuring layout type, logo, page transition...', 'gusto' ),
 			'panel'       => 'ttt_panel_general',
+			'priority'    => 10,
 		)
 	);
 
@@ -414,6 +415,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Colors', 'gusto' ),
 			'description' => __( 'Setup your theme color.', 'gusto' ),
 			'panel'       => 'ttt_panel_colors',
+			'priority'    => 20,
 		)
 	);
 
@@ -615,6 +617,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Typography', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
 			'panel'       => 'ttt_panel_typography',
+			'priority'    => 30,
 		)
 	);
 
@@ -750,6 +753,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Header', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
 			'panel'       => 'ttt_panel_header',
+			'priority'    => 40,
 		)
 	);
 
@@ -930,6 +934,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Footer', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
 			'panel'       => 'ttt_panel_footer',
+			'priority'    => 50,
 		)
 	);
 
@@ -1112,6 +1117,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Blog', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
 			'panel'       => 'ttt_panel_blog',
+			'priority'    => 60,
 		)
 	);
 
@@ -1458,6 +1464,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Social Links', 'gusto' ),
 			'description' => __( 'Here you can set whether to use or not to use social media links. Input URL of your social link to enable using it. Remember to put http:// to the URL.', 'gusto' ),
 			'panel'       => 'ttt_panel_social_links',
+			'priority'    => 70,
 		)
 	);
 
@@ -1507,6 +1514,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Map', 'gusto' ),
 			'description' => __( 'Here you can configure your Google map. Please refer to <a href="http://latlong.net" target="_blank">http://latlong.net</a> to get the latitude and longitude of your address.', 'gusto' ),
 			'panel'       => 'ttt_panel_map',
+			'priority'    => 80,
 		)
 	);
 
@@ -1794,6 +1802,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Others', 'gusto' ),
 			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'gusto' ),
 			'panel'       => 'ttt_panel_advances',
+			'priority'    => 90,
 		)
 	);
 
@@ -1908,6 +1917,7 @@ function gusto_customize_register( $wp_customize ) {
 			'title'       => __( 'Backup / Restore', 'gusto' ),
 			'description' => __( 'Here you can Backup or Restore your theme settings. Use &quot;Install Sample Data&quot; to have the front-end looks like our demo (your current web content will be lost).', 'gusto' ),
 			'panel'       => 'ttt_panel_data',
+			'priority'    => 100,
 		)
 	);
 
@@ -1943,8 +1953,39 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Move Static Front Page section to Advances panel
-	$wp_customize->get_section( 'static_front_page' )->panel = 'ttt_panel_advances';
+	// Remove all panels if WordPress version is >= 4.3
+	global $wp_version;
+
+	if ( version_compare( $wp_version, '4.3', '>=' ) ) {
+		// Move all sections out of panel
+		$wp_customize->get_section( 'ttt_general'      )->panel = null;
+		$wp_customize->get_section( 'ttt_colors'       )->panel = null;
+		$wp_customize->get_section( 'ttt_typography'   )->panel = null;
+		$wp_customize->get_section( 'ttt_header'       )->panel = null;
+		$wp_customize->get_section( 'ttt_footer'       )->panel = null;
+		$wp_customize->get_section( 'ttt_blog'         )->panel = null;
+		$wp_customize->get_section( 'ttt_social_links' )->panel = null;
+		$wp_customize->get_section( 'ttt_map'          )->panel = null;
+		$wp_customize->get_section( 'ttt_advances'     )->panel = null;
+		$wp_customize->get_section( 'ttt_data'         )->panel = null;
+
+		// Remove all panels
+		$wp_customize->remove_panel( 'ttt_panel_general'      );
+		$wp_customize->remove_panel( 'ttt_panel_colors'       );
+		$wp_customize->remove_panel( 'ttt_panel_typography'   );
+		$wp_customize->remove_panel( 'ttt_panel_header'       );
+		$wp_customize->remove_panel( 'ttt_panel_footer'       );
+		$wp_customize->remove_panel( 'ttt_panel_blog'         );
+		$wp_customize->remove_panel( 'ttt_panel_social_links' );
+		$wp_customize->remove_panel( 'ttt_panel_map'          );
+		$wp_customize->remove_panel( 'ttt_panel_advances'     );
+		$wp_customize->remove_panel( 'ttt_panel_data'         );
+	}
+
+	else {
+		// Move Static Front Page section to Advances panel
+		$wp_customize->get_section( 'static_front_page' )->panel = 'ttt_panel_advances';
+	}
 }
 add_action( 'customize_register', 'gusto_customize_register' );
 
