@@ -150,24 +150,6 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
 		parent::__construct( $manager, $id, $args );
-
-		// Register child settings
-		foreach ( self::$options as $prop ) {
-			$default = ( isset( $args['default'] ) && isset( $args['default'][ $prop ] ) )
-				? $args['default'][ $prop ]
-				: null;
-
-			$manager->add_setting(
-				$this->id . '_' . $prop, array(
-					'default'           => $default,
-					'sanitize_callback' => 'sanitize_key',
-				)
-			);
-
-			if ( ! empty( $default ) && false === get_theme_mod( $this->id . '_' . $prop, false ) ) {
-				set_theme_mod( $this->id . '_' . $prop, $default );
-			}
-		}
 	}
 
 	/**
