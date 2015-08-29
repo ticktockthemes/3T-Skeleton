@@ -15,17 +15,16 @@ This file contains styling for 3T Theme Customizer Panel
 /*--------------------------------------------------------------
 # 3T VARS & MIXINS
 --------------------------------------------------------------*/
-
 /*--------------------------------------------------------------
 # GENERAL
 --------------------------------------------------------------*/
-.hidden {
-	display: none !important;
-}
-
 /*--------------------------------------------------------------
 # RESET WP DEFAULT STYLE
 --------------------------------------------------------------*/
+.hidden {
+  display: none !important;
+}
+
 .wp-core-ui .button {
   border: none;
 }
@@ -81,6 +80,21 @@ This file contains styling for 3T Theme Customizer Panel
   font-size: 12px;
 }
 
+.customize-section-back {
+  width: 48px;
+  box-sizing: border-box;
+  padding: 0;
+  color: #23282d;
+}
+
+.customize-section-back:before {
+  left: calc(50% - 24px);
+}
+
+#customize-theme-controls .accordion-section-content {
+  background-color: #fdfdfd;
+}
+
 /*--------------------------------------------------------------
 # GENERAL
 --------------------------------------------------------------*/
@@ -113,26 +127,22 @@ This file contains styling for 3T Theme Customizer Panel
   top: 4px;
   display: block;
   width: 50%;
-  height: -webkit-calc(100% - 8px);
   height: calc(100% - 8px);
   background: #f5f5f5;
   border-bottom: 1px solid #20a776;
   border-radius: 2px !important;
   z-index: 100;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .active + .switch-pad {
-  left: -webkit-calc(50% - 4px);
   left: calc(50% - 4px);
 }
 
 .radio-switch {
   background: #19bb80;
   border-radius: 3px;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
   position: relative;
 }
 
@@ -168,7 +178,6 @@ This file contains styling for 3T Theme Customizer Panel
   display: block;
   position: absolute;
   height: 100%;
-  width: -webkit-calc(50% + 6px);
   width: calc(50% + 6px);
   right: 0;
   text-align: center;
@@ -227,20 +236,18 @@ This file contains styling for 3T Theme Customizer Panel
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   z-index: 500;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .switch.tiny input:checked + label:after {
   content: 'On';
   text-indent: -1.7rem;
-  left: 2.6rem;
+  left: 2.7rem;
 }
 
 .switch input:checked + label {
   background: #19bb80;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .customize-control-ttt-radio, .customize-control-ttt-switch {
@@ -256,9 +263,7 @@ This file contains styling for 3T Theme Customizer Panel
   position: absolute;
   right: 0;
   top: 50%;
-  -webkit-transform: translateY(-12px);
-      -ms-transform: translateY(-12px);
-          transform: translateY(-12px);
+  transform: translateY(-12px);
 }
 
 .customize-control-ttt-radio .customize-control-title + .radio-switch, .customize-control-ttt-switch .customize-control-title + .radio-switch {
@@ -266,9 +271,7 @@ This file contains styling for 3T Theme Customizer Panel
   left: auto;
   right: 0;
   top: 50%;
-  -webkit-transform: translateY(-14px);
-      -ms-transform: translateY(-14px);
-          transform: translateY(-14px);
+  transform: translateY(-14px);
 }
 
 /* - - - - - Radio Group - - - - - */
@@ -306,12 +309,9 @@ This file contains styling for 3T Theme Customizer Panel
   width: 16px;
   height: 16px;
   border: 3px solid #ddd;
-  -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
   box-shadow: none;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
   margin: 0;
   position: relative;
   z-index: 200;
@@ -324,9 +324,7 @@ This file contains styling for 3T Theme Customizer Panel
   z-index: 100;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   margin: 0;
   width: 8px;
   height: 8px;
@@ -343,16 +341,13 @@ This file contains styling for 3T Theme Customizer Panel
   z-index: 100;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   opacity: 0;
   width: 6px;
   height: 6px;
   border-radius: 100%;
   background-color: #ccc;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .ttt-radio-group .radio input:hover:after {
@@ -364,9 +359,7 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .ttt-radio-group .radio input:checked {
-  -webkit-transform: scale(1.2);
-      -ms-transform: scale(1.2);
-          transform: scale(1.2);
+  transform: scale(1.2);
   background-color: #19bb80;
   border-color: #19bb80;
 }
@@ -388,8 +381,7 @@ This file contains styling for 3T Theme Customizer Panel
   height: 100%;
   z-index: 100;
   margin: 0;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .ttt-radio-group .radio input + label:hover, .ttt-radio-group .radio input + label.active {
@@ -441,7 +433,6 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .customize-control-color .wp-picker-container .wp-picker-clear {
-  width: -webkit-calc(25% - 6px);
   width: calc(25% - 6px);
   height: 1.6rem !important;
   line-height: 1.6rem !important;

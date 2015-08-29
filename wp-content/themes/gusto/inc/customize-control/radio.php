@@ -93,18 +93,17 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 					});
 
 					// Handle button switch
-					$(document).ready(function() {
-						$('.ttt-radio-control .button-group li a label').click(function() {
-							$(this).closest('.button-group').find('li').removeClass('active');
-							$(this).closest('.button-group').find('label').removeClass('lower-z');
+					$('.ttt-radio-control .button-group').append('<div class="switch-pad"></div>');
+					$('.ttt-radio-control .button-group li a label').click(function() {
+						$(this).closest('.button-group').find('li').removeClass('active');
+						$(this).closest('.button-group').find('label').removeClass('lower-z');
 
-							if ( $(this).closest('.button-group').find('input:checked') ) {
-								$(this).closest('li').addClass('active');
-								$(this).addClass('lower-z');
-							} else {
-								$(this).removeClass('lower-z');
-							}
-						});
+						if ( $(this).closest('.button-group').find('input:checked') ) {
+							$(this).closest('li').addClass('active');
+							$(this).addClass('lower-z');
+						} else {
+							$(this).removeClass('lower-z');
+						}
 					});
 
 					// Handle radio group
