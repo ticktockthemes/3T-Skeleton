@@ -77,26 +77,6 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $spacings = array(
-		'0px',
-		'0.5px',
-		'1px',
-		'1.5px',
-		'2px',
-		'2.5px',
-		'3px',
-		'-0.5px',
-		'-1px',
-		'-1.5px',
-		'-2px',
-		'-2.5px',
-		'-3px',
-	);
-
-	/**
-	 * @access public
-	 * @var array
-	 */
 	protected $styles = array(
 		'Regular',
 		'Italic',
@@ -125,20 +105,6 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	);
 
 	/**
-	 * @access public
-	 * @var array
-	 */
-	public static $options = array(
-		'font_family',
-		'font_size',
-		'line_height',
-		'spacing',
-		'font_style',
-		'text_transform',
-		'subset',
-	);
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.0
@@ -150,6 +116,22 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
 		parent::__construct( $manager, $id, $args );
+
+		// Add action to load required assets
+		add_action( 'customize_controls_enqueue_scripts', array( &$this, 'customize_scripts' ) );
+	}
+
+	/**
+	 * Load required assets.
+	 *
+	 * @since 1.0
+	 */
+	function customize_scripts() {
+		if ( ! defined( 'TTT_Customize_Control_Typography_Loaded' ) ) {
+			wp_enqueue_script( 'ttt-typography-control', get_template_directory_uri() . '/js/customize-control/typography.js', array( 'backbone' ), '1.0', true );
+
+			define( 'TTT_Customize_Control_Typography_Loaded', true );
+		}
 	}
 
 	/**
@@ -160,6 +142,105 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	public function render_content() {
 		// Generate control ID
 		$name = '_customize-typography-' . $this->id;
+
+		// Print scripts
+		if ( ! defined( 'TTT_Customize_Control_Typography_Template_Loaded' ) ) :
+		?>
+		<script type="text/html" id="ttt-typography-control-template">
+			<label>
+				<span class="customize-control-title clearfix">
+					<%= type.replace('_', ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %>
+					<a class="expand-panel right" href="javascript:void">&gt;</a>
+				</span>
+				<select name="<%= type %>[font_family]">
+					<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
+					<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
+						<?php foreach ( $this->standard_fonts as $option ) : ?>
+						<option value="<?php echo esc_attr( $option ); ?>" <% if (font_family == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
+							<?php echo esc_html( $option ); ?>
+						</option>
+						<?php endforeach; ?>
+					</optgroup>
+					<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
+						<?php foreach ( $this->google_fonts as $option ) : ?>
+						<option value="<?php echo esc_attr( $option ); ?>" <% if (font_family == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
+							<?php echo esc_html( $option ); ?>
+						</option>
+						<?php endforeach; ?>
+					</optgroup>
+				</select>
+				<div class="panel ttt-advanced-panel">
+					<h5><%= type.replace('_', ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %></h5>
+					<div>
+						<label>
+							<?php _e( 'Font Size', 'gusto' ); ?>
+							<input type="number" min="0" name="<%= type %>[font_size]" value="<%= font_size %>" placeholder="<?php
+								_e( 'e.g. 14', 'gusto' );
+							?>">
+						</label>
+					</div>
+					<div>
+						<label>
+							<?php _e( 'Line Height', 'gusto' ); ?>
+							<input type="number" min="0" name="<%= type %>[line_height]" value="<%= line_height %>" placeholder="<?php
+								_e( 'e.g. 24', 'gusto' );
+							?>">
+						</label>
+					</div>
+					<div>
+						<label>
+							<?php _e( 'Spacing', 'gusto' ); ?>
+							<input type="number" min="0" name="<%= type %>[spacing]" value="<%= spacing %>" placeholder="<?php
+								_e( 'e.g. 2', 'gusto' );
+							?>">
+						</label>
+					</div>
+					<div>
+						<label>
+							<?php _e( 'Font Style', 'gusto' ); ?>
+							<select name="<%= type %>[font_style]">
+								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+								<?php foreach ( $this->styles as $option ) : ?>
+								<option value="<?php echo esc_attr( $option ); ?>" <% if (font_style == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
+									<?php echo esc_html( $option ); ?>
+								</option>
+								<?php endforeach; ?>
+							</select>
+						</label>
+					</div>
+					<div>
+						<label>
+							<?php _e( 'Text Transform', 'gusto' ); ?>
+							<select name="<%= type %>[text_transform]">
+								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+								<?php foreach ( $this->transforms as $option ) : ?>
+								<option value="<?php echo esc_attr( $option ); ?>" <% if (text_transform == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
+									<?php echo esc_html( $option ); ?>
+								</option>
+								<?php endforeach; ?>
+							</select>
+						</label>
+					</div>
+					<div>
+						<label>
+							<?php _e( 'Subset', 'gusto' ); ?>
+							<select name="<%= type %>[subset]">
+								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+								<?php foreach ( $this->subsets as $option ) : ?>
+								<option value="<?php echo esc_attr( $option ); ?>" <% if (subset == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
+									<?php echo esc_html( $option ); ?>
+								</option>
+								<?php endforeach; ?>
+							</select>
+						</label>
+					</div>
+				</div>
+			</label>
+		</script>
+		<?php
+		define( 'TTT_Customize_Control_Typography_Template_Loaded', true );
+
+		endif;
 		?>
 		<div class="ttt-typography-control" id="<?php echo esc_attr( $name ); ?>">
 			<?php if ( ! empty( $this->label ) ) : ?>
@@ -175,114 +256,22 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 				<?php echo $this->description ; ?>
 			</span>
 			<?php endif; ?>
-			<div class="ttt-typography-settings">
-				<?php
-				foreach ( self::$options as $prop ) :
+			<div class="typography-types"></div>
+			<textarea <?php $this->link(); ?> class="data-storage hidden"><?php
+				if ( ! is_string( $value = $this->value() ) )
+					$value = htmlentities( json_encode( $value ) );
 
-				// Get current value
-				$value = get_theme_mod( $this->id . '_' . $prop );
-
-				switch ( $prop ) :
-
-				case 'font_family' :
-				?>
-				<select data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>">
-					<option value=""><?php _e( 'Font Family', 'gusto' ); ?></option>
-					<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
-						<?php foreach ( $this->standard_fonts as $option ) : ?>
-						<option value="<?php echo esc_attr( $option ); ?>" <?php
-							selected( $value, $option );
-						?>><?php echo esc_html( $option ); ?></option>
-						<?php endforeach; ?>
-					</optgroup>
-					<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
-						<?php foreach ( $this->google_fonts as $option ) : ?>
-						<option value="<?php echo esc_attr( $option ); ?>" <?php
-							selected( $value, $option );
-						?>><?php echo esc_html( $option ); ?></option>
-						<?php endforeach; ?>
-					</optgroup>
-				</select>
-				<?php
-				break;
-
-				case 'font_size' :
-				?>
-				<input autocomplete="off" type="number" min="0"
-					value="<?php echo esc_attr( $value ); ?>"
-					 placeholder="<?php _e( 'Font Size', 'gusto' ); ?>"
-					data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>"
-				>
-				<?php
-				break;
-
-				case 'line_height';
-				?>
-				<input autocomplete="off" type="number" min="0"
-					value="<?php echo esc_attr( $value ); ?>"
-					 placeholder="<?php _e( 'Line Height', 'gusto' ); ?>"
-					data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>"
-				>
-				<?php
-				break;
-
-				case 'spacing';
-				?>
-				<select data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>">
-					<option value=""><?php _e( 'Spacing', 'gusto' ); ?></option>
-					<?php foreach ( $this->spacings as $option ) : ?>
-					<option value="<?php echo esc_attr( $option ); ?>" <?php
-						selected( $value, $option );
-					?>><?php echo esc_html( $option ); ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?php
-				break;
-
-				case 'font_style';
-				?>
-				<select data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>">
-					<option value=""><?php _e( 'Font Style', 'gusto' ); ?></option>
-					<?php foreach ( $this->styles as $option ) : ?>
-					<option value="<?php echo esc_attr( $option ); ?>" <?php
-						selected( $value, $option );
-					?>><?php echo esc_html( $option ); ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?php
-				break;
-
-				case 'text_transform';
-				?>
-				<select data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>">
-					<option value=""><?php _e( 'Text Transform', 'gusto' ); ?></option>
-					<?php foreach ( $this->transforms as $option ) : ?>
-					<option value="<?php echo esc_attr( $option ); ?>" <?php
-						selected( $value, $option );
-					?>><?php echo esc_html( $option ); ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?php
-				break;
-
-				case 'subset';
-				?>
-				<select data-customize-setting-link="<?php echo esc_attr( $this->id . '_' . $prop ); ?>">
-					<option value=""><?php _e( 'Subset', 'gusto' ); ?></option>
-					<?php foreach ( $this->subsets as $option ) : ?>
-					<option value="<?php echo esc_attr( $option ); ?>" <?php
-						selected( $value, $option );
-					?>><?php echo esc_html( $option ); ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?php
-				break;
-
-				endswitch;
-
-				endforeach;
-				?>
-			</div>
+				echo '' . $value;
+			?></textarea>
+			<script type="text/javascript">
+				(function($) {
+					$(document).ready(function() {
+						new $.Gusto.Typography.ListView({
+							el: $('#<?php echo esc_attr( $name ); ?>'),
+						});
+					});
+				})(jQuery);
+			</script>
 		</div>
 		<?php
 	}

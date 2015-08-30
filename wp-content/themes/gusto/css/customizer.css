@@ -18,6 +18,23 @@ This file contains styling for 3T Theme Customizer Panel
 /*--------------------------------------------------------------
 # GENERAL
 --------------------------------------------------------------*/
+.ttt-advanced-panel {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  padding: 0;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  z-index: 999999999;
+  transition: all .3s ease-in-out;
+}
+.ttt-advanced-panel.open {
+  padding: 1.25rem;
+  width: 300px;
+  overflow: auto;
+}
+
 /*--------------------------------------------------------------
 # RESET WP DEFAULT STYLE
 --------------------------------------------------------------*/

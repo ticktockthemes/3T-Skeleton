@@ -58,13 +58,6 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 		// Generate control ID
 		$name = '_customize-location-' . $this->id;
 
-		// Parse location
-		parse_str( html_entity_decode( $this->value() ), $locations );
-
-		foreach ( $locations as $k => $v ) {
-			$locations[ $k ] = ( array ) $v;
-		}
-
 		// Print scripts
 		if ( ! defined( 'TTT_Customize_Control_Location_Template_Loaded' ) ) :
 		?>
@@ -72,31 +65,31 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 			<div class="panel">
 				<h5 class="clearfix">
 					<?php _e( 'Location box <%= index %>', 'gusto' ); ?>
-					<a class="remove-location" href="javascript:void(0)" style="float: right;">x</a>
+					<a class="remove-location right" href="javascript:void(0)">x</a>
 				</h5>
 				<div>
 					<label>
 						<?php _e( 'Enable', 'gusto' ); ?>
-						<input class="toggle-location" type="checkbox" autocomplete="off"<% if (enable == 'yes') { %> checked="checked" <% } %>>
+						<input class="toggle-location" type="checkbox" autocomplete="off" <% if (enable == 'yes') { %>checked="checked" <% } %>>
 					</label>
-					<input type="hidden" name="enable[]" value="<%= enable %>">
+					<input type="hidden" name="enable" value="<%= enable %>">
 				</div>
 				<div>
 					<label>
 						<?php _e( 'Latitude', 'gusto' ); ?>
-						<input class="input-text" type="text" name="latitude[]" value="<%= latitude %>">
+						<input class="input-text" type="text" name="latitude" value="<%= latitude %>">
 					</label>
 				</div>
 				<div>
 					<label>
 						<?php _e( 'Longitude', 'gusto' ); ?>
-						<input class="input-text" type="text" name="longitude[]" value="<%= longitude %>">
+						<input class="input-text" type="text" name="longitude" value="<%= longitude %>">
 					</label>
 				</div>
 				<div>
 					<label>
 						<?php _e( 'Info box content', 'gusto' ); ?>
-						<textarea class="input-text" name="content[]"><%= content %></textarea>
+						<textarea class="input-text" name="content"><%= content %></textarea>
 					</label>
 				</div>
 			</div>
@@ -134,7 +127,10 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 				?>
 			</a>
 			<textarea <?php $this->link(); ?> class="data-storage hidden"><?php
-				echo '' . $this->value();
+				if ( ! is_string( $value = $this->value() ) )
+					$value = htmlentities( json_encode( $value ) );
+
+				echo '' . $value;
 			?></textarea>
 			<script type="text/javascript">
 				(function($) {

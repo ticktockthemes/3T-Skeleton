@@ -20,8 +20,8 @@
 			// Register event to toggle child options for Logo Type.
 			'click #customize-control-logo_type .button-group li' : 'toggleLogoType',
 
-			// Register event to toggle child options for Custom Font.
-			'change #customize-control-custom_font .switch input' : 'toggleCustomFont',
+			// Register event to toggle child options for Custom Fonts.
+			'change #customize-control-custom_fonts .switch input' : 'toggleCustomFonts',
 
 			// Register event to toggle child options for Header Social Icons.
 			'change #customize-control-show_header_social_icons .switch input' : 'toggleHeaderSocialIcons',
@@ -64,7 +64,7 @@
 				jQuery('#customize-control-logo_type .button-group li').filter('.active').trigger('click');
 
 				// Trigger change event on checked options to toggle appropriated child options.
-				jQuery('#customize-control-custom_font .switch input').trigger('change');
+				jQuery('#customize-control-custom_fonts .switch input').trigger('change');
 				jQuery('#customize-control-show_header_social_icons .switch input').trigger('change');
 				jQuery('#customize-control-footer_widgets .switch input').trigger('change');
 				jQuery('#customize-control-custom_copyright .switch input').trigger('change');
@@ -109,11 +109,11 @@
 			}
 		},
 
-		// Method to toggle child options for Custom Font.
-		toggleCustomFont: function(event) {
+		// Method to toggle child options for Custom Fonts.
+		toggleCustomFonts: function(event) {
 			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-custom_fonts')[func]('hidden');
+			this.$('#customize-control-typography')[func]('hidden');
 		},
 
 		// Method to toggle child options for Header Social Icons.

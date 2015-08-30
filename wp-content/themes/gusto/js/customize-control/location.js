@@ -46,16 +46,21 @@
 			// Fetch existing items.
 			fetch: function(storage) {
 				// Get saved data from storage.
-				var data = jQuery.unserialize(jQuery(storage).val());
+				var data = jQuery(storage).val();
 
-				// Add saved items to collection.
-				for (var i = 0; i < data.enable.length; i++) {
-					this.create({
-						enable: data.enable[i],
-						latitude: data.latitude[i],
-						longitude: data.longitude[i],
-						content: data.content[i],
-					});
+				if (data) {
+					// JSON decode saved data
+					data = jQuery.parseJSON(data);
+
+					// Add saved items to collection.
+					for (var i = 0; i < data.enable.length; i++) {
+						this.create({
+							enable: data.enable[i],
+							latitude: data.latitude[i],
+							longitude: data.longitude[i],
+							content: data.content[i],
+						});
+					}
 				}
 
 				// Save storage for later update.
@@ -64,10 +69,18 @@
 
 			// Update changes to storage.
 			update: function(container) {
-				var data = container.find('input[name], textarea[name]').serialize();
+				var data = {};
+				
+				container.find('input[name], textarea[name]').each(function(i, e) {
+					if (!data[e.name]) {
+						data[e.name] = [];
+					}
+					
+					data[e.name].push(e.value);
+				});
 
 				// Convert all special characters to HTML entities.
-				data = data.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+				data = JSON.stringify(data).replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
 					return '&#'+i.charCodeAt(0)+';';
 				});
 
@@ -106,7 +119,8 @@
 
 				// Create view.
 				var view = new $.Gusto.LocationBox.ItemView({model: item});
-				this.$('.location-boxes').append(view.render().el);
+				this.$('.location-boxes').append(view.render().$el.hide());
+				view.render().$el.slideDown();
 			},
 
 			// Add all items in the collection at once.
