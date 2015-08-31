@@ -41,9 +41,6 @@ class TTT_Customize_Control_Code extends WP_Customize_Control {
 		if ( isset( $args['language'] ) ) {
 			$this->language = $args['language'];
 		}
-
-		// Add action to load required assets
-		add_action( 'customize_controls_enqueue_scripts', array( &$this, 'customize_scripts' ) );
 	}
 
 	/**
@@ -51,14 +48,10 @@ class TTT_Customize_Control_Code extends WP_Customize_Control {
 	 *
 	 * @since 1.0
 	 */
-	function customize_scripts() {
+	function enqueue() {
 		// Load CodeMirror library
-		if ( ! defined( 'TTT_Customize_Control_Code_Loaded' ) ) {
-			wp_enqueue_style( 'codemirror', get_template_directory_uri() . '/assets/codemirror/lib/codemirror.css', array(), '5.4' );
-			wp_enqueue_script( 'codemirror', get_template_directory_uri() . '/assets/codemirror/lib/codemirror.js', array( 'jquery' ), '5.4', true );
-
-			define( 'TTT_Customize_Control_Code_Loaded', true );
-		}
+		wp_enqueue_style( 'codemirror', get_template_directory_uri() . '/assets/codemirror/lib/codemirror.css', array(), '5.4' );
+		wp_enqueue_script( 'codemirror', get_template_directory_uri() . '/assets/codemirror/lib/codemirror.js', array( 'jquery' ), '5.4', true );
 
 		// Load language specific library
 		wp_enqueue_script( "codemirror_{$this->language}", get_template_directory_uri() . "/assets/codemirror/mode/{$this->language}/{$this->language}.js", array( 'jquery' ), '5.4', true );
@@ -96,14 +89,27 @@ class TTT_Customize_Control_Code extends WP_Customize_Control {
 			<script type="text/javascript">
 				(function($) {
 					$(document).ready(function() {
-						var ThisCodeMirror = CodeMirror(
-							function(elt) {
-								$('#<?php echo esc_attr( $name ); ?> .codemirror').replaceWith(elt);
-							},
-							{
-								mode: 'css',
-							}
-						);
+						$('#<?php echo esc_attr( $name ); ?> .codemirror').click(function() {
+							var ThisCodeMirror;
+							ThisCodeMirror = CodeMirror(
+								function(elt) {
+									$('#<?php echo esc_attr( $name ); ?> .codemirror').replaceWith($(elt).on('change', function() {
+										var textarea = $('#<?php echo esc_attr( $name ); ?> textarea'), content = ThisCodeMirror.getValue();
+
+										if (textarea.val() != content) {
+											textarea.val(content).trigger('change');
+										}
+									}));
+
+									$(elt).find('.CodeMirror-scroll').trigger('click');
+								},
+								{
+									mode: '<?php echo esc_js( $this->language ); ?>',
+									autofocus: true,
+									value: $('#<?php echo esc_attr( $name ); ?> .codemirror').val(),
+								}
+							);
+						});
 					});
 				})(jQuery);
 			</script>

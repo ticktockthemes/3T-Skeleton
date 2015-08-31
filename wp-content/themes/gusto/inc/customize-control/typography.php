@@ -116,9 +116,6 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array() ) {
 		parent::__construct( $manager, $id, $args );
-
-		// Add action to load required assets
-		add_action( 'customize_controls_enqueue_scripts', array( &$this, 'customize_scripts' ) );
 	}
 
 	/**
@@ -126,12 +123,8 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 *
 	 * @since 1.0
 	 */
-	function customize_scripts() {
-		if ( ! defined( 'TTT_Customize_Control_Typography_Loaded' ) ) {
-			wp_enqueue_script( 'ttt-typography-control', get_template_directory_uri() . '/js/customize-control/typography.js', array( 'backbone' ), '1.0', true );
-
-			define( 'TTT_Customize_Control_Typography_Loaded', true );
-		}
+	function enqueue() {
+		wp_enqueue_script( 'ttt-typography-control', get_template_directory_uri() . '/js/customize-control/typography.js', array( 'backbone' ), '1.0', true );
 	}
 
 	/**
