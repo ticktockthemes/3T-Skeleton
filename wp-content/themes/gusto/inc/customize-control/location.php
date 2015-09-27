@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Location Control
+ * Gusto Location Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Location Control class.
+ * Location Customize Control class.
  *
  * @since 1.0
  *

@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Social Icons Control
+ * Gusto Social Icons Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Social Icons Control class.
+ * Social Icons Customize Control class.
  *
  * @since 1.0
  *

@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Radio Control
+ * Gusto Radio Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Radio Control class.
+ * Radio Customize Control class.
  *
  * @since 1.0
  *

@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Social Config Control
+ * Gusto Social Config Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Social Config Control class.
+ * Social Config Customize Control class.
  *
  * @since 1.0
  *

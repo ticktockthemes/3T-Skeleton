@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Separator Control
+ * Gusto Separator Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Separator Control class.
+ * Separator Customize Control class.
  *
  * @since 1.0
  *

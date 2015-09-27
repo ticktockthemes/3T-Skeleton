@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Textarea Control
+ * Gusto Textarea Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Textarea Control class.
+ * Textarea Customize Control class.
  *
  * @since 1.0
  *

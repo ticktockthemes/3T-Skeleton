@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Typography Control
+ * Gusto Typography Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Typography Control class.
+ * Typography Customize Control class.
  *
  * @since 1.0
  *

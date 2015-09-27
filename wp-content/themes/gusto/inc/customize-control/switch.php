@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Switch Control
+ * Gusto Switch Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Switch Control class.
+ * Switch Customize Control class.
  *
  * @since 1.0
  *

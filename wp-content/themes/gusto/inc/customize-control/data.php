@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Data Control
+ * Gusto Data Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Code Control class.
+ * Code Customize Control class.
  *
  * @since 1.0
  *

@@ -98,6 +98,9 @@ function gusto_widgets_init() {
 		'before_title'  => '<h1 class="widget-title">',
 		'after_title'   => '</h1>',
 	) );
+	
+	// Register Gusto widgets
+	include_once dirname( __FILE__ ) . '/inc/widget/contact-form.php';
 }
 add_action( 'widgets_init', 'gusto_widgets_init' );
 

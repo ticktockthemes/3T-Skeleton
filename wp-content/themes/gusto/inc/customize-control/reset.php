@@ -1,12 +1,12 @@
 <?php
 /**
- * TickTockThemes Customize Reset Control
+ * Gusto Reset Customize Control
  *
  * @package Gusto
  */
 
 /**
- * Customize Reset Control class.
+ * Reset Customize Control class.
  *
  * @since 1.0
  *
