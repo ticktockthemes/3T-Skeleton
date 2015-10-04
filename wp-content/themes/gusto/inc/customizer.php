@@ -22,17 +22,22 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->remove_section( 'title_tagline'    );
 
 	// Load custom customize control classes
-	include_once dirname( __FILE__ ) . '/customize-control/code.php';
+	include_once dirname( __FILE__ ) . '/customize-control/code-editor.php';
 	include_once dirname( __FILE__ ) . '/customize-control/data.php';
 	include_once dirname( __FILE__ ) . '/customize-control/location.php';
 	include_once dirname( __FILE__ ) . '/customize-control/radio.php';
 	include_once dirname( __FILE__ ) . '/customize-control/reset.php';
-	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
 	include_once dirname( __FILE__ ) . '/customize-control/separator.php';
+	include_once dirname( __FILE__ ) . '/customize-control/social-config.php';
+	include_once dirname( __FILE__ ) . '/customize-control/social-icons.php';
+	include_once dirname( __FILE__ ) . '/customize-control/switch.php';
 	include_once dirname( __FILE__ ) . '/customize-control/textarea.php';
 	include_once dirname( __FILE__ ) . '/customize-control/typography.php';
-	include_once dirname( __FILE__ ) . '/customize-control/social/config.php';
-	include_once dirname( __FILE__ ) . '/customize-control/social/icons.php';
+
+	// Register custom control types are eligible to be rendered via JS and created dynamically.
+	$wp_customize->register_control_type( 'TTT_Customize_Control_Code_Editor'   );
+	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Config' );
+	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Icons'  );
 
 	// Register General panel and section
 	$wp_customize->add_panel(
@@ -883,8 +888,8 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'header_social_icons', array(
-			'default'           => array( 'facebook', 'twitter' ),
-			'sanitize_callback' => 'sanitize_key',
+			'default'           => array(),
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1066,8 +1071,8 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'footer_social_icons', array(
-			'default'           => array( 'facebook', 'twitter' ),
-			'sanitize_callback' => 'sanitize_key',
+			'default'           => array(),
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1464,7 +1469,7 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'social_config', array(
 			'default'           => array(),
-			'sanitize_callback' => 'sanitize_key',
+			'sanitize_callback' => '',
 		)
 	);
 
@@ -1872,7 +1877,7 @@ function gusto_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_control(
-		new TTT_Customize_Control_Code(
+		new TTT_Customize_Control_Code_Editor(
 			$wp_customize, 'custom_css_data', array(
 				'section'  => 'ttt_advances',
 				'settings' => 'custom_css_data',
