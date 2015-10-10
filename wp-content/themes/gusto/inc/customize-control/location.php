@@ -20,38 +20,24 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 	public $type = 'ttt-location';
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0
-	 * @uses WP_Customize_Control::__construct()
-	 *
-	 * @param WP_Customize_Manager $manager
-	 * @param string $id
-	 * @param array $args
-	 */
-	public function __construct( $manager, $id, $args = array() ) {
-		parent::__construct( $manager, $id, $args );
-	}
-
-	/**
 	 * Load required assets.
 	 *
 	 * @since 1.0
 	 */
 	function enqueue() {
 		wp_enqueue_script( 'ttt-location-control', get_template_directory_uri() . '/js/customize-control/location.js', array( 'backbone' ), '1.0', true );
+
+		// Register action to print necessary templates for rendering location box list view.
+		add_action( 'customize_controls_print_footer_scripts', array( &$this, 'additional_content_template' ) );
 	}
 
 	/**
-	 * Render the control's content.
+	 * Print necessary templates for rendering location box list view.
 	 *
-	 * @since 1.0
+	 * @return  void
 	 */
-	public function render_content() {
-		// Generate control ID
-		$name = '_customize-location-' . $this->id;
-
-		// Print scripts
+	public function additional_content_template() {
+		// Print HTML template.
 		if ( ! defined( 'TTT_Customize_Control_Location_Template_Loaded' ) ) :
 		?>
 		<script type="text/html" id="ttt-location-control-template">
@@ -63,9 +49,8 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 				<div>
 					<label>
 						<?php _e( 'Enable', 'gusto' ); ?>
-						<input class="toggle-location" type="checkbox" autocomplete="off" <% if (enable == 'yes') { %>checked="checked" <% } %>>
+						<input class="toggle-location" type="checkbox" <% if (enable) { %>checked="checked" <% } %>>
 					</label>
-					<input type="hidden" name="enable" value="<%= enable %>">
 				</div>
 				<div>
 					<label>
@@ -91,21 +76,46 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 		define( 'TTT_Customize_Control_Location_Template_Loaded', true );
 
 		endif;
-		?>
-		<div class="ttt-location-control" id="<?php echo esc_attr( $name ); ?>">
-			<?php if ( ! empty( $this->label ) ) : ?>
-			<span class="customize-control-title">
-				<?php echo esc_html( $this->label ); ?>
-			</span>
-			<?php
-			endif;
+	}
 
-			if ( ! empty( $this->description ) ) :
-			?>
-			<span class="description customize-control-description">
-				<?php echo $this->description ; ?>
-			</span>
-			<?php endif; ?>
+	/**
+	 * Refresh the parameters passed to the JavaScript via JSON.
+	 *
+	 * @return  void
+	 */
+	public function to_json() {
+		parent::to_json();
+
+		// Pass language and current value to the Javascript object as well.
+		$this->json['value'] = is_array( $this->value() ) ? $this->value() : array();
+	}
+
+	/**
+	 * Don't render the control content from PHP, as it's rendered via JS on load.
+	 *
+	 * @return  void
+	 */
+	public function render_content() {}
+
+	/**
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
+	 *
+	 * @return  void
+	 */
+	protected function content_template() {
+		?>
+		<div class="{{{ data.type }}}" id="{{{ data.type + '-' + data.settings.default }}}">
+			<# if (data.label) { #>
+			<span class="customize-control-title">{{{ data.label }}}</span>
+			<# } #>
+			<# if (data.description) { #>
+			<span class="description customize-control-description">{{{ data.description }}}</span>
+			<# } #>
 			<div class="location-boxes"></div>
 			<a class="add-location button expand radius success" href="javascript:void(0)">
 				<?php
@@ -119,22 +129,8 @@ class TTT_Customize_Control_Location extends WP_Customize_Control {
 				endif;
 				?>
 			</a>
-			<textarea <?php $this->link(); ?> class="data-storage hidden"><?php
-				if ( ! is_string( $value = $this->value() ) )
-					$value = htmlentities( json_encode( $value ) );
-
-				echo '' . $value;
-			?></textarea>
-			<script type="text/javascript">
-				(function($) {
-					$(document).ready(function() {
-						new $.Gusto.LocationBox.ListView({
-							el: $('#<?php echo esc_attr( $name ); ?>'),
-						});
-					});
-				})(jQuery);
-			</script>
 		</div>
+		<# new jQuery.TTT_Location_Control(data); #>
 		<?php
 	}
 }

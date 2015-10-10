@@ -36,6 +36,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register custom control types are eligible to be rendered via JS and created dynamically.
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Code_Editor'   );
+	$wp_customize->register_control_type( 'TTT_Customize_Control_Location'      );
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Config' );
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Icons'  );
 
@@ -1708,7 +1709,7 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_setting(
 		'location_box_data', array(
-			'default'           => '',
+			'default'           => array(),
 			'sanitize_callback' => '',
 		)
 	);

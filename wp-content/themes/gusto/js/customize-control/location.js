@@ -5,29 +5,61 @@
  */
 
 (function($) {
-	$.Gusto = $.Gusto || {};
+	$.TTT_Location_Control = function(data) {
+		var self = this;
 
-	if (!$.Gusto.LocationBox) {
-		$.Gusto.LocationBox = {
-			Item: Backbone.Model.extend({
+		self.data = data;
+
+		setTimeout(function() {
+			self.init();
+		}, 1000);
+	};
+
+	$.TTT_Location_Control.prototype = {
+		init: function() {
+			var self = this;
+
+			// Get control container.
+			self.container = $('#' + self.data.type + '-' + self.data.settings['default']);
+
+			// Define Backbone model for location box.
+			var LocationBox = Backbone.Model.extend({
 				urlRoot: '#',
 
 				// Default attributes for item.
 				defaults: {
-					enable: 'yes',
+					index: null,
+					enable: true,
 					latitude: '',
 					longitude: '',
 					content: '',
 				},
+
+				// Toggle the `enable` state of this item.
+				toggle: function() {
+					this.save({
+						enable: !this.get('enable'),
+					});
+				}
 			}),
 
-			ItemView: Backbone.View.extend({
+			LocationBoxView = Backbone.View.extend({
 				// … is a div tag.
 				tagName: 'div',
+
+				// The DOM events specific to an item.
+				events: {
+					'click .toggle-location': 'toggle',
+					'click .remove-location': 'destroy',
+					'change .input-text'    : 'update',
+				},
 
 				initialize: function() {
 					// Cache the template function for a single item.
 					this.template = _.template(jQuery('#ttt-location-control-template').text());
+
+					// Listen to necessary events.
+					this.listenTo(this.model, 'destroy', this.remove);
 				},
 
 				// Render the item.
@@ -36,123 +68,103 @@
 
 					return this;
 				},
+
+				toggle: function() {
+					this.model.toggle();
+				},
+
+				destroy: function() {
+					this.model.destroy();
+				},
+
+				update: function(event) {
+					this.model.set($(event.target).attr('name'), $(event.target).val());
+				},
 			}),
-		};
 
-		$.Gusto.LocationBox.List = Backbone.Collection.extend({
-			// Reference to this collection’s model.
-			model: $.Gusto.LocationBox.Item,
+			LocationBoxList = Backbone.Collection.extend({
+				// Reference to this collection’s model.
+				model: LocationBox,
 
-			// Fetch existing items.
-			fetch: function(storage) {
-				// Get saved data from storage.
-				var data = jQuery(storage).val();
-
-				if (data) {
-					// JSON decode saved data
-					data = jQuery.parseJSON(data);
-
+				// Fetch existing items.
+				fetch: function() {
 					// Add saved items to collection.
-					for (var i = 0; i < data.enable.length; i++) {
+					for (var i = 0; i < self.data.value.length; i++) {
 						this.create({
-							enable: data.enable[i],
-							latitude: data.latitude[i],
-							longitude: data.longitude[i],
-							content: data.content[i],
+							index: i + 1,
+							enable: self.data.value[i].enable,
+							latitude: self.data.value[i].latitude,
+							longitude: self.data.value[i].longitude,
+							content: self.data.value[i].content,
 						});
 					}
-				}
+				},
+			});
 
-				// Save storage for later update.
-				this.storage = storage;
-			},
+			LocationBoxListView = Backbone.View.extend({
+				// Instead of generating a new element, bind to the existing skeleton of the list already present in the HTML.
+				el: self.container,
 
-			// Update changes to storage.
-			update: function(container) {
-				var data = {};
-				
-				container.find('input[name], textarea[name]').each(function(i, e) {
-					if (!data[e.name]) {
-						data[e.name] = [];
+				// Delegate events for creating new item and updating existing item.
+				events: {
+					'click .add-location'   : 'create',
+					'click .toggle-location': 'update',
+					'change .input-text'    : 'update',
+				},
+
+				initialize: function() {
+					// Create new collection.
+					this.collection = new LocationBoxList();
+
+					// At initialization we bind to the relevant events on the collection, when items are added or changed.
+					this.listenTo(this.collection, 'add', this.addOne);
+					this.listenTo(this.collection, 'reset', this.addAll);
+
+					// Kick things off by loading any preexisting location boxes that might be saved before.
+					this.collection.fetch();
+				},
+
+				// Add a single item to the list by creating a view for it, and appending its element to the table.
+				addOne: function(item) {
+					// Set item title.
+					if (!item.get('index')) {
+						item.set('index', this.$el.find('.location-boxes').children().length + 1);
 					}
-					
-					data[e.name].push(e.value);
-				});
 
-				// Convert all special characters to HTML entities.
-				data = JSON.stringify(data).replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
-					return '&#'+i.charCodeAt(0)+';';
-				});
+					// Create view.
+					var view = new LocationBoxView({model: item});
+					this.$el.find('.location-boxes').append(view.render().$el.hide());
+					view.render().$el.slideDown();
+				},
 
-				this.storage.val(data).trigger('change');
-			},
-		});
+				// Add all items in the collection at once.
+				addAll: function() {
+					this.collection.each(this.addOne, this);
+				},
 
-		$.Gusto.LocationBox.ListView = Backbone.View.extend({
-			// Instead of generating a new element, bind to the existing skeleton of the list already present in the HTML.
-			el: null,
+				// Create new item.
+				create: function() {
+					this.collection.create();
+				},
 
-			// Delegate events for creating new item and updating existing item.
-			events: {
-				'click .add-location'    : 'create',
-				'click .toggle-location' : 'toggle',
-				'click .remove-location' : 'remove',
-				'change .input-text'     : 'update',
-			},
+				// Update changes.
+				update: function() {
+					var value = [];
 
-			initialize: function() {
-				// Create new collection.
-				this.collection = new $.Gusto.LocationBox.List();
+					this.collection.each(function(item) {console.log(154, item);
+						value.push({
+							enable: item.get('enable'),
+							latitude: item.get('latitude'),
+							longitude: item.get('longitude'),
+							content: item.get('content'),
+						});
+					});
 
-				// At initialization we bind to the relevant events on the collection, when items are added or changed.
-				this.listenTo(this.collection, 'add', this.addOne);
-				this.listenTo(this.collection, 'reset', this.addAll);
+					wp.customize.control(self.data.settings['default']).setting.set(value);
+				},
+			});
 
-				// Kick things off by loading any preexisting location boxes that might be saved before.
-				this.collection.fetch(this.$('.data-storage'));
-			},
-
-			// Add a single item to the list by creating a view for it, and appending its element to the table.
-			addOne: function(item) {
-				// Set item title.
-				item.set('index', this.$('.location-boxes').children().length + 1);
-
-				// Create view.
-				var view = new $.Gusto.LocationBox.ItemView({model: item});
-				this.$('.location-boxes').append(view.render().$el.hide());
-				view.render().$el.slideDown();
-			},
-
-			// Add all items in the collection at once.
-			addAll: function() {
-				this.collection.each(this.addOne, this);
-			},
-
-			// Create new item.
-			create: function() {
-				this.collection.create();
-			},
-
-			// Toggle the 'enable' state of the model.
-			toggle: function(event) {
-				var value = this.$(event.target).attr('checked') ? 'yes' : 'no';
-				
-				this.$(event.target).parent().next().val(value);
-				
-				this.update();
-			},
-
-			// Remove an item.
-			remove: function(event) {
-				this.$(event.target).closest('.panel').parent().remove();
-				
-				this.update();
-			},
-			
-			// Update changes to storage.
-			update: function() {
-				this.collection.update(this.$('.location-boxes'));
-			},
-		});
+			new LocationBoxListView();
+		},
 	}
 })(jQuery);
