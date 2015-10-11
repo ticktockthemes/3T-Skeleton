@@ -23,7 +23,7 @@ class TTT_Customize_Control_Social_Config extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	public static $networks = array(
+	protected static $networks = array(
 		'facebook'  => 'Facebook',
 		'twitter'   => 'Twitter',
 		'google+'   => 'Google +',

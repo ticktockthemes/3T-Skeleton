@@ -39,6 +39,7 @@ function gusto_customize_register( $wp_customize ) {
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Location'      );
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Config' );
 	$wp_customize->register_control_type( 'TTT_Customize_Control_Social_Icons'  );
+	$wp_customize->register_control_type( 'TTT_Customize_Control_Typography'    );
 
 	// Register General panel and section
 	$wp_customize->add_panel(
@@ -662,53 +663,15 @@ function gusto_customize_register( $wp_customize ) {
 
 	// Register typography settings and controls
 	$wp_customize->add_setting(
-		'typography', array(
+		'body_fonts', array(
 			'default' => array(
-				'body' => array(
-					'font_family'    => '',
-					'font_size'      => '',
-					'line_height'    => '',
-					'spacing'        => '',
-					'font_style'     => '',
-					'text_transform' => '',
-					'subset'         => '',
-				),
-				'logo' => array(
-					'font_family'    => '',
-					'font_size'      => '',
-					'line_height'    => '',
-					'spacing'        => '',
-					'font_style'     => '',
-					'text_transform' => '',
-					'subset'         => '',
-				),
-				'section_heading' => array(
-					'font_family'    => '',
-					'font_size'      => '',
-					'line_height'    => '',
-					'spacing'        => '',
-					'font_style'     => '',
-					'text_transform' => '',
-					'subset'         => '',
-				),
-				'section_subheading' => array(
-					'font_family'    => '',
-					'font_size'      => '',
-					'line_height'    => '',
-					'spacing'        => '',
-					'font_style'     => '',
-					'text_transform' => '',
-					'subset'         => '',
-				),
-				'page_heading' => array(
-					'font_family'    => '',
-					'font_size'      => '',
-					'line_height'    => '',
-					'spacing'        => '',
-					'font_style'     => '',
-					'text_transform' => '',
-					'subset'         => '',
-				),
+				'font_family'    => '',
+				'font_size'      => '',
+				'line_height'    => '',
+				'spacing'        => '',
+				'font_style'     => '',
+				'text_transform' => '',
+				'subset'         => '',
 			),
 			'sanitize_callback' => '',
 		)
@@ -716,9 +679,110 @@ function gusto_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control(
 		new TTT_Customize_Control_Typography(
-			$wp_customize, 'typography', array(
+			$wp_customize, 'body_fonts', array(
+				'label'    => __( 'Body Font', 'gusto' ),
 				'section'  => 'ttt_typography',
-				'settings' => 'typography',
+				'settings' => 'body_fonts',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'logo_fonts', array(
+			'default' => array(
+				'font_family'    => '',
+				'font_size'      => '',
+				'line_height'    => '',
+				'spacing'        => '',
+				'font_style'     => '',
+				'text_transform' => '',
+				'subset'         => '',
+			),
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'logo_fonts', array(
+				'label'    => __( 'Logo Font', 'gusto' ),
+				'section'  => 'ttt_typography',
+				'settings' => 'logo_fonts',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_heading_fonts', array(
+			'default' => array(
+				'font_family'    => '',
+				'font_size'      => '',
+				'line_height'    => '',
+				'spacing'        => '',
+				'font_style'     => '',
+				'text_transform' => '',
+				'subset'         => '',
+			),
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'section_heading_fonts', array(
+				'label'    => __( 'Section Heading Font', 'gusto' ),
+				'section'  => 'ttt_typography',
+				'settings' => 'section_heading_fonts',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'section_subheading_fonts', array(
+			'default' => array(
+				'font_family'    => '',
+				'font_size'      => '',
+				'line_height'    => '',
+				'spacing'        => '',
+				'font_style'     => '',
+				'text_transform' => '',
+				'subset'         => '',
+			),
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'section_subheading_fonts', array(
+				'label'    => __( 'Section Subheading Font', 'gusto' ),
+				'section'  => 'ttt_typography',
+				'settings' => 'section_subheading_fonts',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'page_heading_fonts', array(
+			'default' => array(
+				'font_family'    => '',
+				'font_size'      => '',
+				'line_height'    => '',
+				'spacing'        => '',
+				'font_style'     => '',
+				'text_transform' => '',
+				'subset'         => '',
+			),
+			'sanitize_callback' => '',
+		)
+	);
+
+	$wp_customize->add_control(
+		new TTT_Customize_Control_Typography(
+			$wp_customize, 'page_heading_fonts', array(
+				'label'    => __( 'Page Heading Font', 'gusto' ),
+				'section'  => 'ttt_typography',
+				'settings' => 'page_heading_fonts',
 			)
 		)
 	);

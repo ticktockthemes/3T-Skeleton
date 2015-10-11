@@ -40,9 +40,10 @@
 					this.save({
 						enable: !this.get('enable'),
 					});
-				}
+				},
 			}),
 
+			// Define Backbone view for location box.
 			LocationBoxView = Backbone.View.extend({
 				// … is a div tag.
 				tagName: 'div',
@@ -82,6 +83,7 @@
 				},
 			}),
 
+			// Define Backbone collection for location box list.
 			LocationBoxList = Backbone.Collection.extend({
 				// Reference to this collection’s model.
 				model: LocationBox,
@@ -99,8 +101,9 @@
 						});
 					}
 				},
-			});
+			}),
 
+			// Define Backbone view for location box list.
 			LocationBoxListView = Backbone.View.extend({
 				// Instead of generating a new element, bind to the existing skeleton of the list already present in the HTML.
 				el: self.container,
@@ -151,7 +154,7 @@
 				update: function() {
 					var value = [];
 
-					this.collection.each(function(item) {console.log(154, item);
+					this.collection.each(function(item) {
 						value.push({
 							enable: item.get('enable'),
 							latitude: item.get('latitude'),

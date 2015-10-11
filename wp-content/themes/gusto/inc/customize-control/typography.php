@@ -23,7 +23,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $standard_fonts = array(
+	protected static $standard_fonts = array(
 		'Andale Mono',
 		'Arial',
 		'Arial Black',
@@ -40,7 +40,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $google_fonts = array(
+	protected static $google_fonts = array(
 		'Open Sans',
 		'Inconsolata',
 		'Montserrat',
@@ -77,7 +77,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $styles = array(
+	protected static $styles = array(
 		'Regular',
 		'Italic',
 		'Bold',
@@ -88,7 +88,7 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $transforms = array(
+	protected static $transforms = array(
 		'Lowercase',
 		'Uppercase',
 		'Capitailize',
@@ -98,25 +98,11 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 * @access public
 	 * @var array
 	 */
-	protected $subsets = array(
+	protected static $subsets = array(
 		'Latin',
 		'Vietnamese',
 		'Thailand',
 	);
-
-	/**
-	 * Constructor.
-	 *
-	 * @since 1.0
-	 * @uses WP_Customize_Control::__construct()
-	 *
-	 * @param WP_Customize_Manager $manager
-	 * @param string $id
-	 * @param array $args
-	 */
-	public function __construct( $manager, $id, $args = array() ) {
-		parent::__construct( $manager, $id, $args );
-	}
 
 	/**
 	 * Load required assets.
@@ -125,147 +111,167 @@ class TTT_Customize_Control_Typography extends WP_Customize_Control {
 	 */
 	function enqueue() {
 		wp_enqueue_script( 'ttt-typography-control', get_template_directory_uri() . '/js/customize-control/typography.js', array( 'backbone' ), '1.0', true );
+
+		// Pass supported typography settings to Javascript.
+		wp_localize_script( 'ttt-typography-control', 'ttt_supported_standard_fonts', self::$standard_fonts );
+		wp_localize_script( 'ttt-typography-control', 'ttt_supported_google_fonts', self::$google_fonts );
+		wp_localize_script( 'ttt-typography-control', 'ttt_supported_font_styles', self::$styles );
+		wp_localize_script( 'ttt-typography-control', 'ttt_supported_text_transforms', self::$transforms );
+		wp_localize_script( 'ttt-typography-control', 'ttt_supported_font_subsets', self::$subsets );
+
+		// Register action to print necessary templates for rendering location box list view.
+		add_action( 'customize_controls_print_footer_scripts', array( &$this, 'additional_content_template' ) );
 	}
 
 	/**
-	 * Render the control's content.
+	 * Print necessary templates for rendering location box list view.
 	 *
-	 * @since 1.0
+	 * @return  void
 	 */
-	public function render_content() {
-		// Generate control ID
-		$name = '_customize-typography-' . $this->id;
-
-		// Print scripts
+	public function additional_content_template() {
+		// Print HTML template.
 		if ( ! defined( 'TTT_Customize_Control_Typography_Template_Loaded' ) ) :
 		?>
 		<script type="text/html" id="ttt-typography-control-template">
-			<label>
-				<span class="customize-control-title clearfix">
-					<%= type.replace('_', ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %>
-					<a class="expand-panel right" href="javascript:void">&gt;</a>
-				</span>
-				<select name="<%= type %>[font_family]">
-					<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
-					<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
-						<?php foreach ( $this->standard_fonts as $option ) : ?>
-						<option value="<?php echo esc_attr( $option ); ?>" <% if (font_family == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
-							<?php echo esc_html( $option ); ?>
-						</option>
-						<?php endforeach; ?>
-					</optgroup>
-					<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
-						<?php foreach ( $this->google_fonts as $option ) : ?>
-						<option value="<?php echo esc_attr( $option ); ?>" <% if (font_family == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
-							<?php echo esc_html( $option ); ?>
-						</option>
-						<?php endforeach; ?>
-					</optgroup>
-				</select>
-				<div class="panel ttt-advanced-panel">
-					<h5><%= type.replace('_', ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %></h5>
-					<div>
-						<label>
-							<?php _e( 'Font Size', 'gusto' ); ?>
-							<input type="number" min="0" name="<%= type %>[font_size]" value="<%= font_size %>" placeholder="<?php
-								_e( 'e.g. 14', 'gusto' );
-							?>">
-						</label>
-					</div>
-					<div>
-						<label>
-							<?php _e( 'Line Height', 'gusto' ); ?>
-							<input type="number" min="0" name="<%= type %>[line_height]" value="<%= line_height %>" placeholder="<?php
-								_e( 'e.g. 24', 'gusto' );
-							?>">
-						</label>
-					</div>
-					<div>
-						<label>
-							<?php _e( 'Spacing', 'gusto' ); ?>
-							<input type="number" min="0" name="<%= type %>[spacing]" value="<%= spacing %>" placeholder="<?php
-								_e( 'e.g. 2', 'gusto' );
-							?>">
-						</label>
-					</div>
-					<div>
-						<label>
-							<?php _e( 'Font Style', 'gusto' ); ?>
-							<select name="<%= type %>[font_style]">
-								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
-								<?php foreach ( $this->styles as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <% if (font_style == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
-									<?php echo esc_html( $option ); ?>
-								</option>
-								<?php endforeach; ?>
-							</select>
-						</label>
-					</div>
-					<div>
-						<label>
-							<?php _e( 'Text Transform', 'gusto' ); ?>
-							<select name="<%= type %>[text_transform]">
-								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
-								<?php foreach ( $this->transforms as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <% if (text_transform == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
-									<?php echo esc_html( $option ); ?>
-								</option>
-								<?php endforeach; ?>
-							</select>
-						</label>
-					</div>
-					<div>
-						<label>
-							<?php _e( 'Subset', 'gusto' ); ?>
-							<select name="<%= type %>[subset]">
-								<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
-								<?php foreach ( $this->subsets as $option ) : ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <% if (subset == '<?php echo esc_attr( $option ); ?>') { %>selected="selected"<% } %>>
-									<?php echo esc_html( $option ); ?>
-								</option>
-								<?php endforeach; ?>
-							</select>
-						</label>
-					</div>
+			<div class="panel ttt-advanced-panel">
+				<div>
+					<label>
+						<?php _e( 'Font Size', 'gusto' ); ?>
+						<input type="number" min="0" name="font_size" value="<%= font_size %>" placeholder="<?php
+							_e( 'e.g. 14', 'gusto' );
+						?>">
+					</label>
 				</div>
-			</label>
+				<div>
+					<label>
+						<?php _e( 'Line Height', 'gusto' ); ?>
+						<input type="number" min="0" name="line_height" value="<%= line_height %>" placeholder="<?php
+							_e( 'e.g. 24', 'gusto' );
+						?>">
+					</label>
+				</div>
+				<div>
+					<label>
+						<?php _e( 'Spacing', 'gusto' ); ?>
+						<input type="number" min="0" name="spacing" value="<%= spacing %>" placeholder="<?php
+							_e( 'e.g. 2', 'gusto' );
+						?>">
+					</label>
+				</div>
+				<div>
+					<label>
+						<?php _e( 'Font Style', 'gusto' ); ?>
+						<select name="font_style">
+							<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+							<% var selected; for (var i in ttt_supported_font_styles) { %>
+							<% selected = font_style == ttt_supported_font_styles[i] ? 'selected="selected"' : ''; %>
+							<option value="<%= ttt_supported_font_styles[i] %>" <%= selected %>>
+								<%= ttt_supported_font_styles[i] %>
+							</option>
+							<% } %>
+						</select>
+					</label>
+				</div>
+				<div>
+					<label>
+						<?php _e( 'Text Transform', 'gusto' ); ?>
+						<select name="text_transform">
+							<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+							<% for (var i in ttt_supported_text_transforms) { %>
+							<% selected = text_transform == ttt_supported_text_transforms[i] ? 'selected="selected"' : ''; %>
+							<option value="<%= ttt_supported_text_transforms[i] %>" <%= selected %>>
+								<%= ttt_supported_text_transforms[i] %>
+							</option>
+							<% } %>
+						</select>
+					</label>
+				</div>
+				<div>
+					<label>
+						<?php _e( 'Subset', 'gusto' ); ?>
+						<select name="subset">
+							<option value=""><?php _e( '- click to select -', 'gusto' ); ?></option>
+							<% for (var i in ttt_supported_font_subsets) { %>
+							<% selected = subset == ttt_supported_font_subsets[i] ? 'selected="selected"' : ''; %>
+							<option value="<%= ttt_supported_font_subsets[i] %>" <%= selected %>>
+								<%= ttt_supported_font_subsets[i] %>
+							</option>
+							<% } %>
+						</select>
+					</label>
+				</div>
+			</div>
 		</script>
 		<?php
 		define( 'TTT_Customize_Control_Typography_Template_Loaded', true );
 
 		endif;
+	}
+
+	/**
+	 * Refresh the parameters passed to the JavaScript via JSON.
+	 *
+	 * @return  void
+	 */
+	public function to_json() {
+		parent::to_json();
+
+		// Pass current value to the Javascript object as well.
+		$this->json['value'] = is_array( $this->value() ) ? $this->value() : array();
+	}
+
+	/**
+	 * Don't render the control content from PHP, as it's rendered via JS on load.
+	 *
+	 * @return  void
+	 */
+	public function render_content() {}
+
+	/**
+	 * An Underscore (JS) template for this control's content (but not its container).
+	 *
+	 * Class variables for this control class are available in the `data` JS object;
+	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 *
+	 * @see WP_Customize_Control::print_template()
+	 *
+	 * @return  void
+	 */
+	protected function content_template() {
 		?>
-		<div class="ttt-typography-control" id="<?php echo esc_attr( $name ); ?>">
-			<?php if ( ! empty( $this->label ) ) : ?>
-			<span class="customize-control-title">
-				<?php echo esc_html( $this->label ); ?>
+		<div class="{{{ data.type }}}" id="{{{ data.type + '-' + data.settings.default }}}">
+			<# if (data.label) { #>
+			<span class="customize-control-title clearfix">
+				{{{ data.label }}}
+				<a class="expand-panel right" href="javascript:void"></a>
 			</span>
-			<?php
-			endif;
-
-			if ( ! empty( $this->description ) ) :
-			?>
-			<span class="description customize-control-description">
-				<?php echo $this->description ; ?>
-			</span>
-			<?php endif; ?>
-			<div class="typography-types"></div>
-			<textarea <?php $this->link(); ?> class="data-storage hidden"><?php
-				if ( ! is_string( $value = $this->value() ) )
-					$value = htmlentities( json_encode( $value ) );
-
-				echo '' . $value;
-			?></textarea>
-			<script type="text/javascript">
-				(function($) {
-					$(document).ready(function() {
-						new $.Gusto.Typography.ListView({
-							el: $('#<?php echo esc_attr( $name ); ?>'),
-						});
-					});
-				})(jQuery);
-			</script>
+			<# } #>
+			<# if (data.description) { #>
+			<span class="description customize-control-description">{{{ data.description }}}</span>
+			<# } #>
+			<label>
+				<select name="font_family">
+					<option value=""><?php _e( '- Font Family -', 'gusto' ); ?></option>
+					<optgroup label="<?php _e( 'Standard Fonts', 'gusto' ); ?>">
+						<# var selected; for (var i in ttt_supported_standard_fonts) { #>
+						<# selected = data.value.font_family == ttt_supported_standard_fonts[i] ? 'selected="selected"' : ''; #>
+						<option value="{{{ ttt_supported_standard_fonts[i] }}}" {{{ selected }}}>
+							{{{ ttt_supported_standard_fonts[i] }}}
+						</option>
+						<# } #>
+					</optgroup>
+					<optgroup label="<?php _e( 'Google Fonts', 'gusto' ); ?>">
+						<# for (var i in ttt_supported_google_fonts) { #>
+						<# selected = data.value.font_family == ttt_supported_google_fonts[i] ? 'selected="selected"' : ''; #>
+						<option value="{{{ ttt_supported_google_fonts[i] }}}" {{{ selected }}}>
+							{{{ ttt_supported_google_fonts[i] }}}
+						</option>
+						<# } #>
+					</optgroup>
+				</select>
+			</label>
 		</div>
+		<# new jQuery.TTT_Typography_Control(data); #>
 		<?php
 	}
 }

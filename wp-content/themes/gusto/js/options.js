@@ -113,7 +113,11 @@
 		toggleCustomFonts: function(event) {
 			var func = event.target.checked ? 'removeClass' : 'addClass';
 
-			this.$('#customize-control-typography')[func]('hidden');
+			this.$('#customize-control-body_fonts')[func]('hidden');
+			this.$('#customize-control-logo_fonts')[func]('hidden');
+			this.$('#customize-control-section_heading_fonts')[func]('hidden');
+			this.$('#customize-control-section_subheading_fonts')[func]('hidden');
+			this.$('#customize-control-page_heading_fonts')[func]('hidden');
 		},
 
 		// Method to toggle child options for Header Social Icons.

@@ -1,15 +1,31 @@
 /**
  * Theme Customizer enhancements for a better user experience.
  *
- * Contains handlers to manage custom fonts.
+ * Contains handlers to customize typography.
  */
 
 (function($) {
-	$.Gusto = $.Gusto || {};
+	$.TTT_Typography_Control = function(data) {
+		var self = this;
 
-	if (!$.Gusto.Typography) {
-		$.Gusto.Typography = {
-			Item: Backbone.Model.extend({
+		self.data = data;
+
+		setTimeout(function() {
+			self.init();
+		}, 1000);
+	};
+
+	$.TTT_Typography_Control.prototype = {
+		init: function() {
+			var self = this;
+
+			// Get control container, font family selector and advanced panel toggler.
+			self.container = $('#' + self.data.type + '-' + self.data.settings['default']);
+			self.family_input = self.container.find('select[name="font_family"]');
+			self.toggle_panel = self.container.find('.expand-panel').html('&gt;');
+
+			// Define Backbone model for typography customization.
+			var TypographyCustomization = Backbone.Model.extend({
 				urlRoot: '#',
 
 				// Default attributes for item.
@@ -24,7 +40,8 @@
 				},
 			}),
 
-			ItemView: Backbone.View.extend({
+			// Define Backbone view for typography customization.
+			TypographyCustomizationView = Backbone.View.extend({
 				// … is a div tag.
 				tagName: 'div',
 
@@ -39,141 +56,59 @@
 
 					return this;
 				},
-			}),
-		};
+			});
 
-		$.Gusto.Typography.List = Backbone.Collection.extend({
-			// Reference to this collection’s model.
-			model: $.Gusto.Typography.Item,
+			// Init advanced settings panel.
+			self.view = new TypographyCustomizationView({
+				model: new TypographyCustomization(self.data.value),
+			});
 
-			// Fetch existing items.
-			fetch: function(storage) {
-				// Get saved data from storage.
-				var data = jQuery(storage).text();
+			$(document.body).append(self.view.render().$el);
 
-				if (data) {
-					// JSON decode saved data
-					data = jQuery.parseJSON(data);
+			// Define function to update changes.
+			function update(event) {
+				self.view.model.set($(event.target).attr('name'), $(event.target).val());
 
-					// Add saved items to collection.
-					for (var i in data) {
-						// Set type to data
-						data[i].type = i;
+				// Update changes to theme customize object.
+				var value = {
+					font_family: self.view.model.get('font_family'),
+					font_size: self.view.model.get('font_size'),
+					line_height: self.view.model.get('line_height'),
+					spacing: self.view.model.get('spacing'),
+					font_style: self.view.model.get('font_style'),
+					text_transform: self.view.model.get('text_transform'),
+					subset: self.view.model.get('subset'),
+				};
 
-						this.create(data[i]);
-					}
+				wp.customize.control(self.data.settings['default']).setting.set(value);
+			};
+
+			// Track change in font family selector.
+			self.family_input.change(function(event) {
+				update(event);
+			});
+
+			// Track change in advanced settings panel.
+			self.view.$el.on('change', 'input[name], select[name]', function(event) {
+				update(event);
+			});
+
+			// Setup action to show advanced settings panel.
+			self.toggle_panel.click(function(event) {
+				if (!self.toggle_panel.hasClass('open')) {
+					// Close all opened advanced panel.
+					$('.ttt-typography .expand-panel.open').trigger('click');
 				}
 
-				// Save storage for later update.
-				this.storage = storage;
-			},
-
-			// Update changes to storage.
-			update: function(container) {
-				var data = {}, key;
-				
-				container.find('input[name], select[name]').each(function(i, e) {
-					// Parse field name
-					key = e.name.match(/^([^\[]+)\[([^\]]+)\]$/);
-
-					if (key) {
-						if (!data[key[1]]) {
-							data[key[1]] = {};
-						}
-						
-						data[key[1]][key[2]] = e.value;
-					}
-				});
-
-				// Convert all special characters to HTML entities.
-				data = JSON.stringify(data).replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
-					return '&#'+i.charCodeAt(0)+';';
-				});
-
-				this.storage.val(data).trigger('change');
-			},
-		});
-
-		$.Gusto.Typography.ListView = Backbone.View.extend({
-			// Instead of generating a new element, bind to the existing skeleton of the list already present in the HTML.
-			el: null,
-
-			// Delegate events for creating new item and updating existing item.
-			events: {
-				'click .expand-panel' : 'expand',
-				'change input[name]'  : 'update',
-				'change select[name]' : 'update',
-			},
-
-			initialize: function() {
-				// Create new collection.
-				this.collection = new $.Gusto.Typography.List();
-
-				// At initialization we bind to the relevant events on the collection, when items are added or changed.
-				this.listenTo(this.collection, 'add', this.addOne);
-				this.listenTo(this.collection, 'reset', this.addAll);
-
-				// Kick things off by loading any preexisting location boxes that might be saved before.
-				this.collection.fetch(this.$('.data-storage'));
-			},
-
-			// Add a single item to the list by creating a view for it, and appending its element to the table.
-			addOne: function(item) {
-				// Create view.
-				var view = new $.Gusto.Typography.ItemView({model: item});
-				this.$('.typography-types').append(view.render().el);
-			},
-
-			// Add all items in the collection at once.
-			addAll: function() {
-				this.collection.each(this.addOne, this);
-			},
-		
-			// Expand advanced settings panel.
-			expand: function(event) {
-				var self = this, panel = jQuery(event.target).closest('label').children('.panel');
-				
-				// Check if panel is already opened.
-				if (jQuery(event.target).hasClass('open')) {
-					jQuery(event.target).prop('advanced-panel').removeClass('open');
-					jQuery(event.target).removeClass('open').html('&gt;');
-
-					return setTimeout(function() {
-						jQuery(event.target).prop('advanced-panel').remove();
-					}, 300);
-				}
-
-				// Close any visible advanced settings panel.
-				jQuery(event.target).closest('.typography-types').find('.expand-panel.open').trigger('click');
-				
-				// Clone the advanced settings panel to document body.
-				var open_panel = panel.clone().appendTo(document.body);
-				
-				// Open the advanced settings panel.
 				setTimeout(function() {
-					open_panel.addClass('open');
-				}, 1);
-				
-				// Track changes in the advanced settings panel.
-				open_panel.on('change', 'input[name], select[name]', function(event) {
-					// Update value to original panel.
-					panel.find('input[name], select[name]').each(function(i, e) {
-						if (jQuery(e).attr('name') == jQuery(event.target).attr('name')) {
-							jQuery(e).val(jQuery(event.target).val());
-						}
-					});
-					
-					self.update();
-				})
-				
-				// Store panel for later reference.
-				jQuery(event.target).addClass('open').html('&lt;').prop('advanced-panel', open_panel);
-			},
-			
-			// Update changes to storage.
-			update: function() {
-				this.collection.update(this.$('.typography-types'));
-			},
-		});
+					// Toggle the advanced settings panel.
+					self.view.$el.children('.panel').toggleClass('open');
+
+					// Update text for advanced panel toggler.
+					self.toggle_panel.toggleClass('open');
+					self.toggle_panel.html(self.toggle_panel.hasClass('open') ? '&lt;' : '&gt;');
+				}, 100);
+			});
+		},
 	}
 })(jQuery);
