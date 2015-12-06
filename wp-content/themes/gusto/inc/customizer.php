@@ -804,7 +804,7 @@ function gusto_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Register Header Layout settings and controls
+	/* Register Header Layout settings and controls
 	$wp_customize->add_setting(
 		'separator_before_header_layout', array(
 			'sanitize_callback' => '',
@@ -850,7 +850,7 @@ function gusto_customize_register( $wp_customize ) {
 				),
 			)
 		)
-	);
+	);*/
 
 	// Register Sticky Header settings and controls
 	$wp_customize->add_setting(
