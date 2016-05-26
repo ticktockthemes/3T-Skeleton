@@ -5,13 +5,13 @@ $white						: #fff;
 $light_blue_bg				: #f7f9fb;
 $light_blue_border			: 1px solid #dce3e8;
 $light_blue_border_color	: #dce3e8;
-$active_color				: #19bb80;
-$active_color_very_light	: #d6f0e6;
-$active_darker_color		: #20a776;
-$active_darkest_color		: #116446;
-$active_dark_text			: #264443;
+$active_color				: #2378ec;
+$active_color_very_light	: #d6e2f0;
+$active_darker_color		: #2066a7;
+$active_darkest_color		: #113464;
+$active_dark_text			: #202934;
 $warning_color				: #f08a24;
-$active_bot_shadow			: #149465;
+$active_bot_shadow			: #144494;
 $horizontal_box_shadow		: 2px 1px 0 rgba(0,0,0,0.15);
 $light_top_shadow			: inset 0 1px 0 rgba(255,255,255,0.8);
 $dark_bot_shadow			: 0 1px 0 rgba(0,0,0,0.2);
@@ -24,12 +24,13 @@ $z3							: 300;
 $z4							: 400;
 $z5							: 500;
 $z10						: 1000;
-$transition					: all 0.3s ease;
+$transition					: all 0.2s ease;
 $color_transition			: color 0.3s ease;
 
 @mixin radio_input {
-	width: 16px;
-	height: 16px;
+	width: 14px;
+	height: 14px;
+	min-width: 14px;
 	border: 3px solid #ddd;
 	transform: scale(1);
 	box-shadow: none;
@@ -48,8 +49,8 @@ $color_transition			: color 0.3s ease;
 		@include pseudo_basic;
 		@include absolute_center;
 		opacity: 0;
-		width: 6px;
-		height: 6px;
+		width: 4px;
+		height: 4px;
 		border-radius: 100%;
 		background-color: #ccc;
 		transition: $transition;
@@ -61,7 +62,7 @@ $color_transition			: color 0.3s ease;
 		box-shadow: none;
 	}
 	&:checked {
-		transform: scale(1.2);
+		transform: scale(1.1);
 		background-color: $active_color;
 		border-color: $active-color;
 		&:before {

@@ -93,12 +93,13 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 					});
 
 					// Handle button switch
-					$('.ttt-radio-control .button-group').append('<div class="switch-pad"></div>');
-					$('.ttt-radio-control .button-group li a label').click(function() {
-						$(this).closest('.button-group').find('li').removeClass('active');
-						$(this).closest('.button-group').find('label').removeClass('lower-z');
+					$('.ttt-radio-control .radio-switch').append('<div class="switch-pad"></div>');
+					$('.ttt-radio-control .radio-switch li a label').click(function() {
 
-						if ( $(this).closest('.button-group').find('input:checked') ) {
+						$(this).closest('.radio-switch').find('li.active label').removeClass('lower-z');
+						$(this).closest('.radio-switch').find('li.active').removeClass('active');
+
+						if ( $(this).closest('.radio-switch').find('input:checked') ) {
 							$(this).closest('li').addClass('active');
 							$(this).addClass('lower-z');
 						} else {
@@ -208,7 +209,7 @@ class TTT_Customize_Control_Radio extends WP_Customize_Control {
 						value="<?php echo esc_attr( $value ); ?>"
 						<?php $this->link(); ?>
 						<?php checked( $this->value(), $value ); ?>
-					style="display: none;">
+					>
 					<label class="<?php
 						if ( $this->value() == $value )
 							echo 'lower-z';

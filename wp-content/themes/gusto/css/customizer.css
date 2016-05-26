@@ -18,23 +18,6 @@ This file contains styling for 3T Theme Customizer Panel
 /*--------------------------------------------------------------
 # GENERAL
 --------------------------------------------------------------*/
-.ttt-advanced-panel {
-  position: absolute;
-  top: 0;
-  left: 300px;
-  padding: 0;
-  width: 0;
-  height: 100%;
-  overflow: hidden;
-  z-index: 999999999;
-  transition: all .3s ease-in-out;
-}
-.ttt-advanced-panel.open {
-  padding: 1.25rem;
-  width: 300px;
-  overflow: auto;
-}
-
 /*--------------------------------------------------------------
 # RESET WP DEFAULT STYLE
 --------------------------------------------------------------*/
@@ -55,7 +38,7 @@ This file contains styling for 3T Theme Customizer Panel
 
 .wp-core-ui .button.change-theme,
 .wp-core-ui .button.customize-theme {
-  background: #19bb80;
+  background: #2378ec;
   color: #fff;
 }
 
@@ -77,8 +60,8 @@ This file contains styling for 3T Theme Customizer Panel
 #customize-theme-controls .control-section .accordion-section-title:hover,
 #customize-theme-controls .control-section.open .accordion-section-title,
 #customize-theme-controls .control-section:hover > .accordion-section-title {
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .actions, .upload-ui {
@@ -97,14 +80,17 @@ This file contains styling for 3T Theme Customizer Panel
   font-size: 12px;
 }
 
-.customize-section-back {
+.customize-section-back,
+.customize-panel-back {
   width: 48px;
   box-sizing: border-box;
   padding: 0;
   color: #23282d;
 }
 
-.customize-section-back:before {
+.customize-section-back:before,
+.customize-panel-back:before {
+  left: -webkit-calc(50% - 24px);
   left: calc(50% - 24px);
 }
 
@@ -137,29 +123,39 @@ This file contains styling for 3T Theme Customizer Panel
   background: #f08a24;
 }
 
+.customize-control select {
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 20px;
+  padding: 5px 10px;
+}
+
 /* - - - - - Switches - - - - - */
 .switch-pad {
   position: absolute;
-  left: 4px;
-  top: 4px;
+  left: -1px;
+  top: -1px;
   display: block;
-  width: 50%;
-  height: calc(100% - 8px);
-  background: #f5f5f5;
-  border-bottom: 1px solid #20a776;
+  width: -webkit-calc(50% + 2px);
+  width: calc(50% + 2px);
+  height: -webkit-calc(100% + 2px);
+  height: calc(100% + 2px);
+  background: #2378ec;
   border-radius: 2px !important;
   z-index: 100;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .active + .switch-pad {
-  left: calc(50% - 4px);
+  left: 50%;
 }
 
 .radio-switch {
-  background: #19bb80;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+  background: #e6eaef;
+  border-radius: 2px;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
   position: relative;
 }
 
@@ -174,13 +170,15 @@ This file contains styling for 3T Theme Customizer Panel
   border: none !important;
   padding: 0 !important;
   display: block !important;
+  height: 24px !important;
 }
 
 .radio-switch a label {
-  color: #fff;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  width: 128px;
+  color: #202934;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+  width: 64px;
   height: 100%;
+  line-height: 24px !important;
   box-sizing: border-box;
   font-size: 10px;
   letter-spacing: 0.5px;
@@ -195,24 +193,31 @@ This file contains styling for 3T Theme Customizer Panel
   display: block;
   position: absolute;
   height: 100%;
-  width: calc(50% + 6px);
+  width: 100%;
   right: 0;
+  color: #7e8184;
   text-align: center;
   text-transform: uppercase;
   font-weight: 500;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .radio-switch a label.lower-z {
   z-index: 150;
 }
 
+.radio-switch a input {
+  display: none;
+}
+
 .radio-switch a input:checked + label {
   color: #333;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
 .radio-switch a input:checked + label:before {
-  color: #264443;
+  color: #fff;
 }
 
 .radio-switch li:first-child label {
@@ -232,39 +237,40 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .switch.tiny label {
-  width: 4rem;
-  height: 1.5rem;
-  background-color: #ccc;
+  width: 40px;
+  height: 100%;
+  background-color: #caced2;
 }
 
 .switch.tiny label:after {
-  content: 'Off';
-  text-indent: 1.6rem;
+  content: '';
   color: #fff;
-  font-size: 0.7rem;
-  line-height: 16px;
+  font-size: 0.65rem;
+  line-height: 20px;
   text-transform: uppercase;
-  height: 1rem;
-  width: 1rem;
-  left: 3px;
-  top: 3px;
+  height: 20px;
+  width: 20px;
+  left: 1px;
+  top: 1px;
   border: 1px solid #fff;
+  border-radius: 100%;
   background: #fafafa;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   z-index: 500;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .switch.tiny input:checked + label:after {
-  content: 'On';
-  text-indent: -1.7rem;
-  left: 2.7rem;
+  content: '';
+  left: 17px;
 }
 
 .switch input:checked + label {
-  background: #19bb80;
-  transition: all 0.3s ease;
+  background: #2378ec;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .customize-control-ttt-radio, .customize-control-ttt-switch {
@@ -280,7 +286,9 @@ This file contains styling for 3T Theme Customizer Panel
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-12px);
+  -webkit-transform: translateY(-12px);
+      -ms-transform: translateY(-12px);
+          transform: translateY(-12px);
 }
 
 .customize-control-ttt-radio .customize-control-title + .radio-switch, .customize-control-ttt-switch .customize-control-title + .radio-switch {
@@ -288,7 +296,13 @@ This file contains styling for 3T Theme Customizer Panel
   left: auto;
   right: 0;
   top: 50%;
-  transform: translateY(-14px);
+  -webkit-transform: translateY(-14px);
+      -ms-transform: translateY(-14px);
+          transform: translateY(-14px);
+}
+
+.customize-control-ttt-switch .customize-control-title {
+  width: 80%;
 }
 
 /* - - - - - Radio Group - - - - - */
@@ -297,14 +311,13 @@ This file contains styling for 3T Theme Customizer Panel
   position: relative;
   top: 5px;
   padding: 0;
-  background-color: #f7f9fb;
-  border: 1px solid #dce3e8;
+  border: none;
+  background: none;
 }
 
 .ttt-radio-group .item {
-  padding: 10px 15px;
+  padding: 5px 0 5px 10px;
   position: relative;
-  border-bottom: 1px solid #dce3e8;
 }
 
 .ttt-radio-group .item:last-child {
@@ -315,7 +328,9 @@ This file contains styling for 3T Theme Customizer Panel
   font-size: 0.8rem;
   line-height: 1.8rem;
   width: 90%;
-  color: #7b858e;
+  color: #202934;
+  position: relative;
+  z-index: 300;
 }
 
 .ttt-radio-group .radio {
@@ -323,12 +338,16 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .ttt-radio-group .radio input {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
   border: 3px solid #ddd;
-  transform: scale(1);
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
   box-shadow: none;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
   margin: 0;
   position: relative;
   z-index: 200;
@@ -341,7 +360,9 @@ This file contains styling for 3T Theme Customizer Panel
   z-index: 100;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   margin: 0;
   width: 8px;
   height: 8px;
@@ -358,13 +379,16 @@ This file contains styling for 3T Theme Customizer Panel
   z-index: 100;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   opacity: 0;
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   border-radius: 100%;
   background-color: #ccc;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
 .ttt-radio-group .radio input:hover:after {
@@ -376,13 +400,15 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .ttt-radio-group .radio input:checked {
-  transform: scale(1.2);
-  background-color: #19bb80;
-  border-color: #19bb80;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+  background-color: #2378ec;
+  border-color: #2378ec;
 }
 
 .ttt-radio-group .radio input:checked:before {
-  background-color: #d6f0e6;
+  background-color: #d6e2f0;
 }
 
 .ttt-radio-group .radio input:checked:after {
@@ -396,13 +422,15 @@ This file contains styling for 3T Theme Customizer Panel
   display: block;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 300;
   margin: 0;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
 }
 
-.ttt-radio-group .radio input + label:hover, .ttt-radio-group .radio input + label.active {
-  background: rgba(0, 0, 0, 0.05);
+.ttt-radio-group .radio input + label.active {
+  background: #eff1f3;
+  z-index: 100;
 }
 
 /* - - - - - Color Picker - - - - - */
@@ -450,6 +478,7 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 .customize-control-color .wp-picker-container .wp-picker-clear {
+  width: -webkit-calc(25% - 6px);
   width: calc(25% - 6px);
   height: 1.6rem !important;
   line-height: 1.6rem !important;
@@ -457,5 +486,28 @@ This file contains styling for 3T Theme Customizer Panel
 }
 
 /*--------------------------------------------------------------
-# TYPOGRAPHY SECTION
+# ADVANCE SECTION
 --------------------------------------------------------------*/
+.ttt-code-editor .CodeMirror {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.ttt-advanced-panel {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  padding: 0;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  z-index: 999999999;
+  -webkit-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.ttt-advanced-panel.open {
+  padding: 1.25rem;
+  width: 300px;
+  overflow: auto;
+}
