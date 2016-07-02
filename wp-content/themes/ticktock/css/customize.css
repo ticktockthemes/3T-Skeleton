@@ -1,0 +1,22 @@
+/**
+ * 3T Skeleton Theme Customizer.
+ *
+ * @package 3T_Skeleton
+ */
+
+li.customize-control {
+	border-top: 1px solid #ccc;
+	padding: .5em 0;
+}
+li.customize-control .inline.field label + div {
+	float: right;
+}
+
+.wp-core-ui .ui.button {
+	height: initial;
+}
+
+/* Hide the built-in Header Text Color and Background Color options */
+#customize-control-header_textcolor, #customize-control-background_color {
+	display: none !important;
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?> 
+<project name="TickTock Skeleton" default="build">
+	<target name="build">
+		<sync todir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock">
+			<fileset dir="./wp-content/themes/ticktock"/>
+			<preserveintarget>
+				<include name="**/3rd-party/semantic-ui/**"/>
+				<include name="**/3rd-party/spectrum/**"/>
+			</preserveintarget>
+		</sync>
+
+		<mkdir dir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock/3rd-party"/>
+		<mkdir dir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock/3rd-party/semantic-ui"/>
+		<mkdir dir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock/3rd-party/spectrum"/>
+
+		<sync todir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock/3rd-party/semantic-ui">
+			<fileset dir="./3rd-party/semantic-ui/dist"/>
+		</sync>
+
+		<sync todir="/Applications/AMPPS/www/wordpress/wp-content/themes/ticktock/3rd-party/spectrum">
+			<file file="./3rd-party/spectrum/spectrum.css"/>
+			<file file="./3rd-party/spectrum/spectrum.js"/>
+		</sync>
+	</target>
+</project>
