@@ -16,6 +16,10 @@ li.customize-control .inline.field label + div {
 	height: initial;
 }
 
+i.icon {
+	position: initial;
+}
+
 /* Hide the built-in Header Text Color and Background Color options */
 #customize-control-header_textcolor, #customize-control-background_color {
 	display: none !important;

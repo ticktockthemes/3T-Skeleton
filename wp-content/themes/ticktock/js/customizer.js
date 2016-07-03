@@ -147,6 +147,34 @@
 		} );
 	} );
 
+	// Preview Footer Widget Area option.
+	wp.customize( 'footer_widget_area', function( value ) {
+		value.bind( function( to ) {
+			console.log( 'footer_widget_area', to );
+		} );
+	} );
+
+	// Preview Show Copyright option.
+	wp.customize( 'show_copyright', function( value ) {
+		value.bind( function( to ) {
+			console.log( 'show_copyright', to );
+		} );
+	} );
+
+	// Preview Custom Copyright Text option.
+	wp.customize( 'custom_copyright_text', function( value ) {
+		value.bind( function( to ) {
+			console.log( 'show_copyright', to );
+		} );
+	} );
+
+	// Preview Social Links option.
+	wp.customize( 'social_links', function( value ) {
+		value.bind( function( to ) {
+			console.log( 'show_copyright', to );
+		} );
+	} );
+
 	// Site title and description.
 	wp.customize( 'blogname', function( value ) {
 		value.bind( function( to ) {

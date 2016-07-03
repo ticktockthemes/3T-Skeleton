@@ -66,6 +66,43 @@
 				$('#customize-control-logo_text')[api.control('logo_type').setting.get() == 'text' ? 'show' : 'hide']();
 				$('[id^="customize-control-logo_image"]')[api.control('logo_type').setting.get() == 'image' ? 'show' : 'hide']();
 			});
+
+			// Setup dependencies for Footer Widget Area option.
+			api.control('footer_widget_area').setting.bind('change', function() {
+				$('#customize-control-manage_footer_widgets')[api.control('footer_widget_area').setting.get() ? 'show' : 'hide']();
+			});
+
+			$('#footer_widget_area.ui.form').closest('.control-section').children('h3').click(function() {
+				$('#customize-control-manage_footer_widgets')[api.control('footer_widget_area').setting.get() ? 'show' : 'hide']();
+			});
+
+			// Setup dependencies for Show Copyright option.
+			api.control('show_copyright').setting.bind('change', function() {
+				$('#customize-control-custom_copyright_text')[api.control('show_copyright').setting.get() ? 'show' : 'hide']();
+			});
+
+			$('#show_copyright.ui.form').closest('.control-section').children('h3').click(function() {
+				$('#customize-control-custom_copyright_text')[api.control('show_copyright').setting.get() ? 'show' : 'hide']();
+			});
 		}, 2000);
 	});
+
+	// Define function to manager footer widgets.
+	$.ticktock_manage_footer_widgets = function() {
+		// Jump to option panel to manage widgets at 'footer_widget_area' sidebar.
+		$('#accordion-section-sidebar-widgets-footer_widget_area > h3').trigger('click');
+
+		// Override the back button to return to the Footer option panel.
+		setTimeout(function() {
+			var orig = $('.customize-section-back:visible'), cloned = orig.clone(false);
+
+			orig.hide().after(cloned.click(function() {
+				$('#accordion-section-footer > h3').trigger('click');
+
+				// Restore the original back button.
+				cloned.remove();
+				orig.show();
+			}));
+		}, 1000);
+	};
 })(jQuery);

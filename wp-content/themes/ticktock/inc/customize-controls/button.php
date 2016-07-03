@@ -66,9 +66,9 @@ class TickTock_Customize_Control_Button extends WP_Customize_Control {
 	 */
 	protected function content_template() {
 		?>
-		<div class="fluid ui {{{ data.variation }}} button {{{ data.type }}}" id="{{{ data.settings.default }}}" onclick="{{{ data.onclick }}}">
+		<button type="button" class="fluid ui {{{ data.variation }}} button {{{ data.type }}}" id="{{{ data.settings.default }}}" onclick="{{{ data.onclick }}}">
 			{{{ data.label }}}
-		</div>
+		</button>
 		<?php
 	}
 }

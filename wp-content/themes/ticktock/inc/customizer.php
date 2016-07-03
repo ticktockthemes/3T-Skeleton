@@ -507,6 +507,81 @@ class TickTock_Customize {
 	 * @return void
 	 */
 	protected function add_footer_panel() {
+		$this->customize->add_section( 'footer', array(
+			'priority'    => 6,
+			'title'       => __( 'Footer', 'ticktock' ),
+			'description' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet proin gravida dolor sit.', 'ticktock' ),
+		) );
+
+		// Add Footer Widget Area option to the Footer option panel.
+		$this->customize->add_setting( 'footer_widget_area', array(
+			'default'           => 1,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'postMessage',
+		) );
+
+		$this->customize->add_control( new TickTock_Customize_Control_Toggle(
+			$this->customize, 'footer_widget_area', array(
+				'label'   => __( 'Footer Widget Area', 'ticktock' ),
+				'section' => 'footer',
+			)
+		) );
+
+		// Add the button to manage widgets at the Footer Widget Area.
+		$this->customize->add_setting( 'manage_footer_widgets', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_key',
+			'transport'         => 'refresh',
+		) );
+
+		$this->customize->add_control( new TickTock_Customize_Control_Button(
+			$this->customize, 'manage_footer_widgets', array(
+				'label'     => __( 'Manage footer widgets <i class="long arrow right icon"></i>', 'ticktock' ),
+				'section'   => 'footer',
+				'onclick'   => 'jQuery.ticktock_manage_footer_widgets();',
+			)
+		) );
+
+		// Add Show Copyright option to the Footer option panel.
+		$this->customize->add_setting( 'show_copyright', array(
+			'default'           => 1,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'postMessage',
+		) );
+
+		$this->customize->add_control( new TickTock_Customize_Control_Toggle(
+			$this->customize, 'show_copyright', array(
+				'label'   => __( 'Show Copyright', 'ticktock' ),
+				'section' => 'footer',
+			)
+		) );
+
+		// Add Custom Copyright Text option to the Branding option panel.
+		$this->customize->add_setting( 'custom_copyright_text', array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		) );
+
+		$this->customize->add_control( 'custom_copyright_text', array(
+			'label'   => __( 'Custom Copyright Text', 'ticktock' ),
+			'section' => 'footer',
+			'type'    => 'textarea',
+		) );
+
+		// Add Social Links option to the Footer option panel.
+		$this->customize->add_setting( 'social_links', array(
+			'default'           => 1,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'postMessage',
+		) );
+
+		$this->customize->add_control( new TickTock_Customize_Control_Toggle(
+			$this->customize, 'social_links', array(
+				'label'   => __( 'Social Links', 'ticktock' ),
+				'section' => 'footer',
+			)
+		) );
 	}
 
 	protected function add_blog_page_panel() {
