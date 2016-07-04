@@ -1,0 +1,503 @@
+/*
+Theme Name: 3T Skeleton
+Theme URI:
+Author: Tick Tock Themes
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gusto
+Tags:
+
+This file contains styling for 3T Theme Customizer Panel
+*/
+
+/*--------------------------------------------------------------
+# 3T VARS & MIXINS
+--------------------------------------------------------------*/
+@import "vars_mixins";
+
+
+/*--------------------------------------------------------------
+# RESET WP DEFAULT STYLE
+--------------------------------------------------------------*/
+body,
+.customize-section-description {
+	font-size: 13px;
+}
+.hidden {
+	display: none !important;
+}
+.wp-core-ui .button {
+	border: none;
+
+	label {
+		margin: 0;
+		line-height: 28px;
+		position: relative;
+		z-index: $z2;
+	}
+	&.change-theme,
+	&.customize-theme {
+		background: $active_color;
+		color: $white;
+	}
+}
+.wp-core-ui .button,
+.wp-core-ui .button:focus,
+.wp-core-ui .button.active:focus,
+.wp-core-ui .button-secondary:active,
+.wp-core-ui .button.active,
+.wp-core-ui .button.active:hover,
+.wp-core-ui .button:active {
+ 	box-shadow: none;
+ 	outline: none;
+}
+#customize-info .accordion-section-title:focus,
+#customize-info .accordion-section-title:hover,
+#customize-info.open .accordion-section-title,
+#customize-theme-controls .control-section .accordion-section-title:focus,
+#customize-theme-controls .control-section .accordion-section-title:hover,
+#customize-theme-controls .control-section.open .accordion-section-title,
+#customize-theme-controls .control-section:hover >.accordion-section-title {
+	transition: $transition;
+}
+.accordion-section-title {
+	font-weight: 500;
+}
+.actions {
+	margin-bottom: 0 !important;
+	.button {
+		border: 1px solid #ddd;
+	}
+}
+.upload-ui {
+	@extend .actions;
+}
+.control-panel-content {
+	margin: 0;
+}
+.customize-control-title {
+	@extend .control-panel-content;
+	font-weight: 500;
+}
+.customize-section-back,
+.customize-panel-back {
+	width: 48px;
+	box-sizing: border-box;
+	padding: 0;
+	color: #23282d;
+
+	&:before {
+		left: calc(50% - 24px);
+	}
+}
+#customize-theme-controls .accordion-section-content {
+	background-color: #fdfdfd;
+}
+
+/*--------------------------------------------------------------
+# GENERAL
+--------------------------------------------------------------*/
+*:focus {
+    outline: none;
+}
+*, *:before, *:after {
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+}
+
+.label {
+	white-space: normal;
+	text-align: left;
+	padding: 0.8rem;
+	line-height: 0.9rem;
+
+	&.warning {
+		color: #da740e;
+		background: #fff5eb;
+	}
+
+	&.alert {
+		color: #e1182b;
+		background: #feefec;
+	}
+
+	&.success {
+		color: #0c894a;
+		background: #eafaf0;
+	}
+}
+.customize-control {
+	margin-bottom: 15px;
+
+	.ttt-separator-control {
+		border-color: #d0d0d0;
+	}
+}
+.ttt-separator-control {
+	margin: 5px 0;
+}
+#customize-controls {
+	.button {
+		color: $white;
+		padding: 10px;
+		line-height: calc(2rem - 24px);
+		text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+
+		&.success {
+			background: #23bc5c;
+		}
+
+		&.info {
+			background: #61b6d9;
+		}
+
+		&.upload-button {
+			padding: 5px 10px;
+			height: 1.6rem;
+			line-height: calc(1.6rem - 10px);
+			color: #555;
+		    border-color: #ccc;
+		    background: #f7f7f7;
+		    text-shadow: none;
+		    box-shadow: 0 1px 0 #ccc;
+		    vertical-align: top;
+		}
+
+		.warning {
+			background: $warning_color;
+		}
+	}
+}
+.customize-control select {
+	box-sizing: border-box;
+	height: 40px;
+	line-height: 20px;
+	padding: 5px 10px;
+}
+.ttt-data-control {
+	.button {
+		margin-bottom: 10px !important;
+	}
+}
+
+#customize-controls {
+	.customize-info .customize-help-toggle {
+		box-sizing: border-box;
+
+		&:before {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+/* - - - - - Switches - - - - - */
+.switch-pad {
+	position: absolute;
+	left: -1px;
+	top: -1px;
+	display: block;
+	width: calc(50% + 2px);
+	height: calc(100% + 2px);
+	background: $active_color;
+	// border-bottom: 1px solid $active_darker_color;
+	// box-shadow: inset 0 -1px 0 $active_darkest_color;
+	border-radius: 2px !important;
+	z-index: $z1;
+	transition: $transition;
+}
+.active + .switch-pad {
+	left: 50%;
+}
+.radio-switch {
+	background: #e6eaef;
+	border-radius: 2px;
+	transition: $transition;
+	position: relative;
+	&:hover {
+		
+	}
+	> * {
+		margin: 0 !important;
+		width: 64px;
+		text-align: center;
+	}
+	a {
+		background: none !important;
+		border: none !important;
+		padding: 0 !important;
+		display: block !important;
+		height: 24px !important;
+		label {
+			color: $active_dark_text;
+			text-shadow: $light_text_shadow;
+			width: 64px;
+			height: 100%;
+			line-height: 24px !important;
+			box-sizing: border-box;
+			font-size: 10px;
+			letter-spacing: 0.5px;
+			position: absolute !important;
+			right: 0;
+			top: 0;
+			text-align: right;
+			&:before {
+				content: attr(data-content);
+				display: block;
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				right: 0;
+				color: #7e8184;
+				text-align: center;
+				text-transform: uppercase;
+				font-weight: 500;
+				transition: $transition;
+			}
+			&.lower-z {
+				z-index: 150;
+			}
+		}
+		input {
+			display: none;
+		}
+		input:checked + label {
+			color: #333;
+			text-shadow: $dark_text_shadow !important;
+			&:before {
+				color: $white;
+			}
+		}
+	}
+	li:first-child {
+		label {
+			right: auto;
+			left: 0;
+			text-align: left;
+			&:before {
+				right: auto;
+				left: 0;
+			}
+		}
+	}
+}
+.switch {
+	&.tiny {
+		height: 24px;
+		position: relative;
+		label {
+			width: 40px;
+			height: 100%;
+			background-color: #caced2;
+			&:after {
+				content: '';
+				// text-indent: 23px;
+				color: #fff;
+				font-size: 0.65rem;
+				line-height: 20px;
+				text-transform: uppercase;
+				height: 20px;
+				width: 20px;
+				left: 1px;
+				top: 1px;
+				border: 1px solid $white;
+				border-radius: 100%;
+				background: #fafafa;
+				text-shadow: $dark_text_shadow; 
+				box-shadow: $dark_bot_shadow;
+				z-index: $z5;
+				transition: $transition;
+			}
+		}
+		input:checked {
+			+label {
+				&:after {
+					content: '';
+					// text-indent: -21px;
+					left: 17px;
+				}
+			}
+		}
+	}
+	input:checked {
+		+label {
+			background: $active_color;
+			transition: $transition;
+		}
+	}
+}
+.customize-control-ttt-radio {
+	position: relative;
+	.customize-control-title {
+		width: 50%;
+		float: left;
+		+ .switch {
+			&.tiny {
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translateY(-12px);
+			}
+		}
+		+ .radio-switch {
+			position: absolute;
+			left: auto;
+			right: 0;
+			top: 50%;
+			transform: translateY(-14px);
+		}
+	}
+}
+.customize-control-ttt-switch {
+	@extend .customize-control-ttt-radio;
+	.customize-control-title {
+		width: 80%;
+	}
+}
+
+/* - - - - - Radio Group - - - - - */
+.ttt-radio-group {
+	clear: both;
+	position: relative;
+	top: 5px;
+	padding: 0;
+	// background-color: $light_blue_bg;
+	border: none;
+	background: none;
+	.item {
+		padding: 5px 0 5px 10px;
+		position: relative;
+		&:last-child {
+			border: none;
+		}
+	}
+	.radio-label {
+		font-size: 0.8rem;
+		line-height: 1.8rem;
+		width: 90%;
+		color: $active_dark_text;
+		position: relative;
+		z-index: $z3;
+	}
+	.radio {
+		width: 10%;
+		input {
+			@include radio_input;
+			margin: 0;
+			position: relative;
+			z-index: $z2;
+			+label {
+				@include absolute_full;
+				z-index: $z3;
+				margin: 0;
+				transition: $transition;
+				&.active {
+					background: #eff1f3;
+					// border-radius: 5px;
+					z-index: $z1;
+				}
+			}
+		}
+	}
+}
+
+/* - - - - - Color Picker - - - - - */
+.customize-control-color {
+	margin-bottom: 10px;
+	+.customize-control-ttt-separator {
+		margin-top: -10px;
+	}
+	.customize-control-content {
+		margin-bottom: -24px;
+	}
+	position: relative;
+	.wp-picker-container {
+		width: 100%;
+		position: relative;
+		top: -24px;
+		left: 0;
+		.wp-color-result {
+			float: right;
+			margin: 0;
+			+.wp-picker-input-wrap {
+				display: inline-block;
+				width: 100%;
+			}
+			&.wp-picker-open +.wp-picker-input-wrap {
+				padding-top: 20px;
+			}
+			&:after {
+				width: 84px;
+			}
+		}
+		input[type=text].wp-color-picker {
+			width: 75%;
+			height: 1.6rem;
+		}
+		.wp-picker-clear {
+			width: calc(25% - 6px);
+			height: 1.6rem !important;
+			line-height: 1.6rem !important;
+			border: 1px solid #ddd;
+		}
+	}
+}
+/*--------------------------------------------------------------
+# ADVANCE SECTION
+--------------------------------------------------------------*/
+.ttt-code-editor {
+	.CodeMirror {
+		border: 1px solid #ccc;
+		padding: 5px;
+	}
+}
+
+.ttt-advanced-panel {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	padding: 0;
+	width: 0;
+	height: 100%;
+	overflow: hidden;
+	z-index: 999999999;
+	transition: all .3s ease-in-out;
+
+	&.open {
+		padding: 1.25rem;
+		width: 300px;
+		overflow: auto;
+	}
+}
+
+/*--------------------------------------------------------------
+# TEMP
+--------------------------------------------------------------*/
+
+li.customize-control {
+	border-top: 1px solid #ccc;
+	padding: .5em 0;
+}
+li.customize-control .inline.field label + div {
+	float: right;
+}
+
+.wp-core-ui .ui.button {
+	height: initial;
+}
+
+i.icon {
+	position: initial;
+}
+
+/* Hide the built-in Header Text Color and Background Color options */
+#customize-control-header_textcolor, #customize-control-background_color {
+	display: none !important;
+}
+
+

@@ -23,6 +23,6 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-
+</div><!-- exit boxed layout -->
 </body>
 </html>

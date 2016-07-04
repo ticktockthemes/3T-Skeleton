@@ -1,6 +1,6 @@
 /*!
 Theme Name: 3T Skeleton
-Theme URI: http://underscores.me/
+Theme URI:
 Author: TickTockThemes
 Author URI: http://www.ticktockthemes.com/
 Description: This is the skeleton theme for upcoming 3T themes to base on.
@@ -24,6 +24,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
 # Normalize
+# 3T Vars & Mixins
 # Typography
 # Elements
 # Forms
@@ -42,14 +43,16 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 # Media
 	## Captions
 	## Galleries
---------------------------------------------------------------*/
-@import "variables-site/variables-site";
-@import "mixins/mixins-master";
 
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
 @import "normalize";
+
+/*--------------------------------------------------------------
+# 3T VARS & MIXINS
+--------------------------------------------------------------*/
+@import "3t/vars_mixins";
 
 /*--------------------------------------------------------------
 # Typography
