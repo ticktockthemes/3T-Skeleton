@@ -7,7 +7,7 @@
  * @package 3T_Skeleton
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+if ( ! is_active_sidebar( 'footer_widget_area' ) ) {
 	return;
 }
 ?>

@@ -785,8 +785,8 @@ class TickTock_Customize_Control_Typography extends WP_Customize_Control {
 					<# for (var i in ticktock_typography_google_fonts) { var font = ticktock_typography_google_fonts[i]; #>
 					<option value="{{{ font }}}">{{{ font }}}</option>
 					<# } #>
-				</div>
-			</select>
+				</select>
+			</div>
 		</div>
 		<?php
 	}

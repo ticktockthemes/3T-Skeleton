@@ -1,6 +1,3 @@
-[submodule "3rd-party/react"]
-	path = 3rd-party/react
-	url = https://github.com/facebook/react.git
 [submodule "3rd-party/semantic-ui"]
 	path = 3rd-party/semantic-ui
 	url = https://github.com/Semantic-Org/Semantic-UI.git

@@ -48,6 +48,7 @@ class TickTock_Customize {
 		include_once dirname( __FILE__ ) . '/customize-controls/color-picker.php';
 		include_once dirname( __FILE__ ) . '/customize-controls/dropdown-select.php';
 		include_once dirname( __FILE__ ) . '/customize-controls/radio-button.php';
+		include_once dirname( __FILE__ ) . '/customize-controls/social-links.php';
 		include_once dirname( __FILE__ ) . '/customize-controls/toggle.php';
 		include_once dirname( __FILE__ ) . '/customize-controls/typography.php';
 
@@ -56,6 +57,7 @@ class TickTock_Customize {
 		$wp_customize->register_control_type( 'TickTock_Customize_Control_Color_Picker' );
 		$wp_customize->register_control_type( 'TickTock_Customize_Control_Dropdown_Select' );
 		$wp_customize->register_control_type( 'TickTock_Customize_Control_Radio_Button' );
+		$wp_customize->register_control_type( 'TickTock_Customize_Control_Social_Links' );
 		$wp_customize->register_control_type( 'TickTock_Customize_Control_Toggle' );
 		$wp_customize->register_control_type( 'TickTock_Customize_Control_Typography' );
 
@@ -579,6 +581,20 @@ class TickTock_Customize {
 		$this->customize->add_control( new TickTock_Customize_Control_Toggle(
 			$this->customize, 'social_links', array(
 				'label'   => __( 'Social Links', 'ticktock' ),
+				'section' => 'footer',
+			)
+		) );
+
+		// Add the control to manage social links to the Footer option panel.
+		$this->customize->add_setting( 'added_social_links', array(
+			'default'           => array( 'Facebook', 'Twitter', 'Youtube' ),
+			'sanitize_callback' => '',
+			'transport'         => 'postMessage',
+		) );
+
+		$this->customize->add_control( new TickTock_Customize_Control_Social_Links(
+			$this->customize, 'added_social_links', array(
+				'label'   => '',
 				'section' => 'footer',
 			)
 		) );
